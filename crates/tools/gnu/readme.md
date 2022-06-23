@@ -19,3 +19,4 @@ The Windows umbrella lib (targeting GNU tooling) is generated using the followin
 4. Navigate to crate root
 5. Execute: `PATH=$USERPROFILE/.cargo/bin:$PATH cargo run -p tool_gnu --target i686-pc-windows-gnu`
 6. Repeat steps 1-5, using the `MSYS MinGW 64-bit` environment and `x86_64-pc-windows-gnu` target
+7. Repeat steps 1-4, using the `MSYS MinGW 64-bit` environment and `x86_64-pc-windows-gnu` target
