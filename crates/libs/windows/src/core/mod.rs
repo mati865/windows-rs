@@ -3,6 +3,7 @@ mod agile_reference;
 mod array;
 mod as_impl;
 pub(crate) mod bindings;
+mod borrowed;
 mod compose;
 mod delay_load;
 mod error;
@@ -15,7 +16,7 @@ mod hresult;
 mod hstring;
 mod inspectable;
 mod interface;
-mod into_param;
+mod literals;
 mod param;
 mod pcstr;
 mod pcwstr;
@@ -36,6 +37,7 @@ pub use agile_reference::*;
 pub use array::*;
 #[doc(hidden)]
 pub use as_impl::*;
+pub use borrowed::*;
 #[doc(hidden)]
 pub use compose::*;
 pub(crate) use delay_load::*;
@@ -52,8 +54,7 @@ pub use hstring::*;
 pub use inspectable::*;
 pub use interface::*;
 #[doc(hidden)]
-pub use into_param::*;
-#[doc(hidden)]
+pub use literals::*;
 pub use param::*;
 pub use pcstr::*;
 pub use pcwstr::*;

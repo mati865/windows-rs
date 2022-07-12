@@ -4,6 +4,8 @@ use std::io::prelude::*;
 const EXCLUDE_NAMESPACES: [&str; 2] = ["Windows.Win32.Interop", "Windows.UI.Xaml"];
 
 fn main() {
+    let rustfmt = std::env::args().nth(1).unwrap_or_default() != "-p";
+
     let mut output = std::path::PathBuf::from("crates/libs/windows/src/Windows");
     let _ = std::fs::remove_dir_all(&output);
     output.pop();
@@ -13,7 +15,7 @@ fn main() {
     let root = reader.tree("Windows", &EXCLUDE_NAMESPACES).expect("`Windows` namespace not found");
 
     let trees = root.flatten();
-    trees.par_iter().for_each(|tree| gen_tree(reader, &output, tree));
+    trees.par_iter().for_each(|tree| gen_tree(reader, &output, tree, rustfmt));
 
     output.pop();
     output.push("Cargo.toml");
@@ -24,7 +26,7 @@ fn main() {
         r#"
 [package]
 name = "windows"
-version = "0.38.0"
+version = "0.39.0"
 authors = ["Microsoft"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -39,49 +41,48 @@ default-target = "x86_64-pc-windows-msvc"
 targets = []
 
 [target.i686-pc-windows-msvc.dependencies]
-windows_i686_msvc = { path = "../../targets/i686_msvc", version = "0.38.0" }
+windows_i686_msvc = { path = "../../targets/i686_msvc", version = "0.39.0" }
 
 [target.i686-uwp-windows-msvc.dependencies]
-windows_i686_msvc = { path = "../../targets/i686_msvc", version = "0.38.0" }
+windows_i686_msvc = { path = "../../targets/i686_msvc", version = "0.39.0" }
 
 [target.x86_64-pc-windows-msvc.dependencies]
-windows_x86_64_msvc = { path = "../../targets/x86_64_msvc", version = "0.38.0" }
+windows_x86_64_msvc = { path = "../../targets/x86_64_msvc", version = "0.39.0" }
 
 [target.x86_64-uwp-windows-msvc.dependencies]
-windows_x86_64_msvc = { path = "../../targets/x86_64_msvc", version = "0.38.0" }
+windows_x86_64_msvc = { path = "../../targets/x86_64_msvc", version = "0.39.0" }
 
 [target.aarch64-pc-windows-msvc.dependencies]
-windows_aarch64_msvc = { path = "../../targets/aarch64_msvc", version = "0.38.0" }
+windows_aarch64_msvc = { path = "../../targets/aarch64_msvc", version = "0.39.0" }
 
 [target.aarch64-uwp-windows-msvc.dependencies]
-windows_aarch64_msvc = { path = "../../targets/aarch64_msvc", version = "0.38.0" }
+windows_aarch64_msvc = { path = "../../targets/aarch64_msvc", version = "0.39.0" }
 
 [target.aarch64-pc-windows-gnullvm.dependencies]
 windows_aarch64_gnullvm = { path = "../../targets/aarch64_gnullvm", version = "0.38.0" }
 
 [target.i686-pc-windows-gnu.dependencies]
-windows_i686_gnu = { path = "../../targets/i686_gnu", version = "0.38.0" }
+windows_i686_gnu = { path = "../../targets/i686_gnu", version = "0.39.0" }
 
 [target.i686-uwp-windows-gnu.dependencies]
-windows_i686_gnu = { path = "../../targets/i686_gnu", version = "0.38.0" }
+windows_i686_gnu = { path = "../../targets/i686_gnu", version = "0.39.0" }
 
 [target.x86_64-pc-windows-gnu.dependencies]
-windows_x86_64_gnu = { path = "../../targets/x86_64_gnu", version = "0.38.0" }
+windows_x86_64_gnu = { path = "../../targets/x86_64_gnu", version = "0.39.0" }
 
 [target.x86_64-uwp-windows-gnu.dependencies]
-windows_x86_64_gnu = { path = "../../targets/x86_64_gnu", version = "0.38.0" }
+windows_x86_64_gnu = { path = "../../targets/x86_64_gnu", version = "0.39.0" }
 
 [target.x86_64-pc-windows-gnullvm.dependencies]
 windows_x86_64_gnullvm = { path = "../../targets/x86_64_gnullvm", version = "0.38.0" }
 
 [dependencies]
-windows-implement = { path = "../implement",  version = "0.38.0", optional = true }
-windows-interface = { path = "../interface",  version = "0.38.0", optional = true }
+windows-implement = { path = "../implement",  version = "0.39.0", optional = true }
+windows-interface = { path = "../interface",  version = "0.39.0", optional = true }
 
 [features]
 default = []
 deprecated = []
-alloc = []
 implement = ["windows-implement"]
 interface = ["windows-interface"]
 "#
@@ -106,7 +107,7 @@ interface = ["windows-interface"]
     std::fs::copy("license-apache-2.0", "crates/libs/windows/license-apache-2.0").unwrap();
 }
 
-fn gen_tree(reader: &metadata::reader::Reader, output: &std::path::Path, tree: &metadata::reader::Tree) {
+fn gen_tree(reader: &metadata::reader::Reader, output: &std::path::Path, tree: &metadata::reader::Tree, rustfmt: bool) {
     println!("{}", tree.namespace);
     let mut path = std::path::PathBuf::from(output);
     path.push(tree.namespace.replace('.', "/"));
@@ -119,10 +120,11 @@ fn gen_tree(reader: &metadata::reader::Reader, output: &std::path::Path, tree: &
     gen.min_xaml = true;
     let mut tokens = bindgen::namespace(&gen, tree);
     tokens.push_str(r#"#[cfg(feature = "implement")] ::core::include!("impl.rs");"#);
-    lib::rustfmt(tree.namespace, &mut tokens);
+
+    lib::format(tree.namespace, &mut tokens, rustfmt);
     std::fs::write(path.join("mod.rs"), tokens).unwrap();
 
     let mut tokens = bindgen::namespace_impl(&gen, tree);
-    lib::rustfmt(tree.namespace, &mut tokens);
+    lib::format(tree.namespace, &mut tokens, rustfmt);
     std::fs::write(path.join("impl.rs"), tokens).unwrap();
 }
