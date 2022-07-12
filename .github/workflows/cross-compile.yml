@@ -37,7 +37,9 @@ jobs:
         if: contains(matrix.target, 'gnullvm') == false
 
       - name: Add nightly toolchain
-        run: rustup toolchain install ${{ matrix.version }}
+        run: |
+          rustup default ${{ matrix.version }}
+          rustup component add rust-src
         if: startsWith(matrix.image, 'ubuntu-') && contains(matrix.target, 'gnullvm') && matrix.version == 'nightly'
 
       - name: Install gcc-mingw-w64-x86-64
