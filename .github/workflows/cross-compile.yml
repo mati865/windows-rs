@@ -70,7 +70,7 @@ jobs:
       - name: Test with build-std
         shell: pwsh
         run: |
-          cargo +nightly test --no-run --target ${{ matrix.target }} -Z build-std -p test_win32
+          cargo test --no-run --target ${{ matrix.target }} -Z build-std -p test_win32
           if (-Not (Resolve-Path "target/*/debug/deps/test_win32-*.exe" | Test-Path)) {
             throw "Failed to find test_win32 executable."
           }
