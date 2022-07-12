@@ -68,4 +68,4 @@ jobs:
           if (-Not (Resolve-Path "target/*/debug/deps/test_win32-*.exe" | Test-Path)) {
             throw "Failed to find test_win32 executable."
           }
-        if: contains(matrix.target, 'gnullvm')
+        if: startsWith(matrix.image, 'ubuntu-') && contains(matrix.target, 'gnullvm') && matrix.version == 'nightly'
