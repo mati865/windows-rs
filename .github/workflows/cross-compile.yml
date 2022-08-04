@@ -57,16 +57,16 @@ jobs:
         id: cache-llvm-mingw-toolchain
         uses: actions/cache@v3
         with:
-          path: $LLVM-MINGW-TOOLCHAIN-NAME # Assumes .tar.xz extracted in working dir
-          key: $LLVM-MINGW-TOOLCHAIN-NAME
+          path: ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }} # Assumes .tar.xz extracted in working dir
+          key: ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}
         if: startsWith(matrix.image, 'ubuntu-') && contains(matrix.target, 'gnullvm') && matrix.version == 'nightly'
 
       - name: Install LLVM MinGW toolchain
         if: startsWith(matrix.image, 'ubuntu-') && contains(matrix.target, 'gnullvm') && matrix.version == 'nightly' && steps.cache-llvm-mingw-toolchain.outputs.cache-hit != 'true'
         run: |
-          curl -L -o $LLVM-MINGW-TOOLCHAIN-NAME.tar.xz https://github.com/mstorsjo/llvm-mingw/releases/download/20220323/$LLVM-MINGW-TOOLCHAIN-NAME.tar.xz
-          tar -xf $LLVM-MINGW-TOOLCHAIN-NAME.tar.xz
-          echo "$LLVM-MINGW-TOOLCHAIN-NAME/bin" >> $GITHUB_PATH
+          curl -L -o ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}.tar.xz https://github.com/mstorsjo/llvm-mingw/releases/download/20220323/${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}.tar.xz
+          tar -xf ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}.tar.xz
+          echo "${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}/bin" >> $GITHUB_PATH
 
       - name: Test
         shell: pwsh
