@@ -176,7 +176,10 @@ impl ::core::fmt::Debug for DXCoreAdapterState {
 }
 #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
 #[inline]
-pub unsafe fn DXCoreCreateAdapterFactory<T: ::windows::core::Interface>() -> ::windows::core::Result<T> {
+pub unsafe fn DXCoreCreateAdapterFactory<T>() -> ::windows::core::Result<T>
+where
+    T: ::windows::core::Interface,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn DXCoreCreateAdapterFactory(riid: *const ::windows::core::GUID, ppvfactory: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
@@ -313,45 +316,38 @@ impl ::core::fmt::Debug for DXCoreSegmentGroup {
 #[repr(transparent)]
 pub struct IDXCoreAdapter(::windows::core::IUnknown);
 impl IDXCoreAdapter {
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
     pub unsafe fn IsValid(&self) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsValid)(::windows::core::Interface::as_raw(self)))
+        (::windows::core::Interface::vtable(self).IsValid)(::windows::core::Interface::as_raw(self))
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsAttributeSupported(&self, attributeguid: *const ::windows::core::GUID) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsAttributeSupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(attributeguid)))
+    pub unsafe fn IsAttributeSupported(&self, attributeguid: &::windows::core::GUID) -> bool {
+        (::windows::core::Interface::vtable(self).IsAttributeSupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(attributeguid))
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsPropertySupported<'a, Param0: ::std::convert::Into<DXCoreAdapterProperty>>(&self, property: Param0) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsPropertySupported)(::windows::core::Interface::as_raw(self), property.into()))
+    pub unsafe fn IsPropertySupported(&self, property: DXCoreAdapterProperty) -> bool {
+        (::windows::core::Interface::vtable(self).IsPropertySupported)(::windows::core::Interface::as_raw(self), property)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn GetProperty<'a, Param0: ::std::convert::Into<DXCoreAdapterProperty>>(&self, property: Param0, buffersize: usize, propertydata: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).GetProperty)(::windows::core::Interface::as_raw(self), property.into(), ::core::mem::transmute(buffersize), ::core::mem::transmute(propertydata)).ok()
+    pub unsafe fn GetProperty(&self, property: DXCoreAdapterProperty, propertydata: &mut [u8]) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).GetProperty)(::windows::core::Interface::as_raw(self), property, propertydata.len() as _, ::core::mem::transmute(propertydata.as_ptr())).ok()
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn GetPropertySize<'a, Param0: ::std::convert::Into<DXCoreAdapterProperty>>(&self, property: Param0) -> ::windows::core::Result<usize> {
-        let mut result__ = ::core::mem::MaybeUninit::<usize>::zeroed();
-        (::windows::core::Interface::vtable(self).GetPropertySize)(::windows::core::Interface::as_raw(self), property.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<usize>(result__)
+    pub unsafe fn GetPropertySize(&self, property: DXCoreAdapterProperty) -> ::windows::core::Result<usize> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).GetPropertySize)(::windows::core::Interface::as_raw(self), property, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<usize>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsQueryStateSupported<'a, Param0: ::std::convert::Into<DXCoreAdapterState>>(&self, property: Param0) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsQueryStateSupported)(::windows::core::Interface::as_raw(self), property.into()))
+    pub unsafe fn IsQueryStateSupported(&self, property: DXCoreAdapterState) -> bool {
+        (::windows::core::Interface::vtable(self).IsQueryStateSupported)(::windows::core::Interface::as_raw(self), property)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn QueryState<'a, Param0: ::std::convert::Into<DXCoreAdapterState>>(&self, state: Param0, inputstatedetailssize: usize, inputstatedetails: *const ::core::ffi::c_void, outputbuffersize: usize, outputbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).QueryState)(::windows::core::Interface::as_raw(self), state.into(), ::core::mem::transmute(inputstatedetailssize), ::core::mem::transmute(inputstatedetails), ::core::mem::transmute(outputbuffersize), ::core::mem::transmute(outputbuffer)).ok()
+    pub unsafe fn QueryState(&self, state: DXCoreAdapterState, inputstatedetails: ::core::option::Option<&[u8]>, outputbuffer: &mut [u8]) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).QueryState)(::windows::core::Interface::as_raw(self), state, inputstatedetails.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(inputstatedetails.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), outputbuffer.len() as _, ::core::mem::transmute(outputbuffer.as_ptr())).ok()
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsSetStateSupported<'a, Param0: ::std::convert::Into<DXCoreAdapterState>>(&self, property: Param0) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsSetStateSupported)(::windows::core::Interface::as_raw(self), property.into()))
+    pub unsafe fn IsSetStateSupported(&self, property: DXCoreAdapterState) -> bool {
+        (::windows::core::Interface::vtable(self).IsSetStateSupported)(::windows::core::Interface::as_raw(self), property)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn SetState<'a, Param0: ::std::convert::Into<DXCoreAdapterState>>(&self, state: Param0, inputstatedetailssize: usize, inputstatedetails: *const ::core::ffi::c_void, inputdatasize: usize, inputdata: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).SetState)(::windows::core::Interface::as_raw(self), state.into(), ::core::mem::transmute(inputstatedetailssize), ::core::mem::transmute(inputstatedetails), ::core::mem::transmute(inputdatasize), ::core::mem::transmute(inputdata)).ok()
+    pub unsafe fn SetState(&self, state: DXCoreAdapterState, inputstatedetails: ::core::option::Option<&[u8]>, inputdata: &[u8]) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).SetState)(::windows::core::Interface::as_raw(self), state, inputstatedetails.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(inputstatedetails.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), inputdata.len() as _, ::core::mem::transmute(inputdata.as_ptr())).ok()
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn GetFactory<T: ::windows::core::Interface>(&self) -> ::windows::core::Result<T> {
+    pub unsafe fn GetFactory<T>(&self) -> ::windows::core::Result<T>
+    where
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).GetFactory)(::windows::core::Interface::as_raw(self), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
@@ -410,29 +406,34 @@ pub struct IDXCoreAdapter_Vtbl {
 #[repr(transparent)]
 pub struct IDXCoreAdapterFactory(::windows::core::IUnknown);
 impl IDXCoreAdapterFactory {
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn CreateAdapterList<T: ::windows::core::Interface>(&self, filterattributes: &[::windows::core::GUID]) -> ::windows::core::Result<T> {
+    pub unsafe fn CreateAdapterList<T>(&self, filterattributes: &[::windows::core::GUID]) -> ::windows::core::Result<T>
+    where
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
-        (::windows::core::Interface::vtable(self).CreateAdapterList)(::windows::core::Interface::as_raw(self), filterattributes.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(filterattributes)), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
+        (::windows::core::Interface::vtable(self).CreateAdapterList)(::windows::core::Interface::as_raw(self), filterattributes.len() as _, ::core::mem::transmute(filterattributes.as_ptr()), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn GetAdapterByLuid<T: ::windows::core::Interface>(&self, adapterluid: *const super::super::Foundation::LUID) -> ::windows::core::Result<T> {
+    pub unsafe fn GetAdapterByLuid<T>(&self, adapterluid: &super::super::Foundation::LUID) -> ::windows::core::Result<T>
+    where
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).GetAdapterByLuid)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(adapterluid), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsNotificationTypeSupported<'a, Param0: ::std::convert::Into<DXCoreNotificationType>>(&self, notificationtype: Param0) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsNotificationTypeSupported)(::windows::core::Interface::as_raw(self), notificationtype.into()))
+    pub unsafe fn IsNotificationTypeSupported(&self, notificationtype: DXCoreNotificationType) -> bool {
+        (::windows::core::Interface::vtable(self).IsNotificationTypeSupported)(::windows::core::Interface::as_raw(self), notificationtype)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn RegisterEventNotification<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::IUnknown>>, Param1: ::std::convert::Into<DXCoreNotificationType>>(&self, dxcoreobject: Param0, notificationtype: Param1, callbackfunction: PFN_DXCORE_NOTIFICATION_CALLBACK, callbackcontext: *const ::core::ffi::c_void) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
-        (::windows::core::Interface::vtable(self).RegisterEventNotification)(::windows::core::Interface::as_raw(self), dxcoreobject.into().abi(), notificationtype.into(), ::core::mem::transmute(callbackfunction), ::core::mem::transmute(callbackcontext), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
+    pub unsafe fn RegisterEventNotification<'a, P0>(&self, dxcoreobject: P0, notificationtype: DXCoreNotificationType, callbackfunction: PFN_DXCORE_NOTIFICATION_CALLBACK, callbackcontext: *const ::core::ffi::c_void) -> ::windows::core::Result<u32>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::IUnknown>>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).RegisterEventNotification)(::windows::core::Interface::as_raw(self), dxcoreobject.into().abi(), notificationtype, ::core::mem::transmute(callbackfunction), ::core::mem::transmute(callbackcontext), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
     pub unsafe fn UnregisterEventNotification(&self, eventcookie: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).UnregisterEventNotification)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(eventcookie)).ok()
+        (::windows::core::Interface::vtable(self).UnregisterEventNotification)(::windows::core::Interface::as_raw(self), eventcookie).ok()
     }
 }
 impl ::core::convert::From<IDXCoreAdapterFactory> for ::windows::core::IUnknown {
@@ -487,31 +488,31 @@ pub struct IDXCoreAdapterFactory_Vtbl {
 #[repr(transparent)]
 pub struct IDXCoreAdapterList(::windows::core::IUnknown);
 impl IDXCoreAdapterList {
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn GetAdapter<T: ::windows::core::Interface>(&self, index: u32) -> ::windows::core::Result<T> {
+    pub unsafe fn GetAdapter<T>(&self, index: u32) -> ::windows::core::Result<T>
+    where
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
-        (::windows::core::Interface::vtable(self).GetAdapter)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(index), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
+        (::windows::core::Interface::vtable(self).GetAdapter)(::windows::core::Interface::as_raw(self), index, &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
     pub unsafe fn GetAdapterCount(&self) -> u32 {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).GetAdapterCount)(::windows::core::Interface::as_raw(self)))
+        (::windows::core::Interface::vtable(self).GetAdapterCount)(::windows::core::Interface::as_raw(self))
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
     pub unsafe fn IsStale(&self) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsStale)(::windows::core::Interface::as_raw(self)))
+        (::windows::core::Interface::vtable(self).IsStale)(::windows::core::Interface::as_raw(self))
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn GetFactory<T: ::windows::core::Interface>(&self) -> ::windows::core::Result<T> {
+    pub unsafe fn GetFactory<T>(&self) -> ::windows::core::Result<T>
+    where
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).GetFactory)(::windows::core::Interface::as_raw(self), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
     pub unsafe fn Sort(&self, preferences: &[DXCoreAdapterPreference]) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Sort)(::windows::core::Interface::as_raw(self), preferences.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(preferences))).ok()
+        (::windows::core::Interface::vtable(self).Sort)(::windows::core::Interface::as_raw(self), preferences.len() as _, ::core::mem::transmute(preferences.as_ptr())).ok()
     }
-    #[doc = "*Required features: `\"Win32_Graphics_DXCore\"`*"]
-    pub unsafe fn IsAdapterPreferenceSupported<'a, Param0: ::std::convert::Into<DXCoreAdapterPreference>>(&self, preference: Param0) -> bool {
-        ::core::mem::transmute((::windows::core::Interface::vtable(self).IsAdapterPreferenceSupported)(::windows::core::Interface::as_raw(self), preference.into()))
+    pub unsafe fn IsAdapterPreferenceSupported(&self, preference: DXCoreAdapterPreference) -> bool {
+        (::windows::core::Interface::vtable(self).IsAdapterPreferenceSupported)(::windows::core::Interface::as_raw(self), preference)
     }
 }
 impl ::core::convert::From<IDXCoreAdapterList> for ::windows::core::IUnknown {

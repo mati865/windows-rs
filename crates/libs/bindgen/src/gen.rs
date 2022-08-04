@@ -275,39 +275,74 @@ impl<'a> Gen<'a> {
         }
         tokens
     }
+    /// The signature params which are generic (along with their relative index)
+    pub fn generic_params<'b>(&'b self, params: &'b [SignatureParam]) -> impl Iterator<Item = (usize, &SignatureParam)> + 'b {
+        params.iter().filter(move |param| self.reader.signature_param_is_convertible(param)).enumerate()
+    }
+    /// The generic param names (i.e., `T` in `fn foo<T>()`)
+    pub fn constraint_generics(&self, params: &[SignatureParam]) -> TokenStream {
+        let mut generics = self
+            .generic_params(params)
+            .map(|(position, param)| -> TokenStream {
+                let mut p = format!("P{}", position);
+                if self.reader.signature_param_is_failible_param(param) {
+                    p.push_str(", E");
+                    p.push_str(&position.to_string());
+                }
+
+                p.into()
+            })
+            .peekable();
+
+        if generics.peek().is_some() {
+            quote!('a, #(#generics),*)
+        } else {
+            TokenStream::new()
+        }
+    }
+    /// A `where` clause for some constrained generic params
+    pub fn where_clause(&self, params: &[SignatureParam]) -> TokenStream {
+        let constraints = self.param_constraints(params);
+
+        if !constraints.is_empty() {
+            quote!(where #constraints)
+        } else {
+            quote!()
+        }
+    }
     pub fn param_constraints(&self, params: &[SignatureParam]) -> TokenStream {
         let mut tokens = TokenStream::new();
-        for (position, param) in params.iter().enumerate() {
-            if self.reader.signature_param_is_param(param) {
-                let name: TokenStream = format!("Param{}", position).into();
-                let into = self.type_name(&param.ty);
-                tokens.combine(&quote! { #name: ::std::convert::Into<::windows::core::InParam<'a, #into>>, });
-            } else if self.reader.signature_param_is_failible_param(param) {
-                let name: TokenStream = format!("Param{}", position).into();
+        let gen_name = |position| {
+            let name: TokenStream = format!("P{}", position).into();
+            name
+        };
+        for (position, param) in self.generic_params(params) {
+            if !self.reader.signature_param_input_value(param) {
+                continue;
+            }
+            if self.reader.signature_param_is_failible_param(param) {
+                let name: TokenStream = gen_name(position);
                 let error_name: TokenStream = format!("E{}", position).into();
                 let into = self.type_name(&param.ty);
                 tokens.combine(&quote! { #name: ::std::convert::TryInto<::windows::core::InParam<'a, #into>, Error = #error_name>, #error_name: ::std::convert::Into<::windows::core::Error>, });
             } else if self.reader.signature_param_is_borrowed(param) {
-                let name: TokenStream = format!("Param{}", position).into();
+                let name: TokenStream = gen_name(position);
                 let into = self.type_name(&param.ty);
                 tokens.combine(&quote! { #name: ::std::convert::Into<::windows::core::InParam<'a, #into>>, });
-            } else if self.reader.signature_param_is_convertible(param) {
-                let name: TokenStream = format!("Param{}", position).into();
+            } else if self.reader.signature_param_is_trivially_convertible(param) {
+                let name: TokenStream = gen_name(position);
                 let into = self.type_name(&param.ty);
                 tokens.combine(&quote! { #name: ::std::convert::Into<#into>, });
             }
         }
-        if !tokens.is_empty() {
-            quote! { 'a, #tokens }
-        } else {
-            tokens
-        }
+        tokens
     }
 
     //
     // Cfg
     //
 
+    /// Generates doc comments for types, free functions, and constants.
     pub(crate) fn cfg_doc(&self, cfg: &Cfg) -> TokenStream {
         if !self.doc {
             quote! {}
@@ -323,6 +358,29 @@ impl<'a> Gen<'a> {
             }
 
             format!(r#"#[doc = "*Required features: {}*"]"#, tokens).into()
+        }
+    }
+
+    /// Generates doc comments for member functions (methods) and avoids redundantly declaring the
+    /// enclosing module feature required by the method's type.
+    pub(crate) fn cfg_method_doc(&self, cfg: &Cfg) -> TokenStream {
+        if !self.doc {
+            quote! {}
+        } else {
+            let mut features = cfg_features(cfg, self.namespace);
+            if features.is_empty() {
+                quote! {}
+            } else {
+                if self.windows_extern {
+                    features.retain(|f| !f.starts_with("Windows."));
+                }
+                let mut tokens = String::new();
+                for features in features {
+                    write!(tokens, r#"`\"{}\"`, "#, to_feature(features)).unwrap();
+                }
+                tokens.truncate(tokens.len() - 2);
+                format!(r#"#[doc = "*Required features: {}*"]"#, tokens).into()
+            }
         }
     }
 
@@ -851,56 +909,58 @@ impl<'a> Gen<'a> {
         let mut tokens = quote! {};
 
         for (position, param) in params.iter().enumerate() {
-            match kind {
+            let new = match kind {
                 SignatureKind::Query(query) if query.object == position => {
-                    tokens.combine(&quote! { &mut result__ as *mut _ as *mut _, });
+                    quote! { &mut result__ as *mut _ as *mut _, }
                 }
                 SignatureKind::QueryOptional(query) if query.object == position => {
-                    tokens.combine(&quote! { result__ as *mut _ as *mut _, });
+                    quote! { result__ as *mut _ as *mut _, }
                 }
                 SignatureKind::Query(query) | SignatureKind::QueryOptional(query) if query.guid == position => {
-                    tokens.combine(&quote! { &<T as ::windows::core::Interface>::IID, });
+                    quote! { &<T as ::windows::core::Interface>::IID, }
                 }
                 _ => {
                     let name = self.param_name(param.def);
-                    if let ArrayInfo::Fixed(fixed) = param.array_info {
-                        if fixed > 0 && self.reader.param_free_with(param.def).is_none() {
-                            let signature = if self.reader.param_flags(param.def).output() {
-                                quote! { ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(#name)), }
+                    match param.array_info {
+                        ArrayInfo::Fixed(_) | ArrayInfo::RelativeLen(_) | ArrayInfo::RelativeByteLen(_) => {
+                            let flags = self.reader.param_flags(param.def);
+                            let map = if flags.optional() {
+                                quote! { #name.as_deref().map_or(::core::ptr::null(), |slice|slice.as_ptr()) }
                             } else {
-                                quote! { ::core::mem::transmute(::windows::core::as_ptr_or_null(#name)), }
+                                quote! { #name.as_ptr() }
                             };
-
-                            tokens.combine(&signature);
-                            continue;
+                            quote! { ::core::mem::transmute(#map), }
+                        }
+                        ArrayInfo::RelativePtr(relative) => {
+                            let name = self.param_name(params[relative].def);
+                            let flags = self.reader.param_flags(params[relative].def);
+                            if flags.optional() {
+                                quote! { #name.as_deref().map_or(0, |slice|slice.len() as _), }
+                            } else {
+                                quote! { #name.len() as _, }
+                            }
+                        }
+                        _ => {
+                            if self.reader.signature_param_input_value(param) {
+                                if self.reader.signature_param_is_borrowed(param) {
+                                    quote! { #name.into().abi(), }
+                                } else if self.reader.signature_param_is_trivially_convertible(param) {
+                                    quote! { #name.into(), }
+                                } else if self.reader.type_is_primitive(&param.ty) {
+                                    quote! { #name, }
+                                } else if self.reader.type_is_blittable(&param.ty) {
+                                    quote! { ::core::mem::transmute(#name), }
+                                } else {
+                                    quote! { ::core::mem::transmute_copy(#name), }
+                                }
+                            } else {
+                                quote! { ::core::mem::transmute(#name), }
+                            }
                         }
                     }
-                    if let ArrayInfo::RelativeLen(_) = param.array_info {
-                        let signature = if self.reader.param_flags(param.def).output() {
-                            quote! { ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(#name)), }
-                        } else {
-                            quote! { ::core::mem::transmute(::windows::core::as_ptr_or_null(#name)), }
-                        };
-
-                        tokens.combine(&signature);
-                        continue;
-                    }
-                    if let ArrayInfo::RelativePtr(relative) = param.array_info {
-                        let name = self.param_name(params[relative].def);
-                        tokens.combine(&quote! { #name.len() as _, });
-                        continue;
-                    }
-                    if self.reader.signature_param_is_borrowed(param) {
-                        tokens.combine(&quote! { #name.into().abi(), });
-                        continue;
-                    }
-                    if self.reader.signature_param_is_convertible(param) {
-                        tokens.combine(&quote! { #name.into(), });
-                        continue;
-                    }
-                    tokens.combine(&quote! { ::core::mem::transmute(#name), });
                 }
-            }
+            };
+            tokens.combine(&new)
         }
 
         tokens
@@ -908,6 +968,7 @@ impl<'a> Gen<'a> {
     pub fn win32_params(&self, params: &[SignatureParam], kind: SignatureKind) -> TokenStream {
         let mut tokens = quote! {};
 
+        let mut generic_params = self.generic_params(params);
         for (position, param) in params.iter().enumerate() {
             match kind {
                 SignatureKind::Query(query) | SignatureKind::QueryOptional(query) => {
@@ -925,14 +986,16 @@ impl<'a> Gen<'a> {
                     let ty = param.ty.deref();
                     let ty = self.type_default_name(&ty);
                     let len = Literal::u32_unsuffixed(fixed as _);
-
                     let ty = if self.reader.param_flags(param.def).output() {
                         quote! { &mut [#ty; #len] }
                     } else {
                         quote! { &[#ty; #len] }
                     };
-
-                    tokens.combine(&quote! { #name: #ty, });
+                    if self.reader.param_flags(param.def).optional() {
+                        tokens.combine(&quote! { #name: ::core::option::Option<#ty>, });
+                    } else {
+                        tokens.combine(&quote! { #name: #ty, });
+                    }
                     continue;
                 }
             }
@@ -945,8 +1008,25 @@ impl<'a> Gen<'a> {
                 } else {
                     quote! { &[#ty] }
                 };
+                if self.reader.param_flags(param.def).optional() {
+                    tokens.combine(&quote! { #name: ::core::option::Option<#ty>, });
+                } else {
+                    tokens.combine(&quote! { #name: #ty, });
+                }
+                continue;
+            }
 
-                tokens.combine(&quote! { #name: #ty, });
+            if let ArrayInfo::RelativeByteLen(_) = param.array_info {
+                let ty = if self.reader.param_flags(param.def).output() {
+                    quote! { &mut [u8] }
+                } else {
+                    quote! { &[u8] }
+                };
+                if self.reader.param_flags(param.def).optional() {
+                    tokens.combine(&quote! { #name: ::core::option::Option<#ty>, });
+                } else {
+                    tokens.combine(&quote! { #name: #ty, });
+                }
                 continue;
             }
 
@@ -954,14 +1034,36 @@ impl<'a> Gen<'a> {
                 continue;
             }
 
-            if self.reader.signature_param_is_borrowed(param) || self.reader.signature_param_is_convertible(param) {
-                let kind: TokenStream = format!("Param{}", position).into();
+            if self.reader.signature_param_is_convertible(param) {
+                let (position, _) = generic_params.next().unwrap();
+                let kind: TokenStream = format!("P{}", position).into();
                 tokens.combine(&quote! { #name: #kind, });
                 continue;
             }
 
+            if param.ty.is_pointer() && !param.ty.is_void() && param.array_info != ArrayInfo::Removed {
+                let param_flags = self.reader.param_flags(param.def);
+                let kind = self.type_default_name(&param.ty.deref());
+                let kind = if param_flags.output() {
+                    quote! { &mut #kind }
+                } else {
+                    quote! { &#kind }
+                };
+                if self.reader.param_flags(param.def).optional() {
+                    tokens.combine(&quote! { #name: ::core::option::Option<#kind>, });
+                } else {
+                    tokens.combine(&quote! { #name: #kind, });
+                }
+                continue;
+            }
+
             let kind = self.type_default_name(&param.ty);
-            tokens.combine(&quote! { #name: #kind, });
+
+            if self.reader.type_is_blittable(&param.ty) {
+                tokens.combine(&quote! { #name: #kind, });
+            } else {
+                tokens.combine(&quote! { #name: &#kind, });
+            }
         }
 
         tokens

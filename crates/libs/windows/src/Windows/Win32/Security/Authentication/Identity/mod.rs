@@ -252,58 +252,77 @@ pub const AUTH_REQ_VALIDATE_CLIENT: u32 = 128u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn AcceptSecurityContext<'a, Param3: ::std::convert::Into<ACCEPT_SECURITY_CONTEXT_CONTEXT_REQ>>(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc, fcontextreq: Param3, targetdatarep: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn AcceptSecurityContext(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, pinput: ::core::option::Option<&SecBufferDesc>, fcontextreq: ACCEPT_SECURITY_CONTEXT_CONTEXT_REQ, targetdatarep: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AcceptSecurityContext(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc, fcontextreq: ACCEPT_SECURITY_CONTEXT_CONTEXT_REQ, targetdatarep: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    AcceptSecurityContext(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(pinput), fcontextreq.into(), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    AcceptSecurityContext(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(pinput), fcontextreq, targetdatarep, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn AcquireCredentialsHandleA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<::windows::core::PCSTR>, Param2: ::std::convert::Into<SECPKG_CRED>>(pszprincipal: Param0, pszpackage: Param1, fcredentialuse: Param2, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: *mut super::super::Credentials::SecHandle, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn AcquireCredentialsHandleA<'a, P0, P1>(pszprincipal: P0, pszpackage: P1, fcredentialuse: SECPKG_CRED, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: &mut super::super::Credentials::SecHandle, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AcquireCredentialsHandleA(pszprincipal: ::windows::core::PCSTR, pszpackage: ::windows::core::PCSTR, fcredentialuse: SECPKG_CRED, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: *mut ::core::ffi::c_void, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: *mut super::super::Credentials::SecHandle, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    AcquireCredentialsHandleA(pszprincipal.into(), pszpackage.into(), fcredentialuse.into(), ::core::mem::transmute(pvlogonid), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(phcredential), ::core::mem::transmute(ptsexpiry)).ok()
+    AcquireCredentialsHandleA(pszprincipal.into(), pszpackage.into(), fcredentialuse, ::core::mem::transmute(pvlogonid), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(phcredential), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn AcquireCredentialsHandleW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<SECPKG_CRED>>(pszprincipal: Param0, pszpackage: Param1, fcredentialuse: Param2, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: *mut super::super::Credentials::SecHandle, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn AcquireCredentialsHandleW<'a, P0, P1>(pszprincipal: P0, pszpackage: P1, fcredentialuse: SECPKG_CRED, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: &mut super::super::Credentials::SecHandle, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AcquireCredentialsHandleW(pszprincipal: ::windows::core::PCWSTR, pszpackage: ::windows::core::PCWSTR, fcredentialuse: SECPKG_CRED, pvlogonid: *const ::core::ffi::c_void, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: *mut ::core::ffi::c_void, pvgetkeyargument: *const ::core::ffi::c_void, phcredential: *mut super::super::Credentials::SecHandle, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    AcquireCredentialsHandleW(pszprincipal.into(), pszpackage.into(), fcredentialuse.into(), ::core::mem::transmute(pvlogonid), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(phcredential), ::core::mem::transmute(ptsexpiry)).ok()
+    AcquireCredentialsHandleW(pszprincipal.into(), pszpackage.into(), fcredentialuse, ::core::mem::transmute(pvlogonid), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(phcredential), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn AddCredentialsA<'a, Param1: ::std::convert::Into<::windows::core::PCSTR>, Param2: ::std::convert::Into<::windows::core::PCSTR>>(hcredentials: *const super::super::Credentials::SecHandle, pszprincipal: Param1, pszpackage: Param2, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void) -> ::windows::core::Result<i64> {
+pub unsafe fn AddCredentialsA<'a, P0, P1>(hcredentials: &super::super::Credentials::SecHandle, pszprincipal: P0, pszpackage: P1, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void) -> ::windows::core::Result<i64>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AddCredentialsA(hcredentials: *const super::super::Credentials::SecHandle, pszprincipal: ::windows::core::PCSTR, pszpackage: ::windows::core::PCSTR, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: *mut ::core::ffi::c_void, pvgetkeyargument: *const ::core::ffi::c_void, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<i64>::zeroed();
-    AddCredentialsA(::core::mem::transmute(hcredentials), pszprincipal.into(), pszpackage.into(), ::core::mem::transmute(fcredentialuse), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<i64>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    AddCredentialsA(::core::mem::transmute(hcredentials), pszprincipal.into(), pszpackage.into(), fcredentialuse, ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<i64>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn AddCredentialsW<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hcredentials: *const super::super::Credentials::SecHandle, pszprincipal: Param1, pszpackage: Param2, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void) -> ::windows::core::Result<i64> {
+pub unsafe fn AddCredentialsW<'a, P0, P1>(hcredentials: &super::super::Credentials::SecHandle, pszprincipal: P0, pszpackage: P1, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: SEC_GET_KEY_FN, pvgetkeyargument: *const ::core::ffi::c_void) -> ::windows::core::Result<i64>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AddCredentialsW(hcredentials: *const super::super::Credentials::SecHandle, pszprincipal: ::windows::core::PCWSTR, pszpackage: ::windows::core::PCWSTR, fcredentialuse: u32, pauthdata: *const ::core::ffi::c_void, pgetkeyfn: *mut ::core::ffi::c_void, pvgetkeyargument: *const ::core::ffi::c_void, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<i64>::zeroed();
-    AddCredentialsW(::core::mem::transmute(hcredentials), pszprincipal.into(), pszpackage.into(), ::core::mem::transmute(fcredentialuse), ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<i64>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    AddCredentialsW(::core::mem::transmute(hcredentials), pszprincipal.into(), pszpackage.into(), fcredentialuse, ::core::mem::transmute(pauthdata), ::core::mem::transmute(pgetkeyfn), ::core::mem::transmute(pvgetkeyargument), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<i64>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn AddSecurityPackageA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(pszpackagename: Param0, poptions: *const SECURITY_PACKAGE_OPTIONS) -> ::windows::core::Result<()> {
+pub unsafe fn AddSecurityPackageA<'a, P0>(pszpackagename: P0, poptions: ::core::option::Option<&SECURITY_PACKAGE_OPTIONS>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AddSecurityPackageA(pszpackagename: ::windows::core::PCSTR, poptions: *const SECURITY_PACKAGE_OPTIONS) -> ::windows::core::HRESULT;
@@ -312,7 +331,10 @@ pub unsafe fn AddSecurityPackageA<'a, Param0: ::std::convert::Into<::windows::co
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn AddSecurityPackageW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pszpackagename: Param0, poptions: *const SECURITY_PACKAGE_OPTIONS) -> ::windows::core::Result<()> {
+pub unsafe fn AddSecurityPackageW<'a, P0>(pszpackagename: P0, poptions: ::core::option::Option<&SECURITY_PACKAGE_OPTIONS>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AddSecurityPackageW(pszpackagename: ::windows::core::PCWSTR, poptions: *const SECURITY_PACKAGE_OPTIONS) -> ::windows::core::HRESULT;
@@ -322,7 +344,7 @@ pub unsafe fn AddSecurityPackageW<'a, Param0: ::std::convert::Into<::windows::co
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn ApplyControlToken(phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc) -> ::windows::core::Result<()> {
+pub unsafe fn ApplyControlToken(phcontext: &super::super::Credentials::SecHandle, pinput: &SecBufferDesc) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ApplyControlToken(phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc) -> ::windows::core::HRESULT;
@@ -332,52 +354,61 @@ pub unsafe fn ApplyControlToken(phcontext: *const super::super::Credentials::Sec
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditComputeEffectivePolicyBySid<'a, Param0: ::std::convert::Into<super::super::super::Foundation::PSID>>(psid: Param0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditComputeEffectivePolicyBySid<'a, P0>(psid: P0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: &mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditComputeEffectivePolicyBySid(psid: super::super::super::Foundation::PSID, psubcategoryguids: *const ::windows::core::GUID, dwpolicycount: u32, ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditComputeEffectivePolicyBySid(psid.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(psubcategoryguids)), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy)))
+    AuditComputeEffectivePolicyBySid(psid.into(), ::core::mem::transmute(psubcategoryguids.as_ptr()), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditComputeEffectivePolicyByToken<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(htokenhandle: Param0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditComputeEffectivePolicyByToken<'a, P0>(htokenhandle: P0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: &mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditComputeEffectivePolicyByToken(htokenhandle: super::super::super::Foundation::HANDLE, psubcategoryguids: *const ::windows::core::GUID, dwpolicycount: u32, ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditComputeEffectivePolicyByToken(htokenhandle.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(psubcategoryguids)), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy)))
+    AuditComputeEffectivePolicyByToken(htokenhandle.into(), ::core::mem::transmute(psubcategoryguids.as_ptr()), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditEnumerateCategories(ppauditcategoriesarray: *mut *mut ::windows::core::GUID, pdwcountreturned: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditEnumerateCategories(ppauditcategoriesarray: &mut *mut ::windows::core::GUID, pdwcountreturned: &mut u32) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditEnumerateCategories(ppauditcategoriesarray: *mut *mut ::windows::core::GUID, pdwcountreturned: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditEnumerateCategories(::core::mem::transmute(ppauditcategoriesarray), ::core::mem::transmute(pdwcountreturned)))
+    AuditEnumerateCategories(::core::mem::transmute(ppauditcategoriesarray), ::core::mem::transmute(pdwcountreturned))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditEnumeratePerUserPolicy(ppauditsidarray: *mut *mut POLICY_AUDIT_SID_ARRAY) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditEnumeratePerUserPolicy(ppauditsidarray: &mut *mut POLICY_AUDIT_SID_ARRAY) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditEnumeratePerUserPolicy(ppauditsidarray: *mut *mut POLICY_AUDIT_SID_ARRAY) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditEnumeratePerUserPolicy(::core::mem::transmute(ppauditsidarray)))
+    AuditEnumeratePerUserPolicy(::core::mem::transmute(ppauditsidarray))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditEnumerateSubCategories<'a, Param1: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>>(pauditcategoryguid: *const ::windows::core::GUID, bretrieveallsubcategories: Param1, ppauditsubcategoriesarray: *mut *mut ::windows::core::GUID, pdwcountreturned: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditEnumerateSubCategories<'a, P0>(pauditcategoryguid: ::core::option::Option<&::windows::core::GUID>, bretrieveallsubcategories: P0, ppauditsubcategoriesarray: &mut *mut ::windows::core::GUID, pdwcountreturned: &mut u32) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditEnumerateSubCategories(pauditcategoryguid: *const ::windows::core::GUID, bretrieveallsubcategories: super::super::super::Foundation::BOOLEAN, ppauditsubcategoriesarray: *mut *mut ::windows::core::GUID, pdwcountreturned: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditEnumerateSubCategories(::core::mem::transmute(pauditcategoryguid), bretrieveallsubcategories.into(), ::core::mem::transmute(ppauditsubcategoriesarray), ::core::mem::transmute(pdwcountreturned)))
+    AuditEnumerateSubCategories(::core::mem::transmute(pauditcategoryguid), bretrieveallsubcategories.into(), ::core::mem::transmute(ppauditsubcategoriesarray), ::core::mem::transmute(pdwcountreturned))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
@@ -391,152 +422,173 @@ pub unsafe fn AuditFree(buffer: *const ::core::ffi::c_void) {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupCategoryGuidFromCategoryId<'a, Param0: ::std::convert::Into<POLICY_AUDIT_EVENT_TYPE>>(auditcategoryid: Param0, pauditcategoryguid: *mut ::windows::core::GUID) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupCategoryGuidFromCategoryId(auditcategoryid: POLICY_AUDIT_EVENT_TYPE, pauditcategoryguid: &mut ::windows::core::GUID) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupCategoryGuidFromCategoryId(auditcategoryid: POLICY_AUDIT_EVENT_TYPE, pauditcategoryguid: *mut ::windows::core::GUID) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupCategoryGuidFromCategoryId(auditcategoryid.into(), ::core::mem::transmute(pauditcategoryguid)))
+    AuditLookupCategoryGuidFromCategoryId(auditcategoryid, ::core::mem::transmute(pauditcategoryguid))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupCategoryIdFromCategoryGuid(pauditcategoryguid: *const ::windows::core::GUID, pauditcategoryid: *mut POLICY_AUDIT_EVENT_TYPE) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupCategoryIdFromCategoryGuid(pauditcategoryguid: &::windows::core::GUID, pauditcategoryid: &mut POLICY_AUDIT_EVENT_TYPE) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupCategoryIdFromCategoryGuid(pauditcategoryguid: *const ::windows::core::GUID, pauditcategoryid: *mut POLICY_AUDIT_EVENT_TYPE) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupCategoryIdFromCategoryGuid(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(pauditcategoryid)))
+    AuditLookupCategoryIdFromCategoryGuid(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(pauditcategoryid))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupCategoryNameA(pauditcategoryguid: *const ::windows::core::GUID, ppszcategoryname: *mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupCategoryNameA(pauditcategoryguid: &::windows::core::GUID, ppszcategoryname: &mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupCategoryNameA(pauditcategoryguid: *const ::windows::core::GUID, ppszcategoryname: *mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupCategoryNameA(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(ppszcategoryname)))
+    AuditLookupCategoryNameA(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(ppszcategoryname))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupCategoryNameW(pauditcategoryguid: *const ::windows::core::GUID, ppszcategoryname: *mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupCategoryNameW(pauditcategoryguid: &::windows::core::GUID, ppszcategoryname: &mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupCategoryNameW(pauditcategoryguid: *const ::windows::core::GUID, ppszcategoryname: *mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupCategoryNameW(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(ppszcategoryname)))
+    AuditLookupCategoryNameW(::core::mem::transmute(pauditcategoryguid), ::core::mem::transmute(ppszcategoryname))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupSubCategoryNameA(pauditsubcategoryguid: *const ::windows::core::GUID, ppszsubcategoryname: *mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupSubCategoryNameA(pauditsubcategoryguid: &::windows::core::GUID, ppszsubcategoryname: &mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupSubCategoryNameA(pauditsubcategoryguid: *const ::windows::core::GUID, ppszsubcategoryname: *mut ::windows::core::PSTR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupSubCategoryNameA(::core::mem::transmute(pauditsubcategoryguid), ::core::mem::transmute(ppszsubcategoryname)))
+    AuditLookupSubCategoryNameA(::core::mem::transmute(pauditsubcategoryguid), ::core::mem::transmute(ppszsubcategoryname))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditLookupSubCategoryNameW(pauditsubcategoryguid: *const ::windows::core::GUID, ppszsubcategoryname: *mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditLookupSubCategoryNameW(pauditsubcategoryguid: &::windows::core::GUID, ppszsubcategoryname: &mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditLookupSubCategoryNameW(pauditsubcategoryguid: *const ::windows::core::GUID, ppszsubcategoryname: *mut ::windows::core::PWSTR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditLookupSubCategoryNameW(::core::mem::transmute(pauditsubcategoryguid), ::core::mem::transmute(ppszsubcategoryname)))
+    AuditLookupSubCategoryNameW(::core::mem::transmute(pauditsubcategoryguid), ::core::mem::transmute(ppszsubcategoryname))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditQueryGlobalSaclA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(objecttypename: Param0, acl: *mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditQueryGlobalSaclA<'a, P0>(objecttypename: P0, acl: &mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditQueryGlobalSaclA(objecttypename: ::windows::core::PCSTR, acl: *mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditQueryGlobalSaclA(objecttypename.into(), ::core::mem::transmute(acl)))
+    AuditQueryGlobalSaclA(objecttypename.into(), ::core::mem::transmute(acl))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditQueryGlobalSaclW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(objecttypename: Param0, acl: *mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditQueryGlobalSaclW<'a, P0>(objecttypename: P0, acl: &mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditQueryGlobalSaclW(objecttypename: ::windows::core::PCWSTR, acl: *mut *mut super::super::ACL) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditQueryGlobalSaclW(objecttypename.into(), ::core::mem::transmute(acl)))
+    AuditQueryGlobalSaclW(objecttypename.into(), ::core::mem::transmute(acl))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditQueryPerUserPolicy<'a, Param0: ::std::convert::Into<super::super::super::Foundation::PSID>>(psid: Param0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditQueryPerUserPolicy<'a, P0>(psid: P0, psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: &mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditQueryPerUserPolicy(psid: super::super::super::Foundation::PSID, psubcategoryguids: *const ::windows::core::GUID, dwpolicycount: u32, ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditQueryPerUserPolicy(psid.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(psubcategoryguids)), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy)))
+    AuditQueryPerUserPolicy(psid.into(), ::core::mem::transmute(psubcategoryguids.as_ptr()), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditQuerySecurity(securityinformation: u32, ppsecuritydescriptor: *mut super::super::PSECURITY_DESCRIPTOR) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditQuerySecurity(securityinformation: u32, ppsecuritydescriptor: &mut super::super::PSECURITY_DESCRIPTOR) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditQuerySecurity(securityinformation: u32, ppsecuritydescriptor: *mut super::super::PSECURITY_DESCRIPTOR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditQuerySecurity(::core::mem::transmute(securityinformation), ::core::mem::transmute(ppsecuritydescriptor)))
+    AuditQuerySecurity(securityinformation, ::core::mem::transmute(ppsecuritydescriptor))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditQuerySystemPolicy(psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditQuerySystemPolicy(psubcategoryguids: &[::windows::core::GUID], ppauditpolicy: &mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditQuerySystemPolicy(psubcategoryguids: *const ::windows::core::GUID, dwpolicycount: u32, ppauditpolicy: *mut *mut AUDIT_POLICY_INFORMATION) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditQuerySystemPolicy(::core::mem::transmute(::windows::core::as_ptr_or_null(psubcategoryguids)), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy)))
+    AuditQuerySystemPolicy(::core::mem::transmute(psubcategoryguids.as_ptr()), psubcategoryguids.len() as _, ::core::mem::transmute(ppauditpolicy))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditSetGlobalSaclA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(objecttypename: Param0, acl: *const super::super::ACL) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditSetGlobalSaclA<'a, P0>(objecttypename: P0, acl: ::core::option::Option<&super::super::ACL>) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditSetGlobalSaclA(objecttypename: ::windows::core::PCSTR, acl: *const super::super::ACL) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditSetGlobalSaclA(objecttypename.into(), ::core::mem::transmute(acl)))
+    AuditSetGlobalSaclA(objecttypename.into(), ::core::mem::transmute(acl))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditSetGlobalSaclW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(objecttypename: Param0, acl: *const super::super::ACL) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditSetGlobalSaclW<'a, P0>(objecttypename: P0, acl: ::core::option::Option<&super::super::ACL>) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditSetGlobalSaclW(objecttypename: ::windows::core::PCWSTR, acl: *const super::super::ACL) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditSetGlobalSaclW(objecttypename.into(), ::core::mem::transmute(acl)))
+    AuditSetGlobalSaclW(objecttypename.into(), ::core::mem::transmute(acl))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditSetPerUserPolicy<'a, Param0: ::std::convert::Into<super::super::super::Foundation::PSID>>(psid: Param0, pauditpolicy: &[AUDIT_POLICY_INFORMATION]) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditSetPerUserPolicy<'a, P0>(psid: P0, pauditpolicy: &[AUDIT_POLICY_INFORMATION]) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditSetPerUserPolicy(psid: super::super::super::Foundation::PSID, pauditpolicy: *const AUDIT_POLICY_INFORMATION, dwpolicycount: u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditSetPerUserPolicy(psid.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(pauditpolicy)), pauditpolicy.len() as _))
+    AuditSetPerUserPolicy(psid.into(), ::core::mem::transmute(pauditpolicy.as_ptr()), pauditpolicy.len() as _)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn AuditSetSecurity<'a, Param1: ::std::convert::Into<super::super::PSECURITY_DESCRIPTOR>>(securityinformation: u32, psecuritydescriptor: Param1) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn AuditSetSecurity<'a, P0>(securityinformation: u32, psecuritydescriptor: P0) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<super::super::PSECURITY_DESCRIPTOR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn AuditSetSecurity(securityinformation: u32, psecuritydescriptor: super::super::PSECURITY_DESCRIPTOR) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditSetSecurity(::core::mem::transmute(securityinformation), psecuritydescriptor.into()))
+    AuditSetSecurity(securityinformation, psecuritydescriptor.into())
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -546,7 +598,7 @@ pub unsafe fn AuditSetSystemPolicy(pauditpolicy: &[AUDIT_POLICY_INFORMATION]) ->
     extern "system" {
         fn AuditSetSystemPolicy(pauditpolicy: *const AUDIT_POLICY_INFORMATION, dwpolicycount: u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(AuditSetSystemPolicy(::core::mem::transmute(::windows::core::as_ptr_or_null(pauditpolicy)), pauditpolicy.len() as _))
+    AuditSetSystemPolicy(::core::mem::transmute(pauditpolicy.as_ptr()), pauditpolicy.len() as _)
 }
 pub const Audit_AccountLogon: ::windows::core::GUID = ::windows::core::GUID::from_u128(0x69979850_797a_11d9_bed3_505054503030);
 pub const Audit_AccountLogon_CredentialValidation: ::windows::core::GUID = ::windows::core::GUID::from_u128(0x0cce923f_69ae_11d9_bed3_505054503030);
@@ -816,29 +868,35 @@ pub const CYPHER_BLOCK_LENGTH: u32 = 8u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn ChangeAccountPasswordA<'a, Param5: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>>(pszpackagename: *const i8, pszdomainname: *const i8, pszaccountname: *const i8, pszoldpassword: *const i8, psznewpassword: *const i8, bimpersonating: Param5, dwreserved: u32, poutput: *mut SecBufferDesc) -> ::windows::core::Result<()> {
+pub unsafe fn ChangeAccountPasswordA<'a, P0>(pszpackagename: &i8, pszdomainname: &i8, pszaccountname: &i8, pszoldpassword: &i8, psznewpassword: &i8, bimpersonating: P0, dwreserved: u32, poutput: &mut SecBufferDesc) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ChangeAccountPasswordA(pszpackagename: *const i8, pszdomainname: *const i8, pszaccountname: *const i8, pszoldpassword: *const i8, psznewpassword: *const i8, bimpersonating: super::super::super::Foundation::BOOLEAN, dwreserved: u32, poutput: *mut SecBufferDesc) -> ::windows::core::HRESULT;
     }
-    ChangeAccountPasswordA(::core::mem::transmute(pszpackagename), ::core::mem::transmute(pszdomainname), ::core::mem::transmute(pszaccountname), ::core::mem::transmute(pszoldpassword), ::core::mem::transmute(psznewpassword), bimpersonating.into(), ::core::mem::transmute(dwreserved), ::core::mem::transmute(poutput)).ok()
+    ChangeAccountPasswordA(::core::mem::transmute(pszpackagename), ::core::mem::transmute(pszdomainname), ::core::mem::transmute(pszaccountname), ::core::mem::transmute(pszoldpassword), ::core::mem::transmute(psznewpassword), bimpersonating.into(), dwreserved, ::core::mem::transmute(poutput)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn ChangeAccountPasswordW<'a, Param5: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>>(pszpackagename: *const u16, pszdomainname: *const u16, pszaccountname: *const u16, pszoldpassword: *const u16, psznewpassword: *const u16, bimpersonating: Param5, dwreserved: u32, poutput: *mut SecBufferDesc) -> ::windows::core::Result<()> {
+pub unsafe fn ChangeAccountPasswordW<'a, P0>(pszpackagename: &u16, pszdomainname: &u16, pszaccountname: &u16, pszoldpassword: &u16, psznewpassword: &u16, bimpersonating: P0, dwreserved: u32, poutput: &mut SecBufferDesc) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ChangeAccountPasswordW(pszpackagename: *const u16, pszdomainname: *const u16, pszaccountname: *const u16, pszoldpassword: *const u16, psznewpassword: *const u16, bimpersonating: super::super::super::Foundation::BOOLEAN, dwreserved: u32, poutput: *mut SecBufferDesc) -> ::windows::core::HRESULT;
     }
-    ChangeAccountPasswordW(::core::mem::transmute(pszpackagename), ::core::mem::transmute(pszdomainname), ::core::mem::transmute(pszaccountname), ::core::mem::transmute(pszoldpassword), ::core::mem::transmute(psznewpassword), bimpersonating.into(), ::core::mem::transmute(dwreserved), ::core::mem::transmute(poutput)).ok()
+    ChangeAccountPasswordW(::core::mem::transmute(pszpackagename), ::core::mem::transmute(pszdomainname), ::core::mem::transmute(pszaccountname), ::core::mem::transmute(pszoldpassword), ::core::mem::transmute(psznewpassword), bimpersonating.into(), dwreserved, ::core::mem::transmute(poutput)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const ClOUDAP_NAME_A: &str = "CloudAP";
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn CompleteAuthToken(phcontext: *const super::super::Credentials::SecHandle, ptoken: *const SecBufferDesc) -> ::windows::core::Result<()> {
+pub unsafe fn CompleteAuthToken(phcontext: &super::super::Credentials::SecHandle, ptoken: &SecBufferDesc) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CompleteAuthToken(phcontext: *const super::super::Credentials::SecHandle, ptoken: *const SecBufferDesc) -> ::windows::core::HRESULT;
@@ -851,7 +909,7 @@ pub type CredFreeCredentialsFn = ::core::option::Option<unsafe extern "system" f
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security_Credentials"))]
 #[inline]
-pub unsafe fn CredMarshalTargetInfo(intargetinfo: *const super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW, buffer: *mut *mut u16, buffersize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn CredMarshalTargetInfo(intargetinfo: &super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW, buffer: &mut *mut u16, buffersize: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CredMarshalTargetInfo(intargetinfo: *const super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW, buffer: *mut *mut u16, buffersize: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -867,12 +925,12 @@ pub type CredReadFn = ::core::option::Option<unsafe extern "system" fn(logonid: 
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security_Credentials"))]
 #[inline]
-pub unsafe fn CredUnmarshalTargetInfo(buffer: *const u16, buffersize: u32, rettargetinfo: *mut *mut super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW, retactualsize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn CredUnmarshalTargetInfo(buffer: &[u8], rettargetinfo: ::core::option::Option<&mut *mut super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW>, retactualsize: ::core::option::Option<&mut u32>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CredUnmarshalTargetInfo(buffer: *const u16, buffersize: u32, rettargetinfo: *mut *mut super::super::Credentials::CREDENTIAL_TARGET_INFORMATIONW, retactualsize: *mut u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    CredUnmarshalTargetInfo(::core::mem::transmute(buffer), ::core::mem::transmute(buffersize), ::core::mem::transmute(rettargetinfo), ::core::mem::transmute(retactualsize)).ok()
+    CredUnmarshalTargetInfo(::core::mem::transmute(buffer.as_ptr()), buffer.len() as _, ::core::mem::transmute(rettargetinfo), ::core::mem::transmute(retactualsize)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security_Credentials"))]
@@ -996,18 +1054,18 @@ pub const DS_UNKNOWN_ADDRESS_TYPE: u32 = 0u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn DecryptMessage(phcontext: *const super::super::Credentials::SecHandle, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<u32> {
+pub unsafe fn DecryptMessage(phcontext: &super::super::Credentials::SecHandle, pmessage: &SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<u32> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn DecryptMessage(phcontext: *const super::super::Credentials::SecHandle, pmessage: *const SecBufferDesc, messageseqno: u32, pfqop: *mut u32) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
-    DecryptMessage(::core::mem::transmute(phcontext), ::core::mem::transmute(pmessage), ::core::mem::transmute(messageseqno), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    DecryptMessage(::core::mem::transmute(phcontext), ::core::mem::transmute(pmessage), messageseqno, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn DeleteSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
+pub unsafe fn DeleteSecurityContext(phcontext: &super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn DeleteSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
@@ -1016,7 +1074,10 @@ pub unsafe fn DeleteSecurityContext(phcontext: *const super::super::Credentials:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn DeleteSecurityPackageA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(pszpackagename: Param0) -> ::windows::core::Result<()> {
+pub unsafe fn DeleteSecurityPackageA<'a, P0>(pszpackagename: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn DeleteSecurityPackageA(pszpackagename: ::windows::core::PCSTR) -> ::windows::core::HRESULT;
@@ -1025,7 +1086,10 @@ pub unsafe fn DeleteSecurityPackageA<'a, Param0: ::std::convert::Into<::windows:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn DeleteSecurityPackageW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pszpackagename: Param0) -> ::windows::core::Result<()> {
+pub unsafe fn DeleteSecurityPackageW<'a, P0>(pszpackagename: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn DeleteSecurityPackageW(pszpackagename: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -1192,16 +1256,16 @@ pub const E_RM_UNKNOWN_ERROR: ::windows::core::HRESULT = ::windows::core::HRESUL
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn EncryptMessage(phcontext: *const super::super::Credentials::SecHandle, fqop: u32, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<()> {
+pub unsafe fn EncryptMessage(phcontext: &super::super::Credentials::SecHandle, fqop: u32, pmessage: &SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EncryptMessage(phcontext: *const super::super::Credentials::SecHandle, fqop: u32, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::HRESULT;
     }
-    EncryptMessage(::core::mem::transmute(phcontext), ::core::mem::transmute(fqop), ::core::mem::transmute(pmessage), ::core::mem::transmute(messageseqno)).ok()
+    EncryptMessage(::core::mem::transmute(phcontext), fqop, ::core::mem::transmute(pmessage), messageseqno).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn EnumerateSecurityPackagesA(pcpackages: *mut u32, pppackageinfo: *mut *mut SecPkgInfoA) -> ::windows::core::Result<()> {
+pub unsafe fn EnumerateSecurityPackagesA(pcpackages: &mut u32, pppackageinfo: &mut *mut SecPkgInfoA) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumerateSecurityPackagesA(pcpackages: *mut u32, pppackageinfo: *mut *mut SecPkgInfoA) -> ::windows::core::HRESULT;
@@ -1210,7 +1274,7 @@ pub unsafe fn EnumerateSecurityPackagesA(pcpackages: *mut u32, pppackageinfo: *m
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn EnumerateSecurityPackagesW(pcpackages: *mut u32, pppackageinfo: *mut *mut SecPkgInfoW) -> ::windows::core::Result<()> {
+pub unsafe fn EnumerateSecurityPackagesW(pcpackages: &mut u32, pppackageinfo: &mut *mut SecPkgInfoW) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumerateSecurityPackagesW(pcpackages: *mut u32, pppackageinfo: *mut *mut SecPkgInfoW) -> ::windows::core::HRESULT;
@@ -1220,12 +1284,12 @@ pub unsafe fn EnumerateSecurityPackagesW(pcpackages: *mut u32, pppackageinfo: *m
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn ExportSecurityContext<'a, Param1: ::std::convert::Into<EXPORT_SECURITY_CONTEXT_FLAGS>>(phcontext: *const super::super::Credentials::SecHandle, fflags: Param1, ppackedcontext: *mut SecBuffer, ptoken: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn ExportSecurityContext(phcontext: &super::super::Credentials::SecHandle, fflags: EXPORT_SECURITY_CONTEXT_FLAGS, ppackedcontext: &mut SecBuffer, ptoken: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ExportSecurityContext(phcontext: *const super::super::Credentials::SecHandle, fflags: EXPORT_SECURITY_CONTEXT_FLAGS, ppackedcontext: *mut SecBuffer, ptoken: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    ExportSecurityContext(::core::mem::transmute(phcontext), fflags.into(), ::core::mem::transmute(ppackedcontext), ::core::mem::transmute(ptoken)).ok()
+    ExportSecurityContext(::core::mem::transmute(phcontext), fflags, ::core::mem::transmute(ppackedcontext), ::core::mem::transmute(ptoken)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const FACILITY_SL_ITF: u32 = 4u32;
@@ -1246,7 +1310,7 @@ pub unsafe fn FreeContextBuffer(pvcontextbuffer: *mut ::core::ffi::c_void) -> ::
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn FreeCredentialsHandle(phcredential: *const super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
+pub unsafe fn FreeCredentialsHandle(phcredential: &super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn FreeCredentialsHandle(phcredential: *const super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
@@ -1256,49 +1320,51 @@ pub unsafe fn FreeCredentialsHandle(phcredential: *const super::super::Credentia
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetComputerObjectNameA<'a, Param0: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(nameformat: Param0, lpnamebuffer: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn GetComputerObjectNameA(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetComputerObjectNameA(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(GetComputerObjectNameA(nameformat.into(), ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize)))
+    GetComputerObjectNameA(nameformat, ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetComputerObjectNameW<'a, Param0: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(nameformat: Param0, lpnamebuffer: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn GetComputerObjectNameW(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PWSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetComputerObjectNameW(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(GetComputerObjectNameW(nameformat.into(), ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize)))
+    GetComputerObjectNameW(nameformat, ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetUserNameExA<'a, Param0: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(nameformat: Param0, lpnamebuffer: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn GetUserNameExA(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetUserNameExA(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(GetUserNameExA(nameformat.into(), ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize)))
+    GetUserNameExA(nameformat, ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetUserNameExW<'a, Param0: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(nameformat: Param0, lpnamebuffer: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn GetUserNameExW(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PWSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetUserNameExW(nameformat: EXTENDED_NAME_FORMAT, lpnamebuffer: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(GetUserNameExW(nameformat.into(), ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize)))
+    GetUserNameExW(nameformat, ::core::mem::transmute(lpnamebuffer), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[repr(transparent)]
 pub struct ICcgDomainAuthCredentials(::windows::core::IUnknown);
 impl ICcgDomainAuthCredentials {
-    #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
-    pub unsafe fn GetPasswordCredentials<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(&self, plugininput: Param0, domainname: *mut ::windows::core::PWSTR, username: *mut ::windows::core::PWSTR, password: *mut ::windows::core::PWSTR) -> ::windows::core::Result<()> {
+    pub unsafe fn GetPasswordCredentials<'a, P0>(&self, plugininput: P0, domainname: &mut ::windows::core::PWSTR, username: &mut ::windows::core::PWSTR, password: &mut ::windows::core::PWSTR) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    {
         (::windows::core::Interface::vtable(self).GetPasswordCredentials)(::windows::core::Interface::as_raw(self), plugininput.into(), ::core::mem::transmute(domainname), ::core::mem::transmute(username), ::core::mem::transmute(password)).ok()
     }
 }
@@ -1489,7 +1555,7 @@ pub const ISSP_MODE: u32 = 1u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn ImpersonateSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
+pub unsafe fn ImpersonateSecurityContext(phcontext: &super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ImpersonateSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
@@ -1499,23 +1565,29 @@ pub unsafe fn ImpersonateSecurityContext(phcontext: *const super::super::Credent
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn ImportSecurityContextA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(pszpackage: Param0, ppackedcontext: *const SecBuffer, token: *const ::core::ffi::c_void) -> ::windows::core::Result<super::super::Credentials::SecHandle> {
+pub unsafe fn ImportSecurityContextA<'a, P0>(pszpackage: P0, ppackedcontext: &SecBuffer, token: *const ::core::ffi::c_void) -> ::windows::core::Result<super::super::Credentials::SecHandle>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ImportSecurityContextA(pszpackage: ::windows::core::PCSTR, ppackedcontext: *const SecBuffer, token: *const ::core::ffi::c_void, phcontext: *mut super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Credentials::SecHandle>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     ImportSecurityContextA(pszpackage.into(), ::core::mem::transmute(ppackedcontext), ::core::mem::transmute(token), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Credentials::SecHandle>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn ImportSecurityContextW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pszpackage: Param0, ppackedcontext: *const SecBuffer, token: *const ::core::ffi::c_void) -> ::windows::core::Result<super::super::Credentials::SecHandle> {
+pub unsafe fn ImportSecurityContextW<'a, P0>(pszpackage: P0, ppackedcontext: &SecBuffer, token: *const ::core::ffi::c_void) -> ::windows::core::Result<super::super::Credentials::SecHandle>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ImportSecurityContextW(pszpackage: ::windows::core::PCWSTR, ppackedcontext: *const SecBuffer, token: *const ::core::ffi::c_void, phcontext: *mut super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Credentials::SecHandle>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     ImportSecurityContextW(pszpackage.into(), ::core::mem::transmute(ppackedcontext), ::core::mem::transmute(token), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Credentials::SecHandle>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_Security_Credentials\"`*"]
@@ -1526,7 +1598,7 @@ pub unsafe fn InitSecurityInterfaceA() -> *mut SecurityFunctionTableA {
     extern "system" {
         fn InitSecurityInterfaceA() -> *mut SecurityFunctionTableA;
     }
-    ::core::mem::transmute(InitSecurityInterfaceA())
+    InitSecurityInterfaceA()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security_Credentials"))]
@@ -1536,27 +1608,27 @@ pub unsafe fn InitSecurityInterfaceW() -> *mut SecurityFunctionTableW {
     extern "system" {
         fn InitSecurityInterfaceW() -> *mut SecurityFunctionTableW;
     }
-    ::core::mem::transmute(InitSecurityInterfaceW())
+    InitSecurityInterfaceW()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn InitializeSecurityContextA(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: *const i8, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn InitializeSecurityContextA(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, psztargetname: ::core::option::Option<&i8>, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: ::core::option::Option<&SecBufferDesc>, reserved2: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn InitializeSecurityContextA(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: *const i8, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    InitializeSecurityContextA(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(psztargetname), ::core::mem::transmute(fcontextreq), ::core::mem::transmute(reserved1), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(pinput), ::core::mem::transmute(reserved2), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    InitializeSecurityContextA(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(psztargetname), fcontextreq, reserved1, targetdatarep, ::core::mem::transmute(pinput), reserved2, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn InitializeSecurityContextW(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: *const u16, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn InitializeSecurityContextW(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, psztargetname: ::core::option::Option<&u16>, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: ::core::option::Option<&SecBufferDesc>, reserved2: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn InitializeSecurityContextW(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: *const u16, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    InitializeSecurityContextW(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(psztargetname), ::core::mem::transmute(fcontextreq), ::core::mem::transmute(reserved1), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(pinput), ::core::mem::transmute(reserved2), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    InitializeSecurityContextW(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(psztargetname), fcontextreq, reserved1, targetdatarep, ::core::mem::transmute(pinput), reserved2, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
@@ -6285,22 +6357,28 @@ impl ::core::default::Default for LSA_TRUST_INFORMATION {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaAddAccountRights<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>>(policyhandle: *const ::core::ffi::c_void, accountsid: Param1, userrights: &[super::super::super::Foundation::UNICODE_STRING]) -> ::windows::core::Result<()> {
+pub unsafe fn LsaAddAccountRights<'a, P0>(policyhandle: *const ::core::ffi::c_void, accountsid: P0, userrights: &[super::super::super::Foundation::UNICODE_STRING]) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaAddAccountRights(policyhandle: *const ::core::ffi::c_void, accountsid: super::super::super::Foundation::PSID, userrights: *const super::super::super::Foundation::UNICODE_STRING, countofrights: u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaAddAccountRights(::core::mem::transmute(policyhandle), accountsid.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(userrights)), userrights.len() as _).ok()
+    LsaAddAccountRights(::core::mem::transmute(policyhandle), accountsid.into(), ::core::mem::transmute(userrights.as_ptr()), userrights.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaCallAuthenticationPackage<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(lsahandle: Param0, authenticationpackage: u32, protocolsubmitbuffer: *const ::core::ffi::c_void, submitbufferlength: u32, protocolreturnbuffer: *mut *mut ::core::ffi::c_void, returnbufferlength: *mut u32, protocolstatus: *mut i32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaCallAuthenticationPackage<'a, P0>(lsahandle: P0, authenticationpackage: u32, protocolsubmitbuffer: &[u8], protocolreturnbuffer: *mut *mut ::core::ffi::c_void, returnbufferlength: ::core::option::Option<&mut u32>, protocolstatus: ::core::option::Option<&mut i32>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaCallAuthenticationPackage(lsahandle: super::super::super::Foundation::HANDLE, authenticationpackage: u32, protocolsubmitbuffer: *const ::core::ffi::c_void, submitbufferlength: u32, protocolreturnbuffer: *mut *mut ::core::ffi::c_void, returnbufferlength: *mut u32, protocolstatus: *mut i32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaCallAuthenticationPackage(lsahandle.into(), ::core::mem::transmute(authenticationpackage), ::core::mem::transmute(protocolsubmitbuffer), ::core::mem::transmute(submitbufferlength), ::core::mem::transmute(protocolreturnbuffer), ::core::mem::transmute(returnbufferlength), ::core::mem::transmute(protocolstatus)).ok()
+    LsaCallAuthenticationPackage(lsahandle.into(), authenticationpackage, ::core::mem::transmute(protocolsubmitbuffer.as_ptr()), protocolsubmitbuffer.len() as _, ::core::mem::transmute(protocolreturnbuffer), ::core::mem::transmute(returnbufferlength), ::core::mem::transmute(protocolstatus)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -6315,7 +6393,7 @@ pub unsafe fn LsaClose(objecthandle: *const ::core::ffi::c_void) -> ::windows::c
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaConnectUntrusted(lsahandle: *mut super::super::super::Foundation::HANDLE) -> ::windows::core::Result<()> {
+pub unsafe fn LsaConnectUntrusted(lsahandle: &mut super::super::super::Foundation::HANDLE) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaConnectUntrusted(lsahandle: *mut super::super::super::Foundation::HANDLE) -> super::super::super::Foundation::NTSTATUS;
@@ -6325,17 +6403,20 @@ pub unsafe fn LsaConnectUntrusted(lsahandle: *mut super::super::super::Foundatio
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaCreateTrustedDomainEx(policyhandle: *const ::core::ffi::c_void, trusteddomaininformation: *const TRUSTED_DOMAIN_INFORMATION_EX, authenticationinformation: *const TRUSTED_DOMAIN_AUTH_INFORMATION, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaCreateTrustedDomainEx(policyhandle: *const ::core::ffi::c_void, trusteddomaininformation: &TRUSTED_DOMAIN_INFORMATION_EX, authenticationinformation: &TRUSTED_DOMAIN_AUTH_INFORMATION, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaCreateTrustedDomainEx(policyhandle: *const ::core::ffi::c_void, trusteddomaininformation: *const TRUSTED_DOMAIN_INFORMATION_EX, authenticationinformation: *const TRUSTED_DOMAIN_AUTH_INFORMATION, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaCreateTrustedDomainEx(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomaininformation), ::core::mem::transmute(authenticationinformation), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(trusteddomainhandle)).ok()
+    LsaCreateTrustedDomainEx(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomaininformation), ::core::mem::transmute(authenticationinformation), desiredaccess, ::core::mem::transmute(trusteddomainhandle)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaDeleteTrustedDomain<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: Param1) -> ::windows::core::Result<()> {
+pub unsafe fn LsaDeleteTrustedDomain<'a, P0>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaDeleteTrustedDomain(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: super::super::super::Foundation::PSID) -> super::super::super::Foundation::NTSTATUS;
@@ -6345,7 +6426,10 @@ pub unsafe fn LsaDeleteTrustedDomain<'a, Param1: ::std::convert::Into<super::sup
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaDeregisterLogonProcess<'a, Param0: ::std::convert::Into<LsaHandle>>(lsahandle: Param0) -> ::windows::core::Result<()> {
+pub unsafe fn LsaDeregisterLogonProcess<'a, P0>(lsahandle: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<LsaHandle>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaDeregisterLogonProcess(lsahandle: LsaHandle) -> super::super::super::Foundation::NTSTATUS;
@@ -6355,7 +6439,10 @@ pub unsafe fn LsaDeregisterLogonProcess<'a, Param0: ::std::convert::Into<LsaHand
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaEnumerateAccountRights<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>>(policyhandle: *const ::core::ffi::c_void, accountsid: Param1, userrights: *mut *mut super::super::super::Foundation::UNICODE_STRING, countofrights: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaEnumerateAccountRights<'a, P0>(policyhandle: *const ::core::ffi::c_void, accountsid: P0, userrights: &mut *mut super::super::super::Foundation::UNICODE_STRING, countofrights: &mut u32) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaEnumerateAccountRights(policyhandle: *const ::core::ffi::c_void, accountsid: super::super::super::Foundation::PSID, userrights: *mut *mut super::super::super::Foundation::UNICODE_STRING, countofrights: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -6365,7 +6452,7 @@ pub unsafe fn LsaEnumerateAccountRights<'a, Param1: ::std::convert::Into<super::
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaEnumerateAccountsWithUserRight(policyhandle: *const ::core::ffi::c_void, userright: *const super::super::super::Foundation::UNICODE_STRING, buffer: *mut *mut ::core::ffi::c_void, countreturned: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaEnumerateAccountsWithUserRight(policyhandle: *const ::core::ffi::c_void, userright: ::core::option::Option<&super::super::super::Foundation::UNICODE_STRING>, buffer: *mut *mut ::core::ffi::c_void, countreturned: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaEnumerateAccountsWithUserRight(policyhandle: *const ::core::ffi::c_void, userright: *const super::super::super::Foundation::UNICODE_STRING, buffer: *mut *mut ::core::ffi::c_void, countreturned: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -6375,7 +6462,7 @@ pub unsafe fn LsaEnumerateAccountsWithUserRight(policyhandle: *const ::core::ffi
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaEnumerateLogonSessions(logonsessioncount: *mut u32, logonsessionlist: *mut *mut super::super::super::Foundation::LUID) -> ::windows::core::Result<()> {
+pub unsafe fn LsaEnumerateLogonSessions(logonsessioncount: &mut u32, logonsessionlist: &mut *mut super::super::super::Foundation::LUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaEnumerateLogonSessions(logonsessioncount: *mut u32, logonsessionlist: *mut *mut super::super::super::Foundation::LUID) -> super::super::super::Foundation::NTSTATUS;
@@ -6385,22 +6472,22 @@ pub unsafe fn LsaEnumerateLogonSessions(logonsessioncount: *mut u32, logonsessio
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaEnumerateTrustedDomains(policyhandle: *const ::core::ffi::c_void, enumerationcontext: *mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaEnumerateTrustedDomains(policyhandle: *const ::core::ffi::c_void, enumerationcontext: &mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaEnumerateTrustedDomains(policyhandle: *const ::core::ffi::c_void, enumerationcontext: *mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: *mut u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaEnumerateTrustedDomains(::core::mem::transmute(policyhandle), ::core::mem::transmute(enumerationcontext), ::core::mem::transmute(buffer), ::core::mem::transmute(preferedmaximumlength), ::core::mem::transmute(countreturned)).ok()
+    LsaEnumerateTrustedDomains(::core::mem::transmute(policyhandle), ::core::mem::transmute(enumerationcontext), ::core::mem::transmute(buffer), preferedmaximumlength, ::core::mem::transmute(countreturned)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaEnumerateTrustedDomainsEx(policyhandle: *const ::core::ffi::c_void, enumerationcontext: *mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaEnumerateTrustedDomainsEx(policyhandle: *const ::core::ffi::c_void, enumerationcontext: &mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaEnumerateTrustedDomainsEx(policyhandle: *const ::core::ffi::c_void, enumerationcontext: *mut u32, buffer: *mut *mut ::core::ffi::c_void, preferedmaximumlength: u32, countreturned: *mut u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaEnumerateTrustedDomainsEx(::core::mem::transmute(policyhandle), ::core::mem::transmute(enumerationcontext), ::core::mem::transmute(buffer), ::core::mem::transmute(preferedmaximumlength), ::core::mem::transmute(countreturned)).ok()
+    LsaEnumerateTrustedDomainsEx(::core::mem::transmute(policyhandle), ::core::mem::transmute(enumerationcontext), ::core::mem::transmute(buffer), preferedmaximumlength, ::core::mem::transmute(countreturned)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -6425,7 +6512,7 @@ pub unsafe fn LsaFreeReturnBuffer(buffer: *const ::core::ffi::c_void) -> ::windo
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaGetAppliedCAPIDs(systemname: *const super::super::super::Foundation::UNICODE_STRING, capids: *mut *mut super::super::super::Foundation::PSID, capidcount: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaGetAppliedCAPIDs(systemname: ::core::option::Option<&super::super::super::Foundation::UNICODE_STRING>, capids: &mut *mut super::super::super::Foundation::PSID, capidcount: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaGetAppliedCAPIDs(systemname: *const super::super::super::Foundation::UNICODE_STRING, capids: *mut *mut super::super::super::Foundation::PSID, capidcount: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -6435,7 +6522,7 @@ pub unsafe fn LsaGetAppliedCAPIDs(systemname: *const super::super::super::Founda
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaGetLogonSessionData(logonid: *const super::super::super::Foundation::LUID, pplogonsessiondata: *mut *mut SECURITY_LOGON_SESSION_DATA) -> ::windows::core::Result<()> {
+pub unsafe fn LsaGetLogonSessionData(logonid: &super::super::super::Foundation::LUID, pplogonsessiondata: &mut *mut SECURITY_LOGON_SESSION_DATA) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaGetLogonSessionData(logonid: *const super::super::super::Foundation::LUID, pplogonsessiondata: *mut *mut SECURITY_LOGON_SESSION_DATA) -> super::super::super::Foundation::NTSTATUS;
@@ -6477,33 +6564,23 @@ unsafe impl ::windows::core::Abi for LsaHandle {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_System_Kernel\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_System_Kernel"))]
 #[inline]
-pub unsafe fn LsaLogonUser<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>, Param2: ::std::convert::Into<SECURITY_LOGON_TYPE>>(lsahandle: Param0, originname: *const super::super::super::System::Kernel::STRING, logontype: Param2, authenticationpackage: u32, authenticationinformation: *const ::core::ffi::c_void, authenticationinformationlength: u32, localgroups: *const super::super::TOKEN_GROUPS, sourcecontext: *const super::super::TOKEN_SOURCE, profilebuffer: *mut *mut ::core::ffi::c_void, profilebufferlength: *mut u32, logonid: *mut super::super::super::Foundation::LUID, token: *mut super::super::super::Foundation::HANDLE, quotas: *mut super::super::QUOTA_LIMITS, substatus: *mut i32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLogonUser<'a, P0>(lsahandle: P0, originname: &super::super::super::System::Kernel::STRING, logontype: SECURITY_LOGON_TYPE, authenticationpackage: u32, authenticationinformation: &[u8], localgroups: ::core::option::Option<&super::super::TOKEN_GROUPS>, sourcecontext: &super::super::TOKEN_SOURCE, profilebuffer: *mut *mut ::core::ffi::c_void, profilebufferlength: &mut u32, logonid: &mut super::super::super::Foundation::LUID, token: &mut super::super::super::Foundation::HANDLE, quotas: &mut super::super::QUOTA_LIMITS, substatus: &mut i32) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLogonUser(lsahandle: super::super::super::Foundation::HANDLE, originname: *const super::super::super::System::Kernel::STRING, logontype: SECURITY_LOGON_TYPE, authenticationpackage: u32, authenticationinformation: *const ::core::ffi::c_void, authenticationinformationlength: u32, localgroups: *const super::super::TOKEN_GROUPS, sourcecontext: *const super::super::TOKEN_SOURCE, profilebuffer: *mut *mut ::core::ffi::c_void, profilebufferlength: *mut u32, logonid: *mut super::super::super::Foundation::LUID, token: *mut super::super::super::Foundation::HANDLE, quotas: *mut super::super::QUOTA_LIMITS, substatus: *mut i32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaLogonUser(
-        lsahandle.into(),
-        ::core::mem::transmute(originname),
-        logontype.into(),
-        ::core::mem::transmute(authenticationpackage),
-        ::core::mem::transmute(authenticationinformation),
-        ::core::mem::transmute(authenticationinformationlength),
-        ::core::mem::transmute(localgroups),
-        ::core::mem::transmute(sourcecontext),
-        ::core::mem::transmute(profilebuffer),
-        ::core::mem::transmute(profilebufferlength),
-        ::core::mem::transmute(logonid),
-        ::core::mem::transmute(token),
-        ::core::mem::transmute(quotas),
-        ::core::mem::transmute(substatus),
-    )
-    .ok()
+    LsaLogonUser(lsahandle.into(), ::core::mem::transmute(originname), logontype, authenticationpackage, ::core::mem::transmute(authenticationinformation.as_ptr()), authenticationinformation.len() as _, ::core::mem::transmute(localgroups), ::core::mem::transmute(sourcecontext), ::core::mem::transmute(profilebuffer), ::core::mem::transmute(profilebufferlength), ::core::mem::transmute(logonid), ::core::mem::transmute(token), ::core::mem::transmute(quotas), ::core::mem::transmute(substatus)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_System_Kernel\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_System_Kernel"))]
 #[inline]
-pub unsafe fn LsaLookupAuthenticationPackage<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(lsahandle: Param0, packagename: *const super::super::super::System::Kernel::STRING, authenticationpackage: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLookupAuthenticationPackage<'a, P0>(lsahandle: P0, packagename: &super::super::super::System::Kernel::STRING, authenticationpackage: &mut u32) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLookupAuthenticationPackage(lsahandle: super::super::super::Foundation::HANDLE, packagename: *const super::super::super::System::Kernel::STRING, authenticationpackage: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -6513,97 +6590,100 @@ pub unsafe fn LsaLookupAuthenticationPackage<'a, Param0: ::std::convert::Into<su
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaLookupNames(policyhandle: *const ::core::ffi::c_void, count: u32, names: *const super::super::super::Foundation::UNICODE_STRING, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: *mut *mut LSA_TRANSLATED_SID) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLookupNames(policyhandle: *const ::core::ffi::c_void, count: u32, names: &super::super::super::Foundation::UNICODE_STRING, referenceddomains: &mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: &mut *mut LSA_TRANSLATED_SID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLookupNames(policyhandle: *const ::core::ffi::c_void, count: u32, names: *const super::super::super::Foundation::UNICODE_STRING, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: *mut *mut LSA_TRANSLATED_SID) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaLookupNames(::core::mem::transmute(policyhandle), ::core::mem::transmute(count), ::core::mem::transmute(names), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(sids)).ok()
+    LsaLookupNames(::core::mem::transmute(policyhandle), count, ::core::mem::transmute(names), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(sids)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaLookupNames2(policyhandle: *const ::core::ffi::c_void, flags: u32, count: u32, names: *const super::super::super::Foundation::UNICODE_STRING, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: *mut *mut LSA_TRANSLATED_SID2) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLookupNames2(policyhandle: *const ::core::ffi::c_void, flags: u32, count: u32, names: &super::super::super::Foundation::UNICODE_STRING, referenceddomains: &mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: &mut *mut LSA_TRANSLATED_SID2) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLookupNames2(policyhandle: *const ::core::ffi::c_void, flags: u32, count: u32, names: *const super::super::super::Foundation::UNICODE_STRING, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, sids: *mut *mut LSA_TRANSLATED_SID2) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaLookupNames2(::core::mem::transmute(policyhandle), ::core::mem::transmute(flags), ::core::mem::transmute(count), ::core::mem::transmute(names), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(sids)).ok()
+    LsaLookupNames2(::core::mem::transmute(policyhandle), flags, count, ::core::mem::transmute(names), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(sids)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaLookupSids(policyhandle: *const ::core::ffi::c_void, count: u32, sids: *const super::super::super::Foundation::PSID, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, names: *mut *mut LSA_TRANSLATED_NAME) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLookupSids(policyhandle: *const ::core::ffi::c_void, count: u32, sids: &super::super::super::Foundation::PSID, referenceddomains: &mut *mut LSA_REFERENCED_DOMAIN_LIST, names: &mut *mut LSA_TRANSLATED_NAME) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLookupSids(policyhandle: *const ::core::ffi::c_void, count: u32, sids: *const super::super::super::Foundation::PSID, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, names: *mut *mut LSA_TRANSLATED_NAME) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaLookupSids(::core::mem::transmute(policyhandle), ::core::mem::transmute(count), ::core::mem::transmute(sids), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(names)).ok()
+    LsaLookupSids(::core::mem::transmute(policyhandle), count, ::core::mem::transmute(sids), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(names)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaLookupSids2(policyhandle: *const ::core::ffi::c_void, lookupoptions: u32, count: u32, sids: *const super::super::super::Foundation::PSID, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, names: *mut *mut LSA_TRANSLATED_NAME) -> ::windows::core::Result<()> {
+pub unsafe fn LsaLookupSids2(policyhandle: *const ::core::ffi::c_void, lookupoptions: u32, count: u32, sids: &super::super::super::Foundation::PSID, referenceddomains: &mut *mut LSA_REFERENCED_DOMAIN_LIST, names: &mut *mut LSA_TRANSLATED_NAME) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaLookupSids2(policyhandle: *const ::core::ffi::c_void, lookupoptions: u32, count: u32, sids: *const super::super::super::Foundation::PSID, referenceddomains: *mut *mut LSA_REFERENCED_DOMAIN_LIST, names: *mut *mut LSA_TRANSLATED_NAME) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaLookupSids2(::core::mem::transmute(policyhandle), ::core::mem::transmute(lookupoptions), ::core::mem::transmute(count), ::core::mem::transmute(sids), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(names)).ok()
+    LsaLookupSids2(::core::mem::transmute(policyhandle), lookupoptions, count, ::core::mem::transmute(sids), ::core::mem::transmute(referenceddomains), ::core::mem::transmute(names)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaNtStatusToWinError<'a, Param0: ::std::convert::Into<super::super::super::Foundation::NTSTATUS>>(status: Param0) -> u32 {
+pub unsafe fn LsaNtStatusToWinError<'a, P0>(status: P0) -> u32
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::NTSTATUS>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaNtStatusToWinError(status: super::super::super::Foundation::NTSTATUS) -> u32;
     }
-    ::core::mem::transmute(LsaNtStatusToWinError(status.into()))
+    LsaNtStatusToWinError(status.into())
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_System_WindowsProgramming\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_System_WindowsProgramming"))]
 #[inline]
-pub unsafe fn LsaOpenPolicy(systemname: *const super::super::super::Foundation::UNICODE_STRING, objectattributes: *const super::super::super::System::WindowsProgramming::OBJECT_ATTRIBUTES, desiredaccess: u32, policyhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaOpenPolicy(systemname: ::core::option::Option<&super::super::super::Foundation::UNICODE_STRING>, objectattributes: &super::super::super::System::WindowsProgramming::OBJECT_ATTRIBUTES, desiredaccess: u32, policyhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaOpenPolicy(systemname: *const super::super::super::Foundation::UNICODE_STRING, objectattributes: *const super::super::super::System::WindowsProgramming::OBJECT_ATTRIBUTES, desiredaccess: u32, policyhandle: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaOpenPolicy(::core::mem::transmute(systemname), ::core::mem::transmute(objectattributes), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(policyhandle)).ok()
+    LsaOpenPolicy(::core::mem::transmute(systemname), ::core::mem::transmute(objectattributes), desiredaccess, ::core::mem::transmute(policyhandle)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaOpenTrustedDomainByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaOpenTrustedDomainByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: &super::super::super::Foundation::UNICODE_STRING, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaOpenTrustedDomainByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, desiredaccess: u32, trusteddomainhandle: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaOpenTrustedDomainByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(trusteddomainhandle)).ok()
+    LsaOpenTrustedDomainByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), desiredaccess, ::core::mem::transmute(trusteddomainhandle)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryCAPs(capids: &[super::super::super::Foundation::PSID], caps: *mut *mut CENTRAL_ACCESS_POLICY, capcount: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryCAPs(capids: ::core::option::Option<&[super::super::super::Foundation::PSID]>, caps: &mut *mut CENTRAL_ACCESS_POLICY, capcount: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryCAPs(capids: *const super::super::super::Foundation::PSID, capidcount: u32, caps: *mut *mut CENTRAL_ACCESS_POLICY, capcount: *mut u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaQueryCAPs(::core::mem::transmute(::windows::core::as_ptr_or_null(capids)), capids.len() as _, ::core::mem::transmute(caps), ::core::mem::transmute(capcount)).ok()
+    LsaQueryCAPs(::core::mem::transmute(capids.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), capids.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(caps), ::core::mem::transmute(capcount)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryDomainInformationPolicy<'a, Param1: ::std::convert::Into<POLICY_DOMAIN_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, informationclass: Param1, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryDomainInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_DOMAIN_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryDomainInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_DOMAIN_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaQueryDomainInformationPolicy(::core::mem::transmute(policyhandle), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaQueryDomainInformationPolicy(::core::mem::transmute(policyhandle), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryForestTrustInformation(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: *mut *mut LSA_FOREST_TRUST_INFORMATION) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryForestTrustInformation(policyhandle: *const ::core::ffi::c_void, trusteddomainname: &super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: &mut *mut LSA_FOREST_TRUST_INFORMATION) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryForestTrustInformation(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: *mut *mut LSA_FOREST_TRUST_INFORMATION) -> super::super::super::Foundation::NTSTATUS;
@@ -6613,37 +6693,40 @@ pub unsafe fn LsaQueryForestTrustInformation(policyhandle: *const ::core::ffi::c
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryInformationPolicy<'a, Param1: ::std::convert::Into<POLICY_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, informationclass: Param1, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaQueryInformationPolicy(::core::mem::transmute(policyhandle), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaQueryInformationPolicy(::core::mem::transmute(policyhandle), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryTrustedDomainInfo<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>, Param2: ::std::convert::Into<TRUSTED_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: Param1, informationclass: Param2, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryTrustedDomainInfo<'a, P0>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: P0, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryTrustedDomainInfo(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: super::super::super::Foundation::PSID, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaQueryTrustedDomainInfo(::core::mem::transmute(policyhandle), trusteddomainsid.into(), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaQueryTrustedDomainInfo(::core::mem::transmute(policyhandle), trusteddomainsid.into(), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaQueryTrustedDomainInfoByName<'a, Param2: ::std::convert::Into<TRUSTED_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, informationclass: Param2, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaQueryTrustedDomainInfoByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: &super::super::super::Foundation::UNICODE_STRING, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaQueryTrustedDomainInfoByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *mut *mut ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaQueryTrustedDomainInfoByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaQueryTrustedDomainInfoByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`, `\"Win32_System_Kernel\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_System_Kernel"))]
 #[inline]
-pub unsafe fn LsaRegisterLogonProcess(logonprocessname: *const super::super::super::System::Kernel::STRING, lsahandle: *mut LsaHandle, securitymode: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaRegisterLogonProcess(logonprocessname: &super::super::super::System::Kernel::STRING, lsahandle: &mut LsaHandle, securitymode: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaRegisterLogonProcess(logonprocessname: *const super::super::super::System::Kernel::STRING, lsahandle: *mut LsaHandle, securitymode: *mut u32) -> super::super::super::Foundation::NTSTATUS;
@@ -6653,27 +6736,34 @@ pub unsafe fn LsaRegisterLogonProcess(logonprocessname: *const super::super::sup
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaRegisterPolicyChangeNotification<'a, Param0: ::std::convert::Into<POLICY_NOTIFICATION_INFORMATION_CLASS>, Param1: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(informationclass: Param0, notificationeventhandle: Param1) -> ::windows::core::Result<()> {
+pub unsafe fn LsaRegisterPolicyChangeNotification<'a, P0>(informationclass: POLICY_NOTIFICATION_INFORMATION_CLASS, notificationeventhandle: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaRegisterPolicyChangeNotification(informationclass: POLICY_NOTIFICATION_INFORMATION_CLASS, notificationeventhandle: super::super::super::Foundation::HANDLE) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaRegisterPolicyChangeNotification(informationclass.into(), notificationeventhandle.into()).ok()
+    LsaRegisterPolicyChangeNotification(informationclass, notificationeventhandle.into()).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaRemoveAccountRights<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>, Param2: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>>(policyhandle: *const ::core::ffi::c_void, accountsid: Param1, allrights: Param2, userrights: &[super::super::super::Foundation::UNICODE_STRING]) -> ::windows::core::Result<()> {
+pub unsafe fn LsaRemoveAccountRights<'a, P0, P1>(policyhandle: *const ::core::ffi::c_void, accountsid: P0, allrights: P1, userrights: ::core::option::Option<&[super::super::super::Foundation::UNICODE_STRING]>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+    P1: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaRemoveAccountRights(policyhandle: *const ::core::ffi::c_void, accountsid: super::super::super::Foundation::PSID, allrights: super::super::super::Foundation::BOOLEAN, userrights: *const super::super::super::Foundation::UNICODE_STRING, countofrights: u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaRemoveAccountRights(::core::mem::transmute(policyhandle), accountsid.into(), allrights.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(userrights)), userrights.len() as _).ok()
+    LsaRemoveAccountRights(::core::mem::transmute(policyhandle), accountsid.into(), allrights.into(), ::core::mem::transmute(userrights.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), userrights.as_deref().map_or(0, |slice| slice.len() as _)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaRetrievePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: *const super::super::super::Foundation::UNICODE_STRING, privatedata: *mut *mut super::super::super::Foundation::UNICODE_STRING) -> ::windows::core::Result<()> {
+pub unsafe fn LsaRetrievePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: &super::super::super::Foundation::UNICODE_STRING, privatedata: &mut *mut super::super::super::Foundation::UNICODE_STRING) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaRetrievePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: *const super::super::super::Foundation::UNICODE_STRING, privatedata: *mut *mut super::super::super::Foundation::UNICODE_STRING) -> super::super::super::Foundation::NTSTATUS;
@@ -6683,27 +6773,30 @@ pub unsafe fn LsaRetrievePrivateData(policyhandle: *const ::core::ffi::c_void, k
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetCAPs(capdns: &[super::super::super::Foundation::UNICODE_STRING], flags: u32) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetCAPs(capdns: ::core::option::Option<&[super::super::super::Foundation::UNICODE_STRING]>, flags: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetCAPs(capdns: *const super::super::super::Foundation::UNICODE_STRING, capdncount: u32, flags: u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaSetCAPs(::core::mem::transmute(::windows::core::as_ptr_or_null(capdns)), capdns.len() as _, ::core::mem::transmute(flags)).ok()
+    LsaSetCAPs(::core::mem::transmute(capdns.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), capdns.as_deref().map_or(0, |slice| slice.len() as _), flags).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetDomainInformationPolicy<'a, Param1: ::std::convert::Into<POLICY_DOMAIN_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, informationclass: Param1, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetDomainInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_DOMAIN_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetDomainInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_DOMAIN_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaSetDomainInformationPolicy(::core::mem::transmute(policyhandle), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaSetDomainInformationPolicy(::core::mem::transmute(policyhandle), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetForestTrustInformation<'a, Param3: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>>(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: *const LSA_FOREST_TRUST_INFORMATION, checkonly: Param3, collisioninfo: *mut *mut LSA_FOREST_TRUST_COLLISION_INFORMATION) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetForestTrustInformation<'a, P0>(policyhandle: *const ::core::ffi::c_void, trusteddomainname: &super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: &LSA_FOREST_TRUST_INFORMATION, checkonly: P0, collisioninfo: &mut *mut LSA_FOREST_TRUST_COLLISION_INFORMATION) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::BOOLEAN>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetForestTrustInformation(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, foresttrustinfo: *const LSA_FOREST_TRUST_INFORMATION, checkonly: super::super::super::Foundation::BOOLEAN, collisioninfo: *mut *mut LSA_FOREST_TRUST_COLLISION_INFORMATION) -> super::super::super::Foundation::NTSTATUS;
@@ -6713,37 +6806,40 @@ pub unsafe fn LsaSetForestTrustInformation<'a, Param3: ::std::convert::Into<supe
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetInformationPolicy<'a, Param1: ::std::convert::Into<POLICY_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, informationclass: Param1, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetInformationPolicy(policyhandle: *const ::core::ffi::c_void, informationclass: POLICY_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaSetInformationPolicy(::core::mem::transmute(policyhandle), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaSetInformationPolicy(::core::mem::transmute(policyhandle), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetTrustedDomainInfoByName<'a, Param2: ::std::convert::Into<TRUSTED_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, informationclass: Param2, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetTrustedDomainInfoByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: &super::super::super::Foundation::UNICODE_STRING, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetTrustedDomainInfoByName(policyhandle: *const ::core::ffi::c_void, trusteddomainname: *const super::super::super::Foundation::UNICODE_STRING, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaSetTrustedDomainInfoByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaSetTrustedDomainInfoByName(::core::mem::transmute(policyhandle), ::core::mem::transmute(trusteddomainname), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaSetTrustedDomainInformation<'a, Param1: ::std::convert::Into<super::super::super::Foundation::PSID>, Param2: ::std::convert::Into<TRUSTED_INFORMATION_CLASS>>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: Param1, informationclass: Param2, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn LsaSetTrustedDomainInformation<'a, P0>(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: P0, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::PSID>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaSetTrustedDomainInformation(policyhandle: *const ::core::ffi::c_void, trusteddomainsid: super::super::super::Foundation::PSID, informationclass: TRUSTED_INFORMATION_CLASS, buffer: *const ::core::ffi::c_void) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaSetTrustedDomainInformation(::core::mem::transmute(policyhandle), trusteddomainsid.into(), informationclass.into(), ::core::mem::transmute(buffer)).ok()
+    LsaSetTrustedDomainInformation(::core::mem::transmute(policyhandle), trusteddomainsid.into(), informationclass, ::core::mem::transmute(buffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaStorePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: *const super::super::super::Foundation::UNICODE_STRING, privatedata: *const super::super::super::Foundation::UNICODE_STRING) -> ::windows::core::Result<()> {
+pub unsafe fn LsaStorePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: &super::super::super::Foundation::UNICODE_STRING, privatedata: ::core::option::Option<&super::super::super::Foundation::UNICODE_STRING>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaStorePrivateData(policyhandle: *const ::core::ffi::c_void, keyname: *const super::super::super::Foundation::UNICODE_STRING, privatedata: *const super::super::super::Foundation::UNICODE_STRING) -> super::super::super::Foundation::NTSTATUS;
@@ -6753,12 +6849,15 @@ pub unsafe fn LsaStorePrivateData(policyhandle: *const ::core::ffi::c_void, keyn
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LsaUnregisterPolicyChangeNotification<'a, Param0: ::std::convert::Into<POLICY_NOTIFICATION_INFORMATION_CLASS>, Param1: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(informationclass: Param0, notificationeventhandle: Param1) -> ::windows::core::Result<()> {
+pub unsafe fn LsaUnregisterPolicyChangeNotification<'a, P0>(informationclass: POLICY_NOTIFICATION_INFORMATION_CLASS, notificationeventhandle: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LsaUnregisterPolicyChangeNotification(informationclass: POLICY_NOTIFICATION_INFORMATION_CLASS, notificationeventhandle: super::super::super::Foundation::HANDLE) -> super::super::super::Foundation::NTSTATUS;
     }
-    LsaUnregisterPolicyChangeNotification(informationclass.into(), notificationeventhandle.into()).ok()
+    LsaUnregisterPolicyChangeNotification(informationclass, notificationeventhandle.into()).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
@@ -8138,12 +8237,12 @@ impl ::core::ops::Not for MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn MakeSignature(phcontext: *const super::super::Credentials::SecHandle, fqop: u32, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<()> {
+pub unsafe fn MakeSignature(phcontext: &super::super::Credentials::SecHandle, fqop: u32, pmessage: &SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn MakeSignature(phcontext: *const super::super::Credentials::SecHandle, fqop: u32, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::HRESULT;
     }
-    MakeSignature(::core::mem::transmute(phcontext), ::core::mem::transmute(fqop), ::core::mem::transmute(pmessage), ::core::mem::transmute(messageseqno)).ok()
+    MakeSignature(::core::mem::transmute(phcontext), fqop, ::core::mem::transmute(pmessage), messageseqno).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const NEGOSSP_NAME: &str = "Negotiate";
@@ -10082,87 +10181,87 @@ pub type QUERY_SECURITY_PACKAGE_INFO_FN_W = ::core::option::Option<unsafe extern
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryContextAttributesA<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn QueryContextAttributesA(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryContextAttributesA(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    QueryContextAttributesA(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer)).ok()
+    QueryContextAttributesA(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryContextAttributesExA<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn QueryContextAttributesExA(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: &mut [u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryContextAttributesExA(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    QueryContextAttributesExA(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    QueryContextAttributesExA(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryContextAttributesExW<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn QueryContextAttributesExW(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: &mut [u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryContextAttributesExW(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    QueryContextAttributesExW(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    QueryContextAttributesExW(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryContextAttributesW<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn QueryContextAttributesW(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryContextAttributesW(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    QueryContextAttributesW(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer)).ok()
+    QueryContextAttributesW(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryCredentialsAttributesA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn QueryCredentialsAttributesA(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryCredentialsAttributesA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    QueryCredentialsAttributesA(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer)).ok()
+    QueryCredentialsAttributesA(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryCredentialsAttributesExA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn QueryCredentialsAttributesExA(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: &mut [u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryCredentialsAttributesExA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    QueryCredentialsAttributesExA(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    QueryCredentialsAttributesExA(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryCredentialsAttributesExW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn QueryCredentialsAttributesExW(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: &mut [u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryCredentialsAttributesExW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    QueryCredentialsAttributesExW(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    QueryCredentialsAttributesExW(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QueryCredentialsAttributesW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn QueryCredentialsAttributesW(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QueryCredentialsAttributesW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    QueryCredentialsAttributesW(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer)).ok()
+    QueryCredentialsAttributesW(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn QuerySecurityContextToken(phcontext: *const super::super::Credentials::SecHandle, token: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn QuerySecurityContextToken(phcontext: &super::super::Credentials::SecHandle, token: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QuerySecurityContextToken(phcontext: *const super::super::Credentials::SecHandle, token: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
@@ -10171,22 +10270,28 @@ pub unsafe fn QuerySecurityContextToken(phcontext: *const super::super::Credenti
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn QuerySecurityPackageInfoA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(pszpackagename: Param0) -> ::windows::core::Result<*mut SecPkgInfoA> {
+pub unsafe fn QuerySecurityPackageInfoA<'a, P0>(pszpackagename: P0) -> ::windows::core::Result<*mut SecPkgInfoA>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QuerySecurityPackageInfoA(pszpackagename: ::windows::core::PCSTR, pppackageinfo: *mut *mut SecPkgInfoA) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoA>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     QuerySecurityPackageInfoA(pszpackagename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoA>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn QuerySecurityPackageInfoW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pszpackagename: Param0) -> ::windows::core::Result<*mut SecPkgInfoW> {
+pub unsafe fn QuerySecurityPackageInfoW<'a, P0>(pszpackagename: P0) -> ::windows::core::Result<*mut SecPkgInfoW>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn QuerySecurityPackageInfoW(pszpackagename: ::windows::core::PCWSTR, pppackageinfo: *mut *mut SecPkgInfoW) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoW>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     QuerySecurityPackageInfoW(pszpackagename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoW>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
@@ -10209,7 +10314,7 @@ pub const RTL_ENCRYPT_OPTION_SAME_LOGON: u32 = 2u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn RevertSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
+pub unsafe fn RevertSecurityContext(phcontext: &super::super::Credentials::SecHandle) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RevertSecurityContext(phcontext: *const super::super::Credentials::SecHandle) -> ::windows::core::HRESULT;
@@ -14751,7 +14856,12 @@ pub const SE_REMOTE_INTERACTIVE_LOGON_NAME: &str = "SeRemoteInteractiveLogonRigh
 pub const SE_SERVICE_LOGON_NAME: &str = "SeServiceLogonRight";
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLAcquireGenuineTicket<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>, Param4: ::std::convert::Into<::windows::core::PCWSTR>>(ppticketblob: *mut *mut ::core::ffi::c_void, pcbticketblob: *mut u32, pwsztemplateid: Param2, pwszserverurl: Param3, pwszclienttoken: Param4) -> ::windows::core::Result<()> {
+pub unsafe fn SLAcquireGenuineTicket<'a, P0, P1, P2>(ppticketblob: *mut *mut ::core::ffi::c_void, pcbticketblob: &mut u32, pwsztemplateid: P0, pwszserverurl: P1, pwszclienttoken: P2) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLAcquireGenuineTicket(ppticketblob: *mut *mut ::core::ffi::c_void, pcbticketblob: *mut u32, pwsztemplateid: ::windows::core::PCWSTR, pwszserverurl: ::windows::core::PCWSTR, pwszclienttoken: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -14760,12 +14870,15 @@ pub unsafe fn SLAcquireGenuineTicket<'a, Param2: ::std::convert::Into<::windows:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLActivateProduct<'a, Param5: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, cbappspecificdata: u32, pvappspecificdata: *const ::core::ffi::c_void, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER, pwszproxyserver: Param5, wproxyport: u16) -> ::windows::core::Result<()> {
+pub unsafe fn SLActivateProduct<'a, P0>(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID, cbappspecificdata: u32, pvappspecificdata: *const ::core::ffi::c_void, pactivationinfo: ::core::option::Option<&SL_ACTIVATION_INFO_HEADER>, pwszproxyserver: P0, wproxyport: u16) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLActivateProduct(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, cbappspecificdata: u32, pvappspecificdata: *const ::core::ffi::c_void, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER, pwszproxyserver: ::windows::core::PCWSTR, wproxyport: u16) -> ::windows::core::HRESULT;
     }
-    SLActivateProduct(::core::mem::transmute(hslc), ::core::mem::transmute(pproductskuid), ::core::mem::transmute(cbappspecificdata), ::core::mem::transmute(pvappspecificdata), ::core::mem::transmute(pactivationinfo), pwszproxyserver.into(), ::core::mem::transmute(wproxyport)).ok()
+    SLActivateProduct(::core::mem::transmute(hslc), ::core::mem::transmute(pproductskuid), cbappspecificdata, ::core::mem::transmute(pvappspecificdata), ::core::mem::transmute(pactivationinfo), pwszproxyserver.into(), wproxyport).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
@@ -14778,7 +14891,10 @@ pub unsafe fn SLClose(hslc: *const ::core::ffi::c_void) -> ::windows::core::Resu
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLConsumeRight<'a, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pappid: *const ::windows::core::GUID, pproductskuid: *const ::windows::core::GUID, pwszrightname: Param3, pvreserved: *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn SLConsumeRight<'a, P0>(hslc: *const ::core::ffi::c_void, pappid: &::windows::core::GUID, pproductskuid: ::core::option::Option<&::windows::core::GUID>, pwszrightname: P0, pvreserved: *mut ::core::ffi::c_void) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLConsumeRight(hslc: *const ::core::ffi::c_void, pappid: *const ::windows::core::GUID, pproductskuid: *const ::windows::core::GUID, pwszrightname: ::windows::core::PCWSTR, pvreserved: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
@@ -14822,7 +14938,11 @@ impl ::core::fmt::Debug for SLDATATYPE {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLDepositOfflineConfirmationId<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pwszinstallationid: Param2, pwszconfirmationid: Param3) -> ::windows::core::Result<()> {
+pub unsafe fn SLDepositOfflineConfirmationId<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID, pwszinstallationid: P0, pwszconfirmationid: P1) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLDepositOfflineConfirmationId(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pwszinstallationid: ::windows::core::PCWSTR, pwszconfirmationid: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -14831,7 +14951,11 @@ pub unsafe fn SLDepositOfflineConfirmationId<'a, Param2: ::std::convert::Into<::
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLDepositOfflineConfirmationIdEx<'a, Param3: ::std::convert::Into<::windows::core::PCWSTR>, Param4: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER, pwszinstallationid: Param3, pwszconfirmationid: Param4) -> ::windows::core::Result<()> {
+pub unsafe fn SLDepositOfflineConfirmationIdEx<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pproductskuid: ::core::option::Option<&::windows::core::GUID>, pactivationinfo: ::core::option::Option<&SL_ACTIVATION_INFO_HEADER>, pwszinstallationid: P0, pwszconfirmationid: P1) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLDepositOfflineConfirmationIdEx(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER, pwszinstallationid: ::windows::core::PCWSTR, pwszconfirmationid: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -14840,7 +14964,10 @@ pub unsafe fn SLDepositOfflineConfirmationIdEx<'a, Param3: ::std::convert::Into<
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLFireEvent<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszeventid: Param1, papplicationid: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLFireEvent<'a, P0>(hslc: *const ::core::ffi::c_void, pwszeventid: P0, papplicationid: &::windows::core::GUID) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLFireEvent(hslc: *const ::core::ffi::c_void, pwszeventid: ::windows::core::PCWSTR, papplicationid: *const ::windows::core::GUID) -> ::windows::core::HRESULT;
@@ -14849,27 +14976,30 @@ pub unsafe fn SLFireEvent<'a, Param1: ::std::convert::Into<::windows::core::PCWS
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGenerateOfflineInstallationId(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID) -> ::windows::core::Result<::windows::core::PWSTR> {
+pub unsafe fn SLGenerateOfflineInstallationId(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID) -> ::windows::core::Result<::windows::core::PWSTR> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGenerateOfflineInstallationId(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, ppwszinstallationid: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::PWSTR>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SLGenerateOfflineInstallationId(::core::mem::transmute(hslc), ::core::mem::transmute(pproductskuid), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::PWSTR>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGenerateOfflineInstallationIdEx(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER) -> ::windows::core::Result<::windows::core::PWSTR> {
+pub unsafe fn SLGenerateOfflineInstallationIdEx(hslc: *const ::core::ffi::c_void, pproductskuid: ::core::option::Option<&::windows::core::GUID>, pactivationinfo: ::core::option::Option<&SL_ACTIVATION_INFO_HEADER>) -> ::windows::core::Result<::windows::core::PWSTR> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGenerateOfflineInstallationIdEx(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pactivationinfo: *const SL_ACTIVATION_INFO_HEADER, ppwszinstallationid: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::PWSTR>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SLGenerateOfflineInstallationIdEx(::core::mem::transmute(hslc), ::core::mem::transmute(pproductskuid), ::core::mem::transmute(pactivationinfo), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::PWSTR>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetApplicationInformation<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, papplicationid: *const ::windows::core::GUID, pwszvaluename: Param2, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetApplicationInformation<'a, P0>(hslc: *const ::core::ffi::c_void, papplicationid: &::windows::core::GUID, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetApplicationInformation(hslc: *const ::core::ffi::c_void, papplicationid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14878,7 +15008,10 @@ pub unsafe fn SLGetApplicationInformation<'a, Param2: ::std::convert::Into<::win
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetGenuineInformation<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(pqueryid: *const ::windows::core::GUID, pwszvaluename: Param1, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetGenuineInformation<'a, P0>(pqueryid: &::windows::core::GUID, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetGenuineInformation(pqueryid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14887,7 +15020,7 @@ pub unsafe fn SLGetGenuineInformation<'a, Param1: ::std::convert::Into<::windows
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetInstalledProductKeyIds(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pnproductkeyids: *mut u32, ppproductkeyids: *mut *mut ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetInstalledProductKeyIds(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID, pnproductkeyids: &mut u32, ppproductkeyids: &mut *mut ::windows::core::GUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetInstalledProductKeyIds(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pnproductkeyids: *mut u32, ppproductkeyids: *mut *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
@@ -14896,7 +15029,7 @@ pub unsafe fn SLGetInstalledProductKeyIds(hslc: *const ::core::ffi::c_void, ppro
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetLicense(hslc: *const ::core::ffi::c_void, plicensefileid: *const ::windows::core::GUID, pcblicensefile: *mut u32, ppblicensefile: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetLicense(hslc: *const ::core::ffi::c_void, plicensefileid: &::windows::core::GUID, pcblicensefile: &mut u32, ppblicensefile: &mut *mut u8) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetLicense(hslc: *const ::core::ffi::c_void, plicensefileid: *const ::windows::core::GUID, pcblicensefile: *mut u32, ppblicensefile: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14905,17 +15038,20 @@ pub unsafe fn SLGetLicense(hslc: *const ::core::ffi::c_void, plicensefileid: *co
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetLicenseFileId(hslc: *const ::core::ffi::c_void, cblicenseblob: u32, pblicenseblob: *const u8) -> ::windows::core::Result<::windows::core::GUID> {
+pub unsafe fn SLGetLicenseFileId(hslc: *const ::core::ffi::c_void, pblicenseblob: &[u8]) -> ::windows::core::Result<::windows::core::GUID> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetLicenseFileId(hslc: *const ::core::ffi::c_void, cblicenseblob: u32, pblicenseblob: *const u8, plicensefileid: *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::GUID>::zeroed();
-    SLGetLicenseFileId(::core::mem::transmute(hslc), ::core::mem::transmute(cblicenseblob), ::core::mem::transmute(pblicenseblob), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLGetLicenseFileId(::core::mem::transmute(hslc), pblicenseblob.len() as _, ::core::mem::transmute(pblicenseblob.as_ptr()), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetLicenseInformation<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, psllicenseid: *const ::windows::core::GUID, pwszvaluename: Param2, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetLicenseInformation<'a, P0>(hslc: *const ::core::ffi::c_void, psllicenseid: &::windows::core::GUID, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetLicenseInformation(hslc: *const ::core::ffi::c_void, psllicenseid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14924,7 +15060,10 @@ pub unsafe fn SLGetLicenseInformation<'a, Param2: ::std::convert::Into<::windows
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetLicensingStatusInformation<'a, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pappid: *const ::windows::core::GUID, pproductskuid: *const ::windows::core::GUID, pwszrightname: Param3, pnstatuscount: *mut u32, pplicensingstatus: *mut *mut SL_LICENSING_STATUS) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetLicensingStatusInformation<'a, P0>(hslc: *const ::core::ffi::c_void, pappid: ::core::option::Option<&::windows::core::GUID>, pproductskuid: ::core::option::Option<&::windows::core::GUID>, pwszrightname: P0, pnstatuscount: &mut u32, pplicensingstatus: &mut *mut SL_LICENSING_STATUS) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetLicensingStatusInformation(hslc: *const ::core::ffi::c_void, pappid: *const ::windows::core::GUID, pproductskuid: *const ::windows::core::GUID, pwszrightname: ::windows::core::PCWSTR, pnstatuscount: *mut u32, pplicensingstatus: *mut *mut SL_LICENSING_STATUS) -> ::windows::core::HRESULT;
@@ -14933,17 +15072,24 @@ pub unsafe fn SLGetLicensingStatusInformation<'a, Param3: ::std::convert::Into<:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetPKeyId<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: Param1, pwszpkeystring: Param2, cbpkeyspecificdata: u32, pbpkeyspecificdata: *const u8) -> ::windows::core::Result<::windows::core::GUID> {
+pub unsafe fn SLGetPKeyId<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: P0, pwszpkeystring: P1, pbpkeyspecificdata: ::core::option::Option<&[u8]>) -> ::windows::core::Result<::windows::core::GUID>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetPKeyId(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: ::windows::core::PCWSTR, pwszpkeystring: ::windows::core::PCWSTR, cbpkeyspecificdata: u32, pbpkeyspecificdata: *const u8, ppkeyid: *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::GUID>::zeroed();
-    SLGetPKeyId(::core::mem::transmute(hslc), pwszpkeyalgorithm.into(), pwszpkeystring.into(), ::core::mem::transmute(cbpkeyspecificdata), ::core::mem::transmute(pbpkeyspecificdata), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLGetPKeyId(::core::mem::transmute(hslc), pwszpkeyalgorithm.into(), pwszpkeystring.into(), pbpkeyspecificdata.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pbpkeyspecificdata.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetPKeyInformation<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, ppkeyid: *const ::windows::core::GUID, pwszvaluename: Param2, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetPKeyInformation<'a, P0>(hslc: *const ::core::ffi::c_void, ppkeyid: &::windows::core::GUID, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetPKeyInformation(hslc: *const ::core::ffi::c_void, ppkeyid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14952,7 +15098,10 @@ pub unsafe fn SLGetPKeyInformation<'a, Param2: ::std::convert::Into<::windows::c
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetPolicyInformation<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszvaluename: Param1, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetPolicyInformation<'a, P0>(hslc: *const ::core::ffi::c_void, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetPolicyInformation(hslc: *const ::core::ffi::c_void, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14961,17 +15110,23 @@ pub unsafe fn SLGetPolicyInformation<'a, Param1: ::std::convert::Into<::windows:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetPolicyInformationDWORD<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszvaluename: Param1) -> ::windows::core::Result<u32> {
+pub unsafe fn SLGetPolicyInformationDWORD<'a, P0>(hslc: *const ::core::ffi::c_void, pwszvaluename: P0) -> ::windows::core::Result<u32>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetPolicyInformationDWORD(hslc: *const ::core::ffi::c_void, pwszvaluename: ::windows::core::PCWSTR, pdwvalue: *mut u32) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SLGetPolicyInformationDWORD(::core::mem::transmute(hslc), pwszvaluename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetProductSkuInformation<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pwszvaluename: Param2, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetProductSkuInformation<'a, P0>(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetProductSkuInformation(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -14980,36 +15135,47 @@ pub unsafe fn SLGetProductSkuInformation<'a, Param2: ::std::convert::Into<::wind
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetReferralInformation<'a, Param1: ::std::convert::Into<SLREFERRALTYPE>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, ereferraltype: Param1, pskuorappid: *const ::windows::core::GUID, pwszvaluename: Param3) -> ::windows::core::Result<::windows::core::PWSTR> {
+pub unsafe fn SLGetReferralInformation<'a, P0>(hslc: *const ::core::ffi::c_void, ereferraltype: SLREFERRALTYPE, pskuorappid: &::windows::core::GUID, pwszvaluename: P0) -> ::windows::core::Result<::windows::core::PWSTR>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetReferralInformation(hslc: *const ::core::ffi::c_void, ereferraltype: SLREFERRALTYPE, pskuorappid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, ppwszvalue: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::PWSTR>::zeroed();
-    SLGetReferralInformation(::core::mem::transmute(hslc), ereferraltype.into(), ::core::mem::transmute(pskuorappid), pwszvaluename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::PWSTR>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLGetReferralInformation(::core::mem::transmute(hslc), ereferraltype, ::core::mem::transmute(pskuorappid), pwszvaluename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::PWSTR>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetSLIDList<'a, Param1: ::std::convert::Into<SLIDTYPE>, Param3: ::std::convert::Into<SLIDTYPE>>(hslc: *const ::core::ffi::c_void, equeryidtype: Param1, pqueryid: *const ::windows::core::GUID, ereturnidtype: Param3, pnreturnids: *mut u32, ppreturnids: *mut *mut ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetSLIDList(hslc: *const ::core::ffi::c_void, equeryidtype: SLIDTYPE, pqueryid: ::core::option::Option<&::windows::core::GUID>, ereturnidtype: SLIDTYPE, pnreturnids: &mut u32, ppreturnids: &mut *mut ::windows::core::GUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetSLIDList(hslc: *const ::core::ffi::c_void, equeryidtype: SLIDTYPE, pqueryid: *const ::windows::core::GUID, ereturnidtype: SLIDTYPE, pnreturnids: *mut u32, ppreturnids: *mut *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
     }
-    SLGetSLIDList(::core::mem::transmute(hslc), equeryidtype.into(), ::core::mem::transmute(pqueryid), ereturnidtype.into(), ::core::mem::transmute(pnreturnids), ::core::mem::transmute(ppreturnids)).ok()
+    SLGetSLIDList(::core::mem::transmute(hslc), equeryidtype, ::core::mem::transmute(pqueryid), ereturnidtype, ::core::mem::transmute(pnreturnids), ::core::mem::transmute(ppreturnids)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetServerStatus<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(pwszserverurl: Param0, pwszacquisitiontype: Param1, pwszproxyserver: Param2, wproxyport: u16) -> ::windows::core::Result<::windows::core::HRESULT> {
+pub unsafe fn SLGetServerStatus<'a, P0, P1, P2>(pwszserverurl: P0, pwszacquisitiontype: P1, pwszproxyserver: P2, wproxyport: u16) -> ::windows::core::Result<::windows::core::HRESULT>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetServerStatus(pwszserverurl: ::windows::core::PCWSTR, pwszacquisitiontype: ::windows::core::PCWSTR, pwszproxyserver: ::windows::core::PCWSTR, wproxyport: u16, phrstatus: *mut ::windows::core::HRESULT) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::HRESULT>::zeroed();
-    SLGetServerStatus(pwszserverurl.into(), pwszacquisitiontype.into(), pwszproxyserver.into(), ::core::mem::transmute(wproxyport), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::HRESULT>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLGetServerStatus(pwszserverurl.into(), pwszacquisitiontype.into(), pwszproxyserver.into(), wproxyport, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::HRESULT>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetServiceInformation<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszvaluename: Param1, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetServiceInformation<'a, P0>(hslc: *const ::core::ffi::c_void, pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetServiceInformation(hslc: *const ::core::ffi::c_void, pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -15018,7 +15184,10 @@ pub unsafe fn SLGetServiceInformation<'a, Param1: ::std::convert::Into<::windows
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetWindowsInformation<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pwszvaluename: Param0, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLGetWindowsInformation<'a, P0>(pwszvaluename: P0, pedatatype: ::core::option::Option<&mut SLDATATYPE>, pcbvalue: &mut u32, ppbvalue: &mut *mut u8) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetWindowsInformation(pwszvaluename: ::windows::core::PCWSTR, pedatatype: *mut SLDATATYPE, pcbvalue: *mut u32, ppbvalue: *mut *mut u8) -> ::windows::core::HRESULT;
@@ -15027,12 +15196,15 @@ pub unsafe fn SLGetWindowsInformation<'a, Param0: ::std::convert::Into<::windows
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLGetWindowsInformationDWORD<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pwszvaluename: Param0) -> ::windows::core::Result<u32> {
+pub unsafe fn SLGetWindowsInformationDWORD<'a, P0>(pwszvaluename: P0) -> ::windows::core::Result<u32>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLGetWindowsInformationDWORD(pwszvaluename: ::windows::core::PCWSTR, pdwvalue: *mut u32) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SLGetWindowsInformationDWORD(pwszvaluename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
@@ -15078,27 +15250,31 @@ impl ::core::fmt::Debug for SLIDTYPE {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLInstallLicense(hslc: *const ::core::ffi::c_void, cblicenseblob: u32, pblicenseblob: *const u8) -> ::windows::core::Result<::windows::core::GUID> {
+pub unsafe fn SLInstallLicense(hslc: *const ::core::ffi::c_void, pblicenseblob: &[u8]) -> ::windows::core::Result<::windows::core::GUID> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLInstallLicense(hslc: *const ::core::ffi::c_void, cblicenseblob: u32, pblicenseblob: *const u8, plicensefileid: *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::GUID>::zeroed();
-    SLInstallLicense(::core::mem::transmute(hslc), ::core::mem::transmute(cblicenseblob), ::core::mem::transmute(pblicenseblob), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLInstallLicense(::core::mem::transmute(hslc), pblicenseblob.len() as _, ::core::mem::transmute(pblicenseblob.as_ptr()), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLInstallProofOfPurchase<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: Param1, pwszpkeystring: Param2, cbpkeyspecificdata: u32, pbpkeyspecificdata: *const u8) -> ::windows::core::Result<::windows::core::GUID> {
+pub unsafe fn SLInstallProofOfPurchase<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: P0, pwszpkeystring: P1, pbpkeyspecificdata: ::core::option::Option<&[u8]>) -> ::windows::core::Result<::windows::core::GUID>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLInstallProofOfPurchase(hslc: *const ::core::ffi::c_void, pwszpkeyalgorithm: ::windows::core::PCWSTR, pwszpkeystring: ::windows::core::PCWSTR, cbpkeyspecificdata: u32, pbpkeyspecificdata: *const u8, ppkeyid: *mut ::windows::core::GUID) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::GUID>::zeroed();
-    SLInstallProofOfPurchase(::core::mem::transmute(hslc), pwszpkeyalgorithm.into(), pwszpkeystring.into(), ::core::mem::transmute(cbpkeyspecificdata), ::core::mem::transmute(pbpkeyspecificdata), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    SLInstallProofOfPurchase(::core::mem::transmute(hslc), pwszpkeyalgorithm.into(), pwszpkeystring.into(), pbpkeyspecificdata.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pbpkeyspecificdata.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLIsGenuineLocal(pappid: *const ::windows::core::GUID, pgenuinestate: *mut SL_GENUINE_STATE, puioptions: *mut SL_NONGENUINE_UI_OPTIONS) -> ::windows::core::Result<()> {
+pub unsafe fn SLIsGenuineLocal(pappid: &::windows::core::GUID, pgenuinestate: &mut SL_GENUINE_STATE, puioptions: ::core::option::Option<&mut SL_NONGENUINE_UI_OPTIONS>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLIsGenuineLocal(pappid: *const ::windows::core::GUID, pgenuinestate: *mut SL_GENUINE_STATE, puioptions: *mut SL_NONGENUINE_UI_OPTIONS) -> ::windows::core::HRESULT;
@@ -15149,12 +15325,15 @@ pub unsafe fn SLOpen(phslc: *mut *mut ::core::ffi::c_void) -> ::windows::core::R
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLQueryLicenseValueFromApp<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(valuename: Param0, valuetype: *mut u32, databuffer: *mut ::core::ffi::c_void, datasize: u32, resultdatasize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn SLQueryLicenseValueFromApp<'a, P0>(valuename: P0, valuetype: ::core::option::Option<&mut u32>, databuffer: ::core::option::Option<&mut [u8]>, resultdatasize: &mut u32) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLQueryLicenseValueFromApp(valuename: ::windows::core::PCWSTR, valuetype: *mut u32, databuffer: *mut ::core::ffi::c_void, datasize: u32, resultdatasize: *mut u32) -> ::windows::core::HRESULT;
     }
-    SLQueryLicenseValueFromApp(valuename.into(), ::core::mem::transmute(valuetype), ::core::mem::transmute(databuffer), ::core::mem::transmute(datasize), ::core::mem::transmute(resultdatasize)).ok()
+    SLQueryLicenseValueFromApp(valuename.into(), ::core::mem::transmute(valuetype), ::core::mem::transmute(databuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), databuffer.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(resultdatasize)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[repr(transparent)]
@@ -15192,7 +15371,11 @@ impl ::core::fmt::Debug for SLREFERRALTYPE {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SLRegisterEvent<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hslc: *const ::core::ffi::c_void, pwszeventid: Param1, papplicationid: *const ::windows::core::GUID, hevent: Param3) -> ::windows::core::Result<()> {
+pub unsafe fn SLRegisterEvent<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pwszeventid: P0, papplicationid: &::windows::core::GUID, hevent: P1) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLRegisterEvent(hslc: *const ::core::ffi::c_void, pwszeventid: ::windows::core::PCWSTR, papplicationid: *const ::windows::core::GUID, hevent: super::super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
@@ -15201,7 +15384,7 @@ pub unsafe fn SLRegisterEvent<'a, Param1: ::std::convert::Into<::windows::core::
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLSetCurrentProductKey(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pproductkeyid: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLSetCurrentProductKey(hslc: *const ::core::ffi::c_void, pproductskuid: &::windows::core::GUID, pproductkeyid: &::windows::core::GUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLSetCurrentProductKey(hslc: *const ::core::ffi::c_void, pproductskuid: *const ::windows::core::GUID, pproductkeyid: *const ::windows::core::GUID) -> ::windows::core::HRESULT;
@@ -15210,16 +15393,19 @@ pub unsafe fn SLSetCurrentProductKey(hslc: *const ::core::ffi::c_void, pproducts
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLSetGenuineInformation<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<SLDATATYPE>>(pqueryid: *const ::windows::core::GUID, pwszvaluename: Param1, edatatype: Param2, cbvalue: u32, pbvalue: *const u8) -> ::windows::core::Result<()> {
+pub unsafe fn SLSetGenuineInformation<'a, P0>(pqueryid: &::windows::core::GUID, pwszvaluename: P0, edatatype: SLDATATYPE, pbvalue: ::core::option::Option<&[u8]>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLSetGenuineInformation(pqueryid: *const ::windows::core::GUID, pwszvaluename: ::windows::core::PCWSTR, edatatype: SLDATATYPE, cbvalue: u32, pbvalue: *const u8) -> ::windows::core::HRESULT;
     }
-    SLSetGenuineInformation(::core::mem::transmute(pqueryid), pwszvaluename.into(), edatatype.into(), ::core::mem::transmute(cbvalue), ::core::mem::transmute(pbvalue)).ok()
+    SLSetGenuineInformation(::core::mem::transmute(pqueryid), pwszvaluename.into(), edatatype, pbvalue.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pbvalue.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr()))).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLUninstallLicense(hslc: *const ::core::ffi::c_void, plicensefileid: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLUninstallLicense(hslc: *const ::core::ffi::c_void, plicensefileid: &::windows::core::GUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLUninstallLicense(hslc: *const ::core::ffi::c_void, plicensefileid: *const ::windows::core::GUID) -> ::windows::core::HRESULT;
@@ -15228,7 +15414,7 @@ pub unsafe fn SLUninstallLicense(hslc: *const ::core::ffi::c_void, plicensefilei
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SLUninstallProofOfPurchase(hslc: *const ::core::ffi::c_void, ppkeyid: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+pub unsafe fn SLUninstallProofOfPurchase(hslc: *const ::core::ffi::c_void, ppkeyid: &::windows::core::GUID) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLUninstallProofOfPurchase(hslc: *const ::core::ffi::c_void, ppkeyid: *const ::windows::core::GUID) -> ::windows::core::HRESULT;
@@ -15238,7 +15424,11 @@ pub unsafe fn SLUninstallProofOfPurchase(hslc: *const ::core::ffi::c_void, ppkey
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SLUnregisterEvent<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hslc: *const ::core::ffi::c_void, pwszeventid: Param1, papplicationid: *const ::windows::core::GUID, hevent: Param3) -> ::windows::core::Result<()> {
+pub unsafe fn SLUnregisterEvent<'a, P0, P1>(hslc: *const ::core::ffi::c_void, pwszeventid: P0, papplicationid: &::windows::core::GUID, hevent: P1) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SLUnregisterEvent(hslc: *const ::core::ffi::c_void, pwszeventid: ::windows::core::PCWSTR, papplicationid: *const ::windows::core::GUID, hevent: super::super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
@@ -16608,16 +16798,16 @@ pub const SZ_ALG_MAX_SIZE: u32 = 64u32;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SaslAcceptSecurityContext(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc, fcontextreq: u32, targetdatarep: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn SaslAcceptSecurityContext(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, pinput: ::core::option::Option<&SecBufferDesc>, fcontextreq: u32, targetdatarep: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslAcceptSecurityContext(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, pinput: *const SecBufferDesc, fcontextreq: u32, targetdatarep: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    SaslAcceptSecurityContext(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(pinput), ::core::mem::transmute(fcontextreq), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    SaslAcceptSecurityContext(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), ::core::mem::transmute(pinput), fcontextreq, targetdatarep, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslEnumerateProfilesA(profilelist: *mut ::windows::core::PSTR, profilecount: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn SaslEnumerateProfilesA(profilelist: &mut ::windows::core::PSTR, profilecount: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslEnumerateProfilesA(profilelist: *mut ::windows::core::PSTR, profilecount: *mut u32) -> ::windows::core::HRESULT;
@@ -16626,7 +16816,7 @@ pub unsafe fn SaslEnumerateProfilesA(profilelist: *mut ::windows::core::PSTR, pr
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslEnumerateProfilesW(profilelist: *mut ::windows::core::PWSTR, profilecount: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn SaslEnumerateProfilesW(profilelist: &mut ::windows::core::PWSTR, profilecount: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslEnumerateProfilesW(profilelist: *mut ::windows::core::PWSTR, profilecount: *mut u32) -> ::windows::core::HRESULT;
@@ -16636,82 +16826,94 @@ pub unsafe fn SaslEnumerateProfilesW(profilelist: *mut ::windows::core::PWSTR, p
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SaslGetContextOption(contexthandle: *const super::super::Credentials::SecHandle, option: u32, value: *mut ::core::ffi::c_void, size: u32, needed: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn SaslGetContextOption(contexthandle: &super::super::Credentials::SecHandle, option: u32, value: *mut ::core::ffi::c_void, size: u32, needed: ::core::option::Option<&mut u32>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslGetContextOption(contexthandle: *const super::super::Credentials::SecHandle, option: u32, value: *mut ::core::ffi::c_void, size: u32, needed: *mut u32) -> ::windows::core::HRESULT;
     }
-    SaslGetContextOption(::core::mem::transmute(contexthandle), ::core::mem::transmute(option), ::core::mem::transmute(value), ::core::mem::transmute(size), ::core::mem::transmute(needed)).ok()
+    SaslGetContextOption(::core::mem::transmute(contexthandle), option, ::core::mem::transmute(value), size, ::core::mem::transmute(needed)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslGetProfilePackageA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(profilename: Param0) -> ::windows::core::Result<*mut SecPkgInfoA> {
+pub unsafe fn SaslGetProfilePackageA<'a, P0>(profilename: P0) -> ::windows::core::Result<*mut SecPkgInfoA>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslGetProfilePackageA(profilename: ::windows::core::PCSTR, packageinfo: *mut *mut SecPkgInfoA) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoA>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SaslGetProfilePackageA(profilename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoA>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslGetProfilePackageW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(profilename: Param0) -> ::windows::core::Result<*mut SecPkgInfoW> {
+pub unsafe fn SaslGetProfilePackageW<'a, P0>(profilename: P0) -> ::windows::core::Result<*mut SecPkgInfoW>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslGetProfilePackageW(profilename: ::windows::core::PCWSTR, packageinfo: *mut *mut SecPkgInfoW) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoW>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SaslGetProfilePackageW(profilename.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoW>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslIdentifyPackageA(pinput: *const SecBufferDesc) -> ::windows::core::Result<*mut SecPkgInfoA> {
+pub unsafe fn SaslIdentifyPackageA(pinput: &SecBufferDesc) -> ::windows::core::Result<*mut SecPkgInfoA> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslIdentifyPackageA(pinput: *const SecBufferDesc, packageinfo: *mut *mut SecPkgInfoA) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoA>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SaslIdentifyPackageA(::core::mem::transmute(pinput), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoA>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SaslIdentifyPackageW(pinput: *const SecBufferDesc) -> ::windows::core::Result<*mut SecPkgInfoW> {
+pub unsafe fn SaslIdentifyPackageW(pinput: &SecBufferDesc) -> ::windows::core::Result<*mut SecPkgInfoW> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslIdentifyPackageW(pinput: *const SecBufferDesc, packageinfo: *mut *mut SecPkgInfoW) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut SecPkgInfoW>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SaslIdentifyPackageW(::core::mem::transmute(pinput), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut SecPkgInfoW>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SaslInitializeSecurityContextA<'a, Param2: ::std::convert::Into<::windows::core::PCSTR>>(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: Param2, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn SaslInitializeSecurityContextA<'a, P0>(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, psztargetname: P0, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: ::core::option::Option<&SecBufferDesc>, reserved2: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslInitializeSecurityContextA(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: ::windows::core::PCSTR, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    SaslInitializeSecurityContextA(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), psztargetname.into(), ::core::mem::transmute(fcontextreq), ::core::mem::transmute(reserved1), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(pinput), ::core::mem::transmute(reserved2), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    SaslInitializeSecurityContextA(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), psztargetname.into(), fcontextreq, reserved1, targetdatarep, ::core::mem::transmute(pinput), reserved2, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SaslInitializeSecurityContextW<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: Param2, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::Result<()> {
+pub unsafe fn SaslInitializeSecurityContextW<'a, P0>(phcredential: ::core::option::Option<&super::super::Credentials::SecHandle>, phcontext: ::core::option::Option<&super::super::Credentials::SecHandle>, psztargetname: P0, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: ::core::option::Option<&SecBufferDesc>, reserved2: u32, phnewcontext: ::core::option::Option<&mut super::super::Credentials::SecHandle>, poutput: ::core::option::Option<&mut SecBufferDesc>, pfcontextattr: &mut u32, ptsexpiry: ::core::option::Option<&mut i64>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslInitializeSecurityContextW(phcredential: *const super::super::Credentials::SecHandle, phcontext: *const super::super::Credentials::SecHandle, psztargetname: ::windows::core::PCWSTR, fcontextreq: u32, reserved1: u32, targetdatarep: u32, pinput: *const SecBufferDesc, reserved2: u32, phnewcontext: *mut super::super::Credentials::SecHandle, poutput: *mut SecBufferDesc, pfcontextattr: *mut u32, ptsexpiry: *mut i64) -> ::windows::core::HRESULT;
     }
-    SaslInitializeSecurityContextW(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), psztargetname.into(), ::core::mem::transmute(fcontextreq), ::core::mem::transmute(reserved1), ::core::mem::transmute(targetdatarep), ::core::mem::transmute(pinput), ::core::mem::transmute(reserved2), ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
+    SaslInitializeSecurityContextW(::core::mem::transmute(phcredential), ::core::mem::transmute(phcontext), psztargetname.into(), fcontextreq, reserved1, targetdatarep, ::core::mem::transmute(pinput), reserved2, ::core::mem::transmute(phnewcontext), ::core::mem::transmute(poutput), ::core::mem::transmute(pfcontextattr), ::core::mem::transmute(ptsexpiry)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SaslSetContextOption(contexthandle: *const super::super::Credentials::SecHandle, option: u32, value: *const ::core::ffi::c_void, size: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SaslSetContextOption(contexthandle: &super::super::Credentials::SecHandle, option: u32, value: *const ::core::ffi::c_void, size: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SaslSetContextOption(contexthandle: *const super::super::Credentials::SecHandle, option: u32, value: *const ::core::ffi::c_void, size: u32) -> ::windows::core::HRESULT;
     }
-    SaslSetContextOption(::core::mem::transmute(contexthandle), ::core::mem::transmute(option), ::core::mem::transmute(value), ::core::mem::transmute(size)).ok()
+    SaslSetContextOption(::core::mem::transmute(contexthandle), option, ::core::mem::transmute(value), size).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[repr(transparent)]
@@ -19577,42 +19779,42 @@ impl ::core::default::Default for SecurityFunctionTableW {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SetContextAttributesA<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SetContextAttributesA(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: &[u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetContextAttributesA(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    SetContextAttributesA(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    SetContextAttributesA(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SetContextAttributesW<'a, Param1: ::std::convert::Into<SECPKG_ATTR>>(phcontext: *const super::super::Credentials::SecHandle, ulattribute: Param1, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SetContextAttributesW(phcontext: &super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: &[u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetContextAttributesW(phcontext: *const super::super::Credentials::SecHandle, ulattribute: SECPKG_ATTR, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    SetContextAttributesW(::core::mem::transmute(phcontext), ulattribute.into(), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    SetContextAttributesW(::core::mem::transmute(phcontext), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SetCredentialsAttributesA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SetCredentialsAttributesA(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: &[u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetCredentialsAttributesA(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    SetCredentialsAttributesA(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    SetCredentialsAttributesA(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn SetCredentialsAttributesW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SetCredentialsAttributesW(phcredential: &super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: &[u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetCredentialsAttributesW(phcredential: *const super::super::Credentials::SecHandle, ulattribute: u32, pbuffer: *const ::core::ffi::c_void, cbbuffer: u32) -> ::windows::core::HRESULT;
     }
-    SetCredentialsAttributesW(::core::mem::transmute(phcredential), ::core::mem::transmute(ulattribute), ::core::mem::transmute(pbuffer), ::core::mem::transmute(cbbuffer)).ok()
+    SetCredentialsAttributesW(::core::mem::transmute(phcredential), ulattribute, ::core::mem::transmute(pbuffer.as_ptr()), pbuffer.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -19752,37 +19954,43 @@ pub type SpVerifySignatureFn = ::core::option::Option<unsafe extern "system" fn(
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SslCrackCertificate(pbcertificate: *mut u8, cbcertificate: u32, dwflags: u32, ppcertificate: *mut *mut X509Certificate) -> super::super::super::Foundation::BOOL {
+pub unsafe fn SslCrackCertificate(pbcertificate: &mut u8, cbcertificate: u32, dwflags: u32, ppcertificate: &mut *mut X509Certificate) -> super::super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslCrackCertificate(pbcertificate: *mut u8, cbcertificate: u32, dwflags: u32, ppcertificate: *mut *mut X509Certificate) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SslCrackCertificate(::core::mem::transmute(pbcertificate), ::core::mem::transmute(cbcertificate), ::core::mem::transmute(dwflags), ::core::mem::transmute(ppcertificate)))
+    SslCrackCertificate(::core::mem::transmute(pbcertificate), cbcertificate, dwflags, ::core::mem::transmute(ppcertificate))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SslEmptyCacheA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(psztargetname: Param0, dwflags: u32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn SslEmptyCacheA<'a, P0>(psztargetname: P0, dwflags: u32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslEmptyCacheA(psztargetname: ::windows::core::PCSTR, dwflags: u32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SslEmptyCacheA(psztargetname.into(), ::core::mem::transmute(dwflags)))
+    SslEmptyCacheA(psztargetname.into(), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SslEmptyCacheW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(psztargetname: Param0, dwflags: u32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn SslEmptyCacheW<'a, P0>(psztargetname: P0, dwflags: u32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslEmptyCacheW(psztargetname: ::windows::core::PCWSTR, dwflags: u32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SslEmptyCacheW(psztargetname.into(), ::core::mem::transmute(dwflags)))
+    SslEmptyCacheW(psztargetname.into(), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SslFreeCertificate(pcertificate: *mut X509Certificate) {
+pub unsafe fn SslFreeCertificate(pcertificate: &mut X509Certificate) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslFreeCertificate(pcertificate: *mut X509Certificate);
@@ -19791,21 +19999,21 @@ pub unsafe fn SslFreeCertificate(pcertificate: *mut X509Certificate) {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SslGenerateRandomBits(prandomdata: *mut u8, crandomdata: i32) {
+pub unsafe fn SslGenerateRandomBits(prandomdata: &mut u8, crandomdata: i32) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslGenerateRandomBits(prandomdata: *mut u8, crandomdata: i32);
     }
-    SslGenerateRandomBits(::core::mem::transmute(prandomdata), ::core::mem::transmute(crandomdata))
+    SslGenerateRandomBits(::core::mem::transmute(prandomdata), crandomdata)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SslGetExtensions<'a, Param5: ::std::convert::Into<SchGetExtensionsOptions>>(clienthello: &[u8], genericextensions: &mut [SCH_EXTENSION_DATA], bytestoread: *mut u32, flags: Param5) -> ::windows::core::Result<()> {
+pub unsafe fn SslGetExtensions(clienthello: &[u8], genericextensions: &mut [SCH_EXTENSION_DATA], bytestoread: &mut u32, flags: SchGetExtensionsOptions) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslGetExtensions(clienthello: *const u8, clienthellobytesize: u32, genericextensions: *mut SCH_EXTENSION_DATA, genericextensionscount: u8, bytestoread: *mut u32, flags: SchGetExtensionsOptions) -> ::windows::core::HRESULT;
     }
-    SslGetExtensions(::core::mem::transmute(::windows::core::as_ptr_or_null(clienthello)), clienthello.len() as _, ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(genericextensions)), genericextensions.len() as _, ::core::mem::transmute(bytestoread), flags.into()).ok()
+    SslGetExtensions(::core::mem::transmute(clienthello.as_ptr()), clienthello.len() as _, ::core::mem::transmute(genericextensions.as_ptr()), genericextensions.len() as _, ::core::mem::transmute(bytestoread), flags).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub type SslGetExtensionsFn = ::core::option::Option<unsafe extern "system" fn(clienthello: *const u8, clienthellobytesize: u32, genericextensions: *mut SCH_EXTENSION_DATA, genericextensionscount: u8, bytestoread: *mut u32, flags: SchGetExtensionsOptions) -> ::windows::core::HRESULT>;
@@ -19816,23 +20024,23 @@ pub unsafe fn SslGetMaximumKeySize(reserved: u32) -> u32 {
     extern "system" {
         fn SslGetMaximumKeySize(reserved: u32) -> u32;
     }
-    ::core::mem::transmute(SslGetMaximumKeySize(::core::mem::transmute(reserved)))
+    SslGetMaximumKeySize(reserved)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SslGetServerIdentity(clienthello: *const u8, clienthellosize: u32, serveridentity: *mut *mut u8, serveridentitysize: *mut u32, flags: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SslGetServerIdentity(clienthello: &[u8], serveridentity: &mut *mut u8, serveridentitysize: &mut u32, flags: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SslGetServerIdentity(clienthello: *const u8, clienthellosize: u32, serveridentity: *mut *mut u8, serveridentitysize: *mut u32, flags: u32) -> ::windows::core::HRESULT;
     }
-    SslGetServerIdentity(::core::mem::transmute(clienthello), ::core::mem::transmute(clienthellosize), ::core::mem::transmute(serveridentity), ::core::mem::transmute(serveridentitysize), ::core::mem::transmute(flags)).ok()
+    SslGetServerIdentity(::core::mem::transmute(clienthello.as_ptr()), clienthello.len() as _, ::core::mem::transmute(serveridentity), ::core::mem::transmute(serveridentitysize), flags).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub type SslGetServerIdentityFn = ::core::option::Option<unsafe extern "system" fn(clienthello: *const u8, clienthellosize: u32, serveridentity: *mut *mut u8, serveridentitysize: *mut u32, flags: u32) -> ::windows::core::HRESULT>;
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SspiCompareAuthIdentities(authidentity1: *const ::core::ffi::c_void, authidentity2: *const ::core::ffi::c_void, samesupplieduser: *mut super::super::super::Foundation::BOOLEAN, samesuppliedidentity: *mut super::super::super::Foundation::BOOLEAN) -> ::windows::core::Result<()> {
+pub unsafe fn SspiCompareAuthIdentities(authidentity1: *const ::core::ffi::c_void, authidentity2: *const ::core::ffi::c_void, samesupplieduser: ::core::option::Option<&mut super::super::super::Foundation::BOOLEAN>, samesuppliedidentity: ::core::option::Option<&mut super::super::super::Foundation::BOOLEAN>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiCompareAuthIdentities(authidentity1: *const ::core::ffi::c_void, authidentity2: *const ::core::ffi::c_void, samesupplieduser: *mut super::super::super::Foundation::BOOLEAN, samesuppliedidentity: *mut super::super::super::Foundation::BOOLEAN) -> ::windows::core::HRESULT;
@@ -19864,11 +20072,11 @@ pub unsafe fn SspiDecryptAuthIdentityEx(options: u32, encryptedauthdata: *mut ::
     extern "system" {
         fn SspiDecryptAuthIdentityEx(options: u32, encryptedauthdata: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    SspiDecryptAuthIdentityEx(::core::mem::transmute(options), ::core::mem::transmute(encryptedauthdata)).ok()
+    SspiDecryptAuthIdentityEx(options, ::core::mem::transmute(encryptedauthdata)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiEncodeAuthIdentityAsStrings(pauthidentity: *const ::core::ffi::c_void, ppszusername: *mut ::windows::core::PWSTR, ppszdomainname: *mut ::windows::core::PWSTR, ppszpackedcredentialsstring: *mut ::windows::core::PWSTR) -> ::windows::core::Result<()> {
+pub unsafe fn SspiEncodeAuthIdentityAsStrings(pauthidentity: *const ::core::ffi::c_void, ppszusername: ::core::option::Option<&mut ::windows::core::PWSTR>, ppszdomainname: ::core::option::Option<&mut ::windows::core::PWSTR>, ppszpackedcredentialsstring: ::core::option::Option<&mut ::windows::core::PWSTR>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiEncodeAuthIdentityAsStrings(pauthidentity: *const ::core::ffi::c_void, ppszusername: *mut ::windows::core::PWSTR, ppszdomainname: *mut ::windows::core::PWSTR, ppszpackedcredentialsstring: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
@@ -19877,7 +20085,12 @@ pub unsafe fn SspiEncodeAuthIdentityAsStrings(pauthidentity: *const ::core::ffi:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiEncodeStringsAsAuthIdentity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(pszusername: Param0, pszdomainname: Param1, pszpackedcredentialsstring: Param2, ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn SspiEncodeStringsAsAuthIdentity<'a, P0, P1, P2>(pszusername: P0, pszdomainname: P1, pszpackedcredentialsstring: P2, ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiEncodeStringsAsAuthIdentity(pszusername: ::windows::core::PCWSTR, pszdomainname: ::windows::core::PCWSTR, pszpackedcredentialsstring: ::windows::core::PCWSTR, ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
@@ -19900,11 +20113,14 @@ pub unsafe fn SspiEncryptAuthIdentityEx(options: u32, authdata: *mut ::core::ffi
     extern "system" {
         fn SspiEncryptAuthIdentityEx(options: u32, authdata: *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    SspiEncryptAuthIdentityEx(::core::mem::transmute(options), ::core::mem::transmute(authdata)).ok()
+    SspiEncryptAuthIdentityEx(options, ::core::mem::transmute(authdata)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiExcludePackage<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(authidentity: *const ::core::ffi::c_void, pszpackagename: Param1, ppnewauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn SspiExcludePackage<'a, P0>(authidentity: *const ::core::ffi::c_void, pszpackagename: P0, ppnewauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiExcludePackage(authidentity: *const ::core::ffi::c_void, pszpackagename: ::windows::core::PCWSTR, ppnewauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
@@ -19922,12 +20138,15 @@ pub unsafe fn SspiFreeAuthIdentity(authdata: *const ::core::ffi::c_void) {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiGetTargetHostName<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(psztargetname: Param0) -> ::windows::core::Result<::windows::core::PWSTR> {
+pub unsafe fn SspiGetTargetHostName<'a, P0>(psztargetname: P0) -> ::windows::core::Result<::windows::core::PWSTR>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiGetTargetHostName(psztargetname: ::windows::core::PCWSTR, pszhostname: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<::windows::core::PWSTR>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     SspiGetTargetHostName(psztargetname.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::PWSTR>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
@@ -19938,7 +20157,7 @@ pub unsafe fn SspiIsAuthIdentityEncrypted(encryptedauthdata: *const ::core::ffi:
     extern "system" {
         fn SspiIsAuthIdentityEncrypted(encryptedauthdata: *const ::core::ffi::c_void) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(SspiIsAuthIdentityEncrypted(::core::mem::transmute(encryptedauthdata)))
+    SspiIsAuthIdentityEncrypted(::core::mem::transmute(encryptedauthdata))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -19948,7 +20167,7 @@ pub unsafe fn SspiIsPromptingNeeded(errororntstatus: u32) -> super::super::super
     extern "system" {
         fn SspiIsPromptingNeeded(errororntstatus: u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(SspiIsPromptingNeeded(::core::mem::transmute(errororntstatus)))
+    SspiIsPromptingNeeded(errororntstatus)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
@@ -19961,7 +20180,7 @@ pub unsafe fn SspiLocalFree(databuffer: *const ::core::ffi::c_void) {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiMarshalAuthIdentity(authidentity: *const ::core::ffi::c_void, authidentitylength: *mut u32, authidentitybytearray: *mut *mut i8) -> ::windows::core::Result<()> {
+pub unsafe fn SspiMarshalAuthIdentity(authidentity: *const ::core::ffi::c_void, authidentitylength: &mut u32, authidentitybytearray: &mut *mut i8) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiMarshalAuthIdentity(authidentity: *const ::core::ffi::c_void, authidentitylength: *mut u32, authidentitybytearray: *mut *mut i8) -> ::windows::core::HRESULT;
@@ -19970,7 +20189,10 @@ pub unsafe fn SspiMarshalAuthIdentity(authidentity: *const ::core::ffi::c_void, 
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiPrepareForCredRead<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(authidentity: *const ::core::ffi::c_void, psztargetname: Param1, pcredmancredentialtype: *mut u32, ppszcredmantargetname: *mut ::windows::core::PWSTR) -> ::windows::core::Result<()> {
+pub unsafe fn SspiPrepareForCredRead<'a, P0>(authidentity: *const ::core::ffi::c_void, psztargetname: P0, pcredmancredentialtype: &mut u32, ppszcredmantargetname: &mut ::windows::core::PWSTR) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiPrepareForCredRead(authidentity: *const ::core::ffi::c_void, psztargetname: ::windows::core::PCWSTR, pcredmancredentialtype: *mut u32, ppszcredmantargetname: *mut ::windows::core::PWSTR) -> ::windows::core::HRESULT;
@@ -19979,7 +20201,10 @@ pub unsafe fn SspiPrepareForCredRead<'a, Param1: ::std::convert::Into<::windows:
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiPrepareForCredWrite<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(authidentity: *const ::core::ffi::c_void, psztargetname: Param1, pcredmancredentialtype: *mut u32, ppszcredmantargetname: *mut ::windows::core::PWSTR, ppszcredmanusername: *mut ::windows::core::PWSTR, ppcredentialblob: *mut *mut u8, pcredentialblobsize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn SspiPrepareForCredWrite<'a, P0>(authidentity: *const ::core::ffi::c_void, psztargetname: P0, pcredmancredentialtype: &mut u32, ppszcredmantargetname: &mut ::windows::core::PWSTR, ppszcredmanusername: &mut ::windows::core::PWSTR, ppcredentialblob: &mut *mut u8, pcredentialblobsize: &mut u32) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiPrepareForCredWrite(authidentity: *const ::core::ffi::c_void, psztargetname: ::windows::core::PCWSTR, pcredmancredentialtype: *mut u32, ppszcredmantargetname: *mut ::windows::core::PWSTR, ppszcredmanusername: *mut ::windows::core::PWSTR, ppcredentialblob: *mut *mut u8, pcredentialblobsize: *mut u32) -> ::windows::core::HRESULT;
@@ -19988,30 +20213,38 @@ pub unsafe fn SspiPrepareForCredWrite<'a, Param1: ::std::convert::Into<::windows
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiPromptForCredentialsA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param3: ::std::convert::Into<::windows::core::PCSTR>>(psztargetname: Param0, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: Param3, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: *mut i32, dwflags: u32) -> u32 {
+pub unsafe fn SspiPromptForCredentialsA<'a, P0, P1>(psztargetname: P0, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: P1, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: ::core::option::Option<&mut i32>, dwflags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiPromptForCredentialsA(psztargetname: ::windows::core::PCSTR, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: ::windows::core::PCSTR, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: *mut i32, dwflags: u32) -> u32;
     }
-    ::core::mem::transmute(SspiPromptForCredentialsA(psztargetname.into(), ::core::mem::transmute(puiinfo), ::core::mem::transmute(dwautherror), pszpackage.into(), ::core::mem::transmute(pinputauthidentity), ::core::mem::transmute(ppauthidentity), ::core::mem::transmute(pfsave), ::core::mem::transmute(dwflags)))
+    SspiPromptForCredentialsA(psztargetname.into(), ::core::mem::transmute(puiinfo), dwautherror, pszpackage.into(), ::core::mem::transmute(pinputauthidentity), ::core::mem::transmute(ppauthidentity), ::core::mem::transmute(pfsave), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiPromptForCredentialsW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(psztargetname: Param0, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: Param3, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: *mut i32, dwflags: u32) -> u32 {
+pub unsafe fn SspiPromptForCredentialsW<'a, P0, P1>(psztargetname: P0, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: P1, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: ::core::option::Option<&mut i32>, dwflags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiPromptForCredentialsW(psztargetname: ::windows::core::PCWSTR, puiinfo: *const ::core::ffi::c_void, dwautherror: u32, pszpackage: ::windows::core::PCWSTR, pinputauthidentity: *const ::core::ffi::c_void, ppauthidentity: *mut *mut ::core::ffi::c_void, pfsave: *mut i32, dwflags: u32) -> u32;
     }
-    ::core::mem::transmute(SspiPromptForCredentialsW(psztargetname.into(), ::core::mem::transmute(puiinfo), ::core::mem::transmute(dwautherror), pszpackage.into(), ::core::mem::transmute(pinputauthidentity), ::core::mem::transmute(ppauthidentity), ::core::mem::transmute(pfsave), ::core::mem::transmute(dwflags)))
+    SspiPromptForCredentialsW(psztargetname.into(), ::core::mem::transmute(puiinfo), dwautherror, pszpackage.into(), ::core::mem::transmute(pinputauthidentity), ::core::mem::transmute(ppauthidentity), ::core::mem::transmute(pfsave), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn SspiUnmarshalAuthIdentity<'a, Param1: ::std::convert::Into<::windows::core::PCSTR>>(authidentitylength: u32, authidentitybytearray: Param1, ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
+pub unsafe fn SspiUnmarshalAuthIdentity(authidentitybytearray: &[u8], ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SspiUnmarshalAuthIdentity(authidentitylength: u32, authidentitybytearray: ::windows::core::PCSTR, ppauthidentity: *mut *mut ::core::ffi::c_void) -> ::windows::core::HRESULT;
     }
-    SspiUnmarshalAuthIdentity(::core::mem::transmute(authidentitylength), authidentitybytearray.into(), ::core::mem::transmute(ppauthidentity)).ok()
+    SspiUnmarshalAuthIdentity(authidentitybytearray.len() as _, ::core::mem::transmute(authidentitybytearray.as_ptr()), ::core::mem::transmute(ppauthidentity)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
@@ -20034,32 +20267,32 @@ pub unsafe fn SspiZeroAuthIdentity(authdata: *const ::core::ffi::c_void) {
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SystemFunction036(randombuffer: *mut ::core::ffi::c_void, randombufferlength: u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn SystemFunction036(randombuffer: &mut [u8]) -> super::super::super::Foundation::BOOLEAN {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SystemFunction036(randombuffer: *mut ::core::ffi::c_void, randombufferlength: u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(SystemFunction036(::core::mem::transmute(randombuffer), ::core::mem::transmute(randombufferlength)))
+    SystemFunction036(::core::mem::transmute(randombuffer.as_ptr()), randombuffer.len() as _)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SystemFunction040(memory: *mut ::core::ffi::c_void, memorysize: u32, optionflags: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SystemFunction040(memory: &mut [u8], optionflags: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SystemFunction040(memory: *mut ::core::ffi::c_void, memorysize: u32, optionflags: u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    SystemFunction040(::core::mem::transmute(memory), ::core::mem::transmute(memorysize), ::core::mem::transmute(optionflags)).ok()
+    SystemFunction040(::core::mem::transmute(memory.as_ptr()), memory.len() as _, optionflags).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SystemFunction041(memory: *mut ::core::ffi::c_void, memorysize: u32, optionflags: u32) -> ::windows::core::Result<()> {
+pub unsafe fn SystemFunction041(memory: &mut [u8], optionflags: u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SystemFunction041(memory: *mut ::core::ffi::c_void, memorysize: u32, optionflags: u32) -> super::super::super::Foundation::NTSTATUS;
     }
-    SystemFunction041(::core::mem::transmute(memory), ::core::mem::transmute(memorysize), ::core::mem::transmute(optionflags)).ok()
+    SystemFunction041(::core::mem::transmute(memory.as_ptr()), memory.len() as _, optionflags).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const TLS1SP_NAME: &str = "Microsoft TLS 1.0";
@@ -20941,7 +21174,10 @@ pub unsafe fn TokenBindingDeleteAllBindings() -> ::windows::core::Result<()> {
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingDeleteBinding<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(targeturl: Param0) -> ::windows::core::Result<()> {
+pub unsafe fn TokenBindingDeleteBinding<'a, P0>(targeturl: P0) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingDeleteBinding(targeturl: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -20950,36 +21186,42 @@ pub unsafe fn TokenBindingDeleteBinding<'a, Param0: ::std::convert::Into<::windo
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingGenerateBinding<'a, Param0: ::std::convert::Into<TOKENBINDING_KEY_PARAMETERS_TYPE>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<TOKENBINDING_TYPE>, Param5: ::std::convert::Into<TOKENBINDING_EXTENSION_FORMAT>>(keytype: Param0, targeturl: Param1, bindingtype: Param2, tlsekm: *const ::core::ffi::c_void, tlsekmsize: u32, extensionformat: Param5, extensiondata: *const ::core::ffi::c_void, tokenbinding: *mut *mut ::core::ffi::c_void, tokenbindingsize: *mut u32, resultdata: *mut *mut TOKENBINDING_RESULT_DATA) -> ::windows::core::Result<()> {
+pub unsafe fn TokenBindingGenerateBinding<'a, P0>(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, targeturl: P0, bindingtype: TOKENBINDING_TYPE, tlsekm: &[u8], extensionformat: TOKENBINDING_EXTENSION_FORMAT, extensiondata: *const ::core::ffi::c_void, tokenbinding: *mut *mut ::core::ffi::c_void, tokenbindingsize: &mut u32, resultdata: ::core::option::Option<&mut *mut TOKENBINDING_RESULT_DATA>) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingGenerateBinding(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, targeturl: ::windows::core::PCWSTR, bindingtype: TOKENBINDING_TYPE, tlsekm: *const ::core::ffi::c_void, tlsekmsize: u32, extensionformat: TOKENBINDING_EXTENSION_FORMAT, extensiondata: *const ::core::ffi::c_void, tokenbinding: *mut *mut ::core::ffi::c_void, tokenbindingsize: *mut u32, resultdata: *mut *mut TOKENBINDING_RESULT_DATA) -> ::windows::core::HRESULT;
     }
-    TokenBindingGenerateBinding(keytype.into(), targeturl.into(), bindingtype.into(), ::core::mem::transmute(tlsekm), ::core::mem::transmute(tlsekmsize), extensionformat.into(), ::core::mem::transmute(extensiondata), ::core::mem::transmute(tokenbinding), ::core::mem::transmute(tokenbindingsize), ::core::mem::transmute(resultdata)).ok()
+    TokenBindingGenerateBinding(keytype, targeturl.into(), bindingtype, ::core::mem::transmute(tlsekm.as_ptr()), tlsekm.len() as _, extensionformat, ::core::mem::transmute(extensiondata), ::core::mem::transmute(tokenbinding), ::core::mem::transmute(tokenbindingsize), ::core::mem::transmute(resultdata)).ok()
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingGenerateID<'a, Param0: ::std::convert::Into<TOKENBINDING_KEY_PARAMETERS_TYPE>>(keytype: Param0, publickey: *const ::core::ffi::c_void, publickeysize: u32) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_DATA> {
+pub unsafe fn TokenBindingGenerateID(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, publickey: &[u8]) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_DATA> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingGenerateID(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, publickey: *const ::core::ffi::c_void, publickeysize: u32, resultdata: *mut *mut TOKENBINDING_RESULT_DATA) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut TOKENBINDING_RESULT_DATA>::zeroed();
-    TokenBindingGenerateID(keytype.into(), ::core::mem::transmute(publickey), ::core::mem::transmute(publickeysize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_DATA>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    TokenBindingGenerateID(keytype, ::core::mem::transmute(publickey.as_ptr()), publickey.len() as _, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_DATA>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingGenerateIDForUri<'a, Param0: ::std::convert::Into<TOKENBINDING_KEY_PARAMETERS_TYPE>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(keytype: Param0, targeturi: Param1) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_DATA> {
+pub unsafe fn TokenBindingGenerateIDForUri<'a, P0>(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, targeturi: P0) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_DATA>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingGenerateIDForUri(keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, targeturi: ::windows::core::PCWSTR, resultdata: *mut *mut TOKENBINDING_RESULT_DATA) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut TOKENBINDING_RESULT_DATA>::zeroed();
-    TokenBindingGenerateIDForUri(keytype.into(), targeturi.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_DATA>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    TokenBindingGenerateIDForUri(keytype, targeturi.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_DATA>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingGenerateMessage(tokenbindings: *const *const ::core::ffi::c_void, tokenbindingssize: *const u32, tokenbindingscount: u32, tokenbindingmessage: *mut *mut ::core::ffi::c_void, tokenbindingmessagesize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn TokenBindingGenerateMessage(tokenbindings: *const *const ::core::ffi::c_void, tokenbindingssize: *const u32, tokenbindingscount: u32, tokenbindingmessage: *mut *mut ::core::ffi::c_void, tokenbindingmessagesize: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingGenerateMessage(tokenbindings: *const *const ::core::ffi::c_void, tokenbindingssize: *const u32, tokenbindingscount: u32, tokenbindingmessage: *mut *mut ::core::ffi::c_void, tokenbindingmessagesize: *mut u32) -> ::windows::core::HRESULT;
@@ -20988,7 +21230,7 @@ pub unsafe fn TokenBindingGenerateMessage(tokenbindings: *const *const ::core::f
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingGetHighestSupportedVersion(majorversion: *mut u8, minorversion: *mut u8) -> ::windows::core::Result<()> {
+pub unsafe fn TokenBindingGetHighestSupportedVersion(majorversion: &mut u8, minorversion: &mut u8) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingGetHighestSupportedVersion(majorversion: *mut u8, minorversion: *mut u8) -> ::windows::core::HRESULT;
@@ -21002,7 +21244,7 @@ pub unsafe fn TokenBindingGetKeyTypesClient() -> ::windows::core::Result<*mut TO
     extern "system" {
         fn TokenBindingGetKeyTypesClient(keytypes: *mut *mut TOKENBINDING_KEY_TYPES) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut TOKENBINDING_KEY_TYPES>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     TokenBindingGetKeyTypesClient(::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_KEY_TYPES>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
@@ -21012,38 +21254,44 @@ pub unsafe fn TokenBindingGetKeyTypesServer() -> ::windows::core::Result<*mut TO
     extern "system" {
         fn TokenBindingGetKeyTypesServer(keytypes: *mut *mut TOKENBINDING_KEY_TYPES) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut TOKENBINDING_KEY_TYPES>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     TokenBindingGetKeyTypesServer(::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_KEY_TYPES>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 #[inline]
-pub unsafe fn TokenBindingVerifyMessage<'a, Param2: ::std::convert::Into<TOKENBINDING_KEY_PARAMETERS_TYPE>>(tokenbindingmessage: *const ::core::ffi::c_void, tokenbindingmessagesize: u32, keytype: Param2, tlsekm: *const ::core::ffi::c_void, tlsekmsize: u32) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_LIST> {
+pub unsafe fn TokenBindingVerifyMessage(tokenbindingmessage: &[u8], keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, tlsekm: &[u8]) -> ::windows::core::Result<*mut TOKENBINDING_RESULT_LIST> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TokenBindingVerifyMessage(tokenbindingmessage: *const ::core::ffi::c_void, tokenbindingmessagesize: u32, keytype: TOKENBINDING_KEY_PARAMETERS_TYPE, tlsekm: *const ::core::ffi::c_void, tlsekmsize: u32, resultlist: *mut *mut TOKENBINDING_RESULT_LIST) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<*mut TOKENBINDING_RESULT_LIST>::zeroed();
-    TokenBindingVerifyMessage(::core::mem::transmute(tokenbindingmessage), ::core::mem::transmute(tokenbindingmessagesize), keytype.into(), ::core::mem::transmute(tlsekm), ::core::mem::transmute(tlsekmsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_LIST>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    TokenBindingVerifyMessage(::core::mem::transmute(tokenbindingmessage.as_ptr()), tokenbindingmessage.len() as _, keytype, ::core::mem::transmute(tlsekm.as_ptr()), tlsekm.len() as _, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut TOKENBINDING_RESULT_LIST>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn TranslateNameA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<EXTENDED_NAME_FORMAT>, Param2: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(lpaccountname: Param0, accountnameformat: Param1, desirednameformat: Param2, lptranslatedname: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn TranslateNameA<'a, P0>(lpaccountname: P0, accountnameformat: EXTENDED_NAME_FORMAT, desirednameformat: EXTENDED_NAME_FORMAT, lptranslatedname: ::windows::core::PSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TranslateNameA(lpaccountname: ::windows::core::PCSTR, accountnameformat: EXTENDED_NAME_FORMAT, desirednameformat: EXTENDED_NAME_FORMAT, lptranslatedname: ::windows::core::PSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(TranslateNameA(lpaccountname.into(), accountnameformat.into(), desirednameformat.into(), ::core::mem::transmute(lptranslatedname), ::core::mem::transmute(nsize)))
+    TranslateNameA(lpaccountname.into(), accountnameformat, desirednameformat, ::core::mem::transmute(lptranslatedname), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn TranslateNameW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<EXTENDED_NAME_FORMAT>, Param2: ::std::convert::Into<EXTENDED_NAME_FORMAT>>(lpaccountname: Param0, accountnameformat: Param1, desirednameformat: Param2, lptranslatedname: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN {
+pub unsafe fn TranslateNameW<'a, P0>(lpaccountname: P0, accountnameformat: EXTENDED_NAME_FORMAT, desirednameformat: EXTENDED_NAME_FORMAT, lptranslatedname: ::windows::core::PWSTR, nsize: &mut u32) -> super::super::super::Foundation::BOOLEAN
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TranslateNameW(lpaccountname: ::windows::core::PCWSTR, accountnameformat: EXTENDED_NAME_FORMAT, desirednameformat: EXTENDED_NAME_FORMAT, lptranslatedname: ::windows::core::PWSTR, nsize: *mut u32) -> super::super::super::Foundation::BOOLEAN;
     }
-    ::core::mem::transmute(TranslateNameW(lpaccountname.into(), accountnameformat.into(), desirednameformat.into(), ::core::mem::transmute(lptranslatedname), ::core::mem::transmute(nsize)))
+    TranslateNameW(lpaccountname.into(), accountnameformat, desirednameformat, ::core::mem::transmute(lptranslatedname), ::core::mem::transmute(nsize))
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const UNDERSTANDS_LONG_NAMES: u32 = 1u32;
@@ -21209,13 +21457,13 @@ pub type VERIFY_SIGNATURE_FN = ::core::option::Option<unsafe extern "system" fn(
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`, `\"Win32_Security_Credentials\"`*"]
 #[cfg(feature = "Win32_Security_Credentials")]
 #[inline]
-pub unsafe fn VerifySignature(phcontext: *const super::super::Credentials::SecHandle, pmessage: *const SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<u32> {
+pub unsafe fn VerifySignature(phcontext: &super::super::Credentials::SecHandle, pmessage: &SecBufferDesc, messageseqno: u32) -> ::windows::core::Result<u32> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn VerifySignature(phcontext: *const super::super::Credentials::SecHandle, pmessage: *const SecBufferDesc, messageseqno: u32, pfqop: *mut u32) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
-    VerifySignature(::core::mem::transmute(phcontext), ::core::mem::transmute(pmessage), ::core::mem::transmute(messageseqno), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    VerifySignature(::core::mem::transmute(phcontext), ::core::mem::transmute(pmessage), messageseqno, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
 }
 #[doc = "*Required features: `\"Win32_Security_Authentication_Identity\"`*"]
 pub const WDIGEST_SP_NAME: &str = "WDigest";

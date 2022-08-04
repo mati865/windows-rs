@@ -1,74 +1,64 @@
 #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
 pub struct ApiInformation;
 impl ApiInformation {
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsTypePresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0) -> ::windows::core::Result<bool> {
+    pub fn IsTypePresent(typename: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsTypePresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsTypePresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsMethodPresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, methodname: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsMethodPresent(typename: &::windows::core::HSTRING, methodname: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsMethodPresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), methodname.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsMethodPresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(methodname), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsMethodPresentWithArity<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, methodname: Param1, inputparametercount: u32) -> ::windows::core::Result<bool> {
+    pub fn IsMethodPresentWithArity(typename: &::windows::core::HSTRING, methodname: &::windows::core::HSTRING, inputparametercount: u32) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsMethodPresentWithArity)(::windows::core::Interface::as_raw(this), typename.into().abi(), methodname.into().abi(), inputparametercount, result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsMethodPresentWithArity)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(methodname), inputparametercount, result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsEventPresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, eventname: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsEventPresent(typename: &::windows::core::HSTRING, eventname: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsEventPresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), eventname.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsEventPresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(eventname), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsPropertyPresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, propertyname: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsPropertyPresent(typename: &::windows::core::HSTRING, propertyname: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsPropertyPresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), propertyname.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsPropertyPresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(propertyname), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsReadOnlyPropertyPresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, propertyname: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsReadOnlyPropertyPresent(typename: &::windows::core::HSTRING, propertyname: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsReadOnlyPropertyPresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), propertyname.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsReadOnlyPropertyPresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(propertyname), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsWriteablePropertyPresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(typename: Param0, propertyname: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsWriteablePropertyPresent(typename: &::windows::core::HSTRING, propertyname: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsWriteablePropertyPresent)(::windows::core::Interface::as_raw(this), typename.into().abi(), propertyname.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsWriteablePropertyPresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(typename), ::core::mem::transmute_copy(propertyname), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsEnumNamedValuePresent<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(enumtypename: Param0, valuename: Param1) -> ::windows::core::Result<bool> {
+    pub fn IsEnumNamedValuePresent(enumtypename: &::windows::core::HSTRING, valuename: &::windows::core::HSTRING) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsEnumNamedValuePresent)(::windows::core::Interface::as_raw(this), enumtypename.into().abi(), valuename.into().abi(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsEnumNamedValuePresent)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(enumtypename), ::core::mem::transmute_copy(valuename), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsApiContractPresentByMajor<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(contractname: Param0, majorversion: u16) -> ::windows::core::Result<bool> {
+    pub fn IsApiContractPresentByMajor(contractname: &::windows::core::HSTRING, majorversion: u16) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsApiContractPresentByMajor)(::windows::core::Interface::as_raw(this), contractname.into().abi(), majorversion, result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsApiContractPresentByMajor)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(contractname), majorversion, result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
-    #[doc = "*Required features: `\"Foundation_Metadata\"`*"]
-    pub fn IsApiContractPresentByMajorAndMinor<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(contractname: Param0, majorversion: u16, minorversion: u16) -> ::windows::core::Result<bool> {
+    pub fn IsApiContractPresentByMajorAndMinor(contractname: &::windows::core::HSTRING, majorversion: u16, minorversion: u16) -> ::windows::core::Result<bool> {
         Self::IApiInformationStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsApiContractPresentByMajorAndMinor)(::windows::core::Interface::as_raw(this), contractname.into().abi(), majorversion, minorversion, result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsApiContractPresentByMajorAndMinor)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(contractname), majorversion, minorversion, result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }
     #[doc(hidden)]

@@ -795,12 +795,10 @@ pub const GUID_NULL: ::windows::core::GUID = ::windows::core::GUID::from_u128(0x
 #[repr(transparent)]
 pub struct IKsAggregateControl(::windows::core::IUnknown);
 impl IKsAggregateControl {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn KsAddAggregate(&self, aggregateclass: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+    pub unsafe fn KsAddAggregate(&self, aggregateclass: &::windows::core::GUID) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).KsAddAggregate)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(aggregateclass)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn KsRemoveAggregate(&self, aggregateclass: *const ::windows::core::GUID) -> ::windows::core::Result<()> {
+    pub unsafe fn KsRemoveAggregate(&self, aggregateclass: &::windows::core::GUID) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).KsRemoveAggregate)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(aggregateclass)).ok()
     }
 }
@@ -854,17 +852,14 @@ pub struct IKsAllocatorEx(pub u8);
 #[repr(transparent)]
 pub struct IKsControl(::windows::core::IUnknown);
 impl IKsControl {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn KsProperty(&self, property: *const KSIDENTIFIER, propertylength: u32, propertydata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).KsProperty)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(property), ::core::mem::transmute(propertylength), ::core::mem::transmute(propertydata), ::core::mem::transmute(datalength), ::core::mem::transmute(bytesreturned)).ok()
+    pub unsafe fn KsProperty(&self, property: &KSIDENTIFIER, propertylength: u32, propertydata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).KsProperty)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(property), propertylength, ::core::mem::transmute(propertydata), datalength, ::core::mem::transmute(bytesreturned)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn KsMethod(&self, method: *const KSIDENTIFIER, methodlength: u32, methoddata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).KsMethod)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(method), ::core::mem::transmute(methodlength), ::core::mem::transmute(methoddata), ::core::mem::transmute(datalength), ::core::mem::transmute(bytesreturned)).ok()
+    pub unsafe fn KsMethod(&self, method: &KSIDENTIFIER, methodlength: u32, methoddata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).KsMethod)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(method), methodlength, ::core::mem::transmute(methoddata), datalength, ::core::mem::transmute(bytesreturned)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn KsEvent(&self, event: *const KSIDENTIFIER, eventlength: u32, eventdata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).KsEvent)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(event), ::core::mem::transmute(eventlength), ::core::mem::transmute(eventdata), ::core::mem::transmute(datalength), ::core::mem::transmute(bytesreturned)).ok()
+    pub unsafe fn KsEvent(&self, event: &KSIDENTIFIER, eventlength: u32, eventdata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).KsEvent)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(event), eventlength, ::core::mem::transmute(eventdata), datalength, ::core::mem::transmute(bytesreturned)).ok()
     }
 }
 impl ::core::convert::From<IKsControl> for ::windows::core::IUnknown {
@@ -914,14 +909,13 @@ pub struct IKsControl_Vtbl {
 #[repr(transparent)]
 pub struct IKsFormatSupport(::windows::core::IUnknown);
 impl IKsFormatSupport {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn IsFormatSupported(&self, pksformat: *mut KSDATAFORMAT, cbformat: u32, pbsupported: *mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).IsFormatSupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(pksformat), ::core::mem::transmute(cbformat), ::core::mem::transmute(pbsupported)).ok()
+    pub unsafe fn IsFormatSupported(&self, pksformat: &mut KSDATAFORMAT, cbformat: u32, pbsupported: &mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).IsFormatSupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(pksformat), cbformat, ::core::mem::transmute(pbsupported)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
     pub unsafe fn GetDevicePreferredFormat(&self) -> ::windows::core::Result<*mut KSDATAFORMAT> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut KSDATAFORMAT>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetDevicePreferredFormat)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<*mut KSDATAFORMAT>(result__)
     }
 }
@@ -974,9 +968,8 @@ pub struct IKsFormatSupport_Vtbl {
 #[repr(transparent)]
 pub struct IKsJackContainerId(::windows::core::IUnknown);
 impl IKsJackContainerId {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
     pub unsafe fn GetJackContainerId(&self) -> ::windows::core::Result<::windows::core::GUID> {
-        let mut result__ = ::core::mem::MaybeUninit::<::windows::core::GUID>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetJackContainerId)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<::windows::core::GUID>(result__)
     }
 }
@@ -1025,16 +1018,15 @@ pub struct IKsJackContainerId_Vtbl {
 #[repr(transparent)]
 pub struct IKsJackDescription(::windows::core::IUnknown);
 impl IKsJackDescription {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
     pub unsafe fn GetJackCount(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetJackCount)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
     pub unsafe fn GetJackDescription(&self, njack: u32) -> ::windows::core::Result<KSJACK_DESCRIPTION> {
-        let mut result__ = ::core::mem::MaybeUninit::<KSJACK_DESCRIPTION>::zeroed();
-        (::windows::core::Interface::vtable(self).GetJackDescription)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(njack), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<KSJACK_DESCRIPTION>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).GetJackDescription)(::windows::core::Interface::as_raw(self), njack, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<KSJACK_DESCRIPTION>(result__)
     }
 }
 impl ::core::convert::From<IKsJackDescription> for ::windows::core::IUnknown {
@@ -1086,15 +1078,13 @@ pub struct IKsJackDescription_Vtbl {
 #[repr(transparent)]
 pub struct IKsJackDescription2(::windows::core::IUnknown);
 impl IKsJackDescription2 {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
     pub unsafe fn GetJackCount(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetJackCount)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
     pub unsafe fn GetJackDescription2(&self, njack: u32) -> ::windows::core::Result<KSJACK_DESCRIPTION2> {
-        let mut result__ = ::core::mem::MaybeUninit::<KSJACK_DESCRIPTION2>::zeroed();
-        (::windows::core::Interface::vtable(self).GetJackDescription2)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(njack), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<KSJACK_DESCRIPTION2>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).GetJackDescription2)(::windows::core::Interface::as_raw(self), njack, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<KSJACK_DESCRIPTION2>(result__)
     }
 }
 impl ::core::convert::From<IKsJackDescription2> for ::windows::core::IUnknown {
@@ -1143,10 +1133,10 @@ pub struct IKsJackDescription2_Vtbl {
 #[repr(transparent)]
 pub struct IKsJackSinkInformation(::windows::core::IUnknown);
 impl IKsJackSinkInformation {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
     pub unsafe fn GetJackSinkInformation(&self) -> ::windows::core::Result<KSJACK_SINK_INFORMATION> {
-        let mut result__ = ::core::mem::MaybeUninit::<KSJACK_SINK_INFORMATION>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetJackSinkInformation)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<KSJACK_SINK_INFORMATION>(result__)
     }
 }
@@ -1200,18 +1190,15 @@ pub struct IKsPin(pub u8);
 #[repr(transparent)]
 pub struct IKsPropertySet(::windows::core::IUnknown);
 impl IKsPropertySet {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn Set(&self, propset: *const ::windows::core::GUID, id: u32, instancedata: *const ::core::ffi::c_void, instancelength: u32, propertydata: *const ::core::ffi::c_void, datalength: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Set)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), ::core::mem::transmute(id), ::core::mem::transmute(instancedata), ::core::mem::transmute(instancelength), ::core::mem::transmute(propertydata), ::core::mem::transmute(datalength)).ok()
+    pub unsafe fn Set(&self, propset: &::windows::core::GUID, id: u32, instancedata: &[u8], propertydata: &[u8]) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).Set)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), id, ::core::mem::transmute(instancedata.as_ptr()), instancedata.len() as _, ::core::mem::transmute(propertydata.as_ptr()), propertydata.len() as _).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn Get(&self, propset: *const ::windows::core::GUID, id: u32, instancedata: *const ::core::ffi::c_void, instancelength: u32, propertydata: *mut ::core::ffi::c_void, datalength: u32, bytesreturned: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Get)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), ::core::mem::transmute(id), ::core::mem::transmute(instancedata), ::core::mem::transmute(instancelength), ::core::mem::transmute(propertydata), ::core::mem::transmute(datalength), ::core::mem::transmute(bytesreturned)).ok()
+    pub unsafe fn Get(&self, propset: &::windows::core::GUID, id: u32, instancedata: &[u8], propertydata: &mut [u8], bytesreturned: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).Get)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), id, ::core::mem::transmute(instancedata.as_ptr()), instancedata.len() as _, ::core::mem::transmute(propertydata.as_ptr()), propertydata.len() as _, ::core::mem::transmute(bytesreturned)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn QuerySupported(&self, propset: *const ::windows::core::GUID, id: u32) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
-        (::windows::core::Interface::vtable(self).QuerySupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), ::core::mem::transmute(id), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
+    pub unsafe fn QuerySupported(&self, propset: &::windows::core::GUID, id: u32) -> ::windows::core::Result<u32> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).QuerySupported)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(propset), id, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
 }
 impl ::core::convert::From<IKsPropertySet> for ::windows::core::IUnknown {
@@ -1261,9 +1248,11 @@ pub struct IKsPropertySet_Vtbl {
 #[repr(transparent)]
 pub struct IKsTopology(::windows::core::IUnknown);
 impl IKsTopology {
-    #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`*"]
-    pub unsafe fn CreateNodeInstance<'a, Param3: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::IUnknown>>>(&self, nodeid: u32, flags: u32, desiredaccess: u32, unkouter: Param3, interfaceid: *const ::windows::core::GUID, interface: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).CreateNodeInstance)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(nodeid), ::core::mem::transmute(flags), ::core::mem::transmute(desiredaccess), unkouter.into().abi(), ::core::mem::transmute(interfaceid), ::core::mem::transmute(interface)).ok()
+    pub unsafe fn CreateNodeInstance<'a, P0>(&self, nodeid: u32, flags: u32, desiredaccess: u32, unkouter: P0, interfaceid: &::windows::core::GUID, interface: *mut *mut ::core::ffi::c_void) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::IUnknown>>,
+    {
+        (::windows::core::Interface::vtable(self).CreateNodeInstance)(::windows::core::Interface::as_raw(self), nodeid, flags, desiredaccess, unkouter.into().abi(), ::core::mem::transmute(interfaceid), ::core::mem::transmute(interface)).ok()
     }
 }
 impl ::core::convert::From<IKsTopology> for ::windows::core::IUnknown {
@@ -18868,86 +18857,110 @@ pub const KS_iTRUECOLOR: u32 = 16u32;
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateAllocator<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(connectionhandle: Param0, allocatorframing: *const KSALLOCATOR_FRAMING, allocatorhandle: *mut super::super::Foundation::HANDLE) -> u32 {
+pub unsafe fn KsCreateAllocator<'a, P0>(connectionhandle: P0, allocatorframing: &KSALLOCATOR_FRAMING, allocatorhandle: &mut super::super::Foundation::HANDLE) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateAllocator(connectionhandle: super::super::Foundation::HANDLE, allocatorframing: *const KSALLOCATOR_FRAMING, allocatorhandle: *mut super::super::Foundation::HANDLE) -> u32;
     }
-    ::core::mem::transmute(KsCreateAllocator(connectionhandle.into(), ::core::mem::transmute(allocatorframing), ::core::mem::transmute(allocatorhandle)))
+    KsCreateAllocator(connectionhandle.into(), ::core::mem::transmute(allocatorframing), ::core::mem::transmute(allocatorhandle))
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateAllocator2<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(connectionhandle: Param0, allocatorframing: *const KSALLOCATOR_FRAMING) -> ::windows::core::Result<super::super::Foundation::HANDLE> {
+pub unsafe fn KsCreateAllocator2<'a, P0>(connectionhandle: P0, allocatorframing: &KSALLOCATOR_FRAMING) -> ::windows::core::Result<super::super::Foundation::HANDLE>
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateAllocator2(connectionhandle: super::super::Foundation::HANDLE, allocatorframing: *const KSALLOCATOR_FRAMING, allocatorhandle: *mut super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Foundation::HANDLE>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     KsCreateAllocator2(connectionhandle.into(), ::core::mem::transmute(allocatorframing), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateClock<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(connectionhandle: Param0, clockcreate: *const KSCLOCK_CREATE, clockhandle: *mut super::super::Foundation::HANDLE) -> u32 {
+pub unsafe fn KsCreateClock<'a, P0>(connectionhandle: P0, clockcreate: &KSCLOCK_CREATE, clockhandle: &mut super::super::Foundation::HANDLE) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateClock(connectionhandle: super::super::Foundation::HANDLE, clockcreate: *const KSCLOCK_CREATE, clockhandle: *mut super::super::Foundation::HANDLE) -> u32;
     }
-    ::core::mem::transmute(KsCreateClock(connectionhandle.into(), ::core::mem::transmute(clockcreate), ::core::mem::transmute(clockhandle)))
+    KsCreateClock(connectionhandle.into(), ::core::mem::transmute(clockcreate), ::core::mem::transmute(clockhandle))
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateClock2<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(connectionhandle: Param0, clockcreate: *const KSCLOCK_CREATE) -> ::windows::core::Result<super::super::Foundation::HANDLE> {
+pub unsafe fn KsCreateClock2<'a, P0>(connectionhandle: P0, clockcreate: &KSCLOCK_CREATE) -> ::windows::core::Result<super::super::Foundation::HANDLE>
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateClock2(connectionhandle: super::super::Foundation::HANDLE, clockcreate: *const KSCLOCK_CREATE, clockhandle: *mut super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Foundation::HANDLE>::zeroed();
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
     KsCreateClock2(connectionhandle.into(), ::core::mem::transmute(clockcreate), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreatePin<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(filterhandle: Param0, connect: *const KSPIN_CONNECT, desiredaccess: u32, connectionhandle: *mut super::super::Foundation::HANDLE) -> u32 {
+pub unsafe fn KsCreatePin<'a, P0>(filterhandle: P0, connect: &KSPIN_CONNECT, desiredaccess: u32, connectionhandle: &mut super::super::Foundation::HANDLE) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreatePin(filterhandle: super::super::Foundation::HANDLE, connect: *const KSPIN_CONNECT, desiredaccess: u32, connectionhandle: *mut super::super::Foundation::HANDLE) -> u32;
     }
-    ::core::mem::transmute(KsCreatePin(filterhandle.into(), ::core::mem::transmute(connect), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(connectionhandle)))
+    KsCreatePin(filterhandle.into(), ::core::mem::transmute(connect), desiredaccess, ::core::mem::transmute(connectionhandle))
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreatePin2<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(filterhandle: Param0, connect: *const KSPIN_CONNECT, desiredaccess: u32) -> ::windows::core::Result<super::super::Foundation::HANDLE> {
+pub unsafe fn KsCreatePin2<'a, P0>(filterhandle: P0, connect: &KSPIN_CONNECT, desiredaccess: u32) -> ::windows::core::Result<super::super::Foundation::HANDLE>
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreatePin2(filterhandle: super::super::Foundation::HANDLE, connect: *const KSPIN_CONNECT, desiredaccess: u32, connectionhandle: *mut super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Foundation::HANDLE>::zeroed();
-    KsCreatePin2(filterhandle.into(), ::core::mem::transmute(connect), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    KsCreatePin2(filterhandle.into(), ::core::mem::transmute(connect), desiredaccess, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateTopologyNode<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(parenthandle: Param0, nodecreate: *const KSNODE_CREATE, desiredaccess: u32, nodehandle: *mut super::super::Foundation::HANDLE) -> u32 {
+pub unsafe fn KsCreateTopologyNode<'a, P0>(parenthandle: P0, nodecreate: &KSNODE_CREATE, desiredaccess: u32, nodehandle: &mut super::super::Foundation::HANDLE) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateTopologyNode(parenthandle: super::super::Foundation::HANDLE, nodecreate: *const KSNODE_CREATE, desiredaccess: u32, nodehandle: *mut super::super::Foundation::HANDLE) -> u32;
     }
-    ::core::mem::transmute(KsCreateTopologyNode(parenthandle.into(), ::core::mem::transmute(nodecreate), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(nodehandle)))
+    KsCreateTopologyNode(parenthandle.into(), ::core::mem::transmute(nodecreate), desiredaccess, ::core::mem::transmute(nodehandle))
 }
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn KsCreateTopologyNode2<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(parenthandle: Param0, nodecreate: *const KSNODE_CREATE, desiredaccess: u32) -> ::windows::core::Result<super::super::Foundation::HANDLE> {
+pub unsafe fn KsCreateTopologyNode2<'a, P0>(parenthandle: P0, nodecreate: &KSNODE_CREATE, desiredaccess: u32) -> ::windows::core::Result<super::super::Foundation::HANDLE>
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn KsCreateTopologyNode2(parenthandle: super::super::Foundation::HANDLE, nodecreate: *const KSNODE_CREATE, desiredaccess: u32, nodehandle: *mut super::super::Foundation::HANDLE) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<super::super::Foundation::HANDLE>::zeroed();
-    KsCreateTopologyNode2(parenthandle.into(), ::core::mem::transmute(nodecreate), ::core::mem::transmute(desiredaccess), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
+    let mut result__ = ::core::mem::MaybeUninit::zeroed();
+    KsCreateTopologyNode2(parenthandle.into(), ::core::mem::transmute(nodecreate), desiredaccess, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::Foundation::HANDLE>(result__)
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_Media_KernelStreaming\"`, `\"Win32_Foundation\"`*"]

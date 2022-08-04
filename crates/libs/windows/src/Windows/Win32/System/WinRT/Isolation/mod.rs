@@ -2,10 +2,13 @@
 #[repr(transparent)]
 pub struct IIsolatedEnvironmentInterop(::windows::core::IUnknown);
 impl IIsolatedEnvironmentInterop {
-    #[doc = "*Required features: `\"Win32_System_WinRT_Isolation\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn GetHostHwndInterop<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HWND>>(&self, containerhwnd: Param0) -> ::windows::core::Result<super::super::super::Foundation::HWND> {
-        let mut result__ = ::core::mem::MaybeUninit::<super::super::super::Foundation::HWND>::zeroed();
+    pub unsafe fn GetHostHwndInterop<'a, P0>(&self, containerhwnd: P0) -> ::windows::core::Result<super::super::super::Foundation::HWND>
+    where
+        P0: ::std::convert::Into<super::super::super::Foundation::HWND>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetHostHwndInterop)(::windows::core::Interface::as_raw(self), containerhwnd.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<super::super::super::Foundation::HWND>(result__)
     }
 }

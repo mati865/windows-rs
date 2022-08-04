@@ -64,48 +64,48 @@ pub mod WiFiDirect;
 #[repr(transparent)]
 pub struct ILowLevelDevicesAggregateProvider(::windows::core::IUnknown);
 impl ILowLevelDevicesAggregateProvider {
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Adc_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Adc_Provider\"`*"]
     #[cfg(feature = "Devices_Adc_Provider")]
     pub fn AdcControllerProvider(&self) -> ::windows::core::Result<Adc::Provider::IAdcControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).AdcControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Adc::Provider::IAdcControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Pwm_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     #[cfg(feature = "Devices_Pwm_Provider")]
     pub fn PwmControllerProvider(&self) -> ::windows::core::Result<Pwm::Provider::IPwmControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PwmControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Pwm::Provider::IPwmControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Gpio_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     #[cfg(feature = "Devices_Gpio_Provider")]
     pub fn GpioControllerProvider(&self) -> ::windows::core::Result<Gpio::Provider::IGpioControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GpioControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Gpio::Provider::IGpioControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_I2c_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_I2c_Provider\"`*"]
     #[cfg(feature = "Devices_I2c_Provider")]
     pub fn I2cControllerProvider(&self) -> ::windows::core::Result<I2c::Provider::II2cControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).I2cControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<I2c::Provider::II2cControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Spi_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Spi_Provider\"`*"]
     #[cfg(feature = "Devices_Spi_Provider")]
     pub fn SpiControllerProvider(&self) -> ::windows::core::Result<Spi::Provider::ISpiControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).SpiControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Spi::Provider::ISpiControllerProvider>(result__)
         }
     }
@@ -238,74 +238,68 @@ pub struct ILowLevelDevicesControllerStatics_Vtbl {
 #[repr(transparent)]
 pub struct LowLevelDevicesAggregateProvider(::windows::core::IUnknown);
 impl LowLevelDevicesAggregateProvider {
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Adc_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Adc_Provider\"`*"]
     #[cfg(feature = "Devices_Adc_Provider")]
     pub fn AdcControllerProvider(&self) -> ::windows::core::Result<Adc::Provider::IAdcControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).AdcControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Adc::Provider::IAdcControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Pwm_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     #[cfg(feature = "Devices_Pwm_Provider")]
     pub fn PwmControllerProvider(&self) -> ::windows::core::Result<Pwm::Provider::IPwmControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PwmControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Pwm::Provider::IPwmControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Gpio_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     #[cfg(feature = "Devices_Gpio_Provider")]
     pub fn GpioControllerProvider(&self) -> ::windows::core::Result<Gpio::Provider::IGpioControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GpioControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Gpio::Provider::IGpioControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_I2c_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_I2c_Provider\"`*"]
     #[cfg(feature = "Devices_I2c_Provider")]
     pub fn I2cControllerProvider(&self) -> ::windows::core::Result<I2c::Provider::II2cControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).I2cControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<I2c::Provider::II2cControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Spi_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Spi_Provider\"`*"]
     #[cfg(feature = "Devices_Spi_Provider")]
     pub fn SpiControllerProvider(&self) -> ::windows::core::Result<Spi::Provider::ISpiControllerProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).SpiControllerProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<Spi::Provider::ISpiControllerProvider>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices\"`, `\"Devices_Adc_Provider\"`, `\"Devices_Gpio_Provider\"`, `\"Devices_I2c_Provider\"`, `\"Devices_Pwm_Provider\"`, `\"Devices_Spi_Provider\"`*"]
+    #[doc = "*Required features: `\"Devices_Adc_Provider\"`, `\"Devices_Gpio_Provider\"`, `\"Devices_I2c_Provider\"`, `\"Devices_Pwm_Provider\"`, `\"Devices_Spi_Provider\"`*"]
     #[cfg(all(feature = "Devices_Adc_Provider", feature = "Devices_Gpio_Provider", feature = "Devices_I2c_Provider", feature = "Devices_Pwm_Provider", feature = "Devices_Spi_Provider"))]
-    pub fn Create<
-        'a,
-        Param0: ::std::convert::TryInto<::windows::core::InParam<'a, Adc::Provider::IAdcControllerProvider>, Error = E0>,
+    pub fn Create<'a, P0, E0, P1, E1, P2, E2, P3, E3, P4, E4>(adc: P0, pwm: P1, gpio: P2, i2c: P3, spi: P4) -> ::windows::core::Result<LowLevelDevicesAggregateProvider>
+    where
+        P0: ::std::convert::TryInto<::windows::core::InParam<'a, Adc::Provider::IAdcControllerProvider>, Error = E0>,
         E0: ::std::convert::Into<::windows::core::Error>,
-        Param1: ::std::convert::TryInto<::windows::core::InParam<'a, Pwm::Provider::IPwmControllerProvider>, Error = E1>,
+        P1: ::std::convert::TryInto<::windows::core::InParam<'a, Pwm::Provider::IPwmControllerProvider>, Error = E1>,
         E1: ::std::convert::Into<::windows::core::Error>,
-        Param2: ::std::convert::TryInto<::windows::core::InParam<'a, Gpio::Provider::IGpioControllerProvider>, Error = E2>,
+        P2: ::std::convert::TryInto<::windows::core::InParam<'a, Gpio::Provider::IGpioControllerProvider>, Error = E2>,
         E2: ::std::convert::Into<::windows::core::Error>,
-        Param3: ::std::convert::TryInto<::windows::core::InParam<'a, I2c::Provider::II2cControllerProvider>, Error = E3>,
+        P3: ::std::convert::TryInto<::windows::core::InParam<'a, I2c::Provider::II2cControllerProvider>, Error = E3>,
         E3: ::std::convert::Into<::windows::core::Error>,
-        Param4: ::std::convert::TryInto<::windows::core::InParam<'a, Spi::Provider::ISpiControllerProvider>, Error = E4>,
+        P4: ::std::convert::TryInto<::windows::core::InParam<'a, Spi::Provider::ISpiControllerProvider>, Error = E4>,
         E4: ::std::convert::Into<::windows::core::Error>,
-    >(
-        adc: Param0,
-        pwm: Param1,
-        gpio: Param2,
-        i2c: Param3,
-        spi: Param4,
-    ) -> ::windows::core::Result<LowLevelDevicesAggregateProvider> {
+    {
         Self::ILowLevelDevicesAggregateProviderFactory(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Create)(::windows::core::Interface::as_raw(this), adc.try_into().map_err(|e| e.into())?.abi(), pwm.try_into().map_err(|e| e.into())?.abi(), gpio.try_into().map_err(|e| e.into())?.abi(), i2c.try_into().map_err(|e| e.into())?.abi(), spi.try_into().map_err(|e| e.into())?.abi(), result__.as_mut_ptr()).from_abi::<LowLevelDevicesAggregateProvider>(result__)
         })
     }
@@ -400,15 +394,17 @@ unsafe impl ::core::marker::Sync for LowLevelDevicesAggregateProvider {}
 #[repr(transparent)]
 pub struct LowLevelDevicesController(::windows::core::IUnknown);
 impl LowLevelDevicesController {
-    #[doc = "*Required features: `\"Devices\"`*"]
     pub fn DefaultProvider() -> ::windows::core::Result<ILowLevelDevicesAggregateProvider> {
         Self::ILowLevelDevicesControllerStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DefaultProvider)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<ILowLevelDevicesAggregateProvider>(result__)
         })
     }
-    #[doc = "*Required features: `\"Devices\"`*"]
-    pub fn SetDefaultProvider<'a, Param0: ::std::convert::TryInto<::windows::core::InParam<'a, ILowLevelDevicesAggregateProvider>, Error = E0>, E0: ::std::convert::Into<::windows::core::Error>>(value: Param0) -> ::windows::core::Result<()> {
+    pub fn SetDefaultProvider<'a, P0, E0>(value: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::TryInto<::windows::core::InParam<'a, ILowLevelDevicesAggregateProvider>, Error = E0>,
+        E0: ::std::convert::Into<::windows::core::Error>,
+    {
         Self::ILowLevelDevicesControllerStatics(|this| unsafe { (::windows::core::Interface::vtable(this).SetDefaultProvider)(::windows::core::Interface::as_raw(this), value.try_into().map_err(|e| e.into())?.abi()).ok() })
     }
     #[doc(hidden)]

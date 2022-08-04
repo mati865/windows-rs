@@ -1,6 +1,9 @@
 use std::collections::*;
 use std::io::*;
 
+/// Namespaces to exclude from code generation for the `windows` and `windows-sys` crates.
+pub const EXCLUDE_NAMESPACES: [&str; 4] = ["Windows.UI.Xaml", "Windows.Win32.Interop", "Windows.Win32.System.Diagnostics.Debug.WebApp", "Windows.Win32.Web"];
+
 /// Formats the token string
 pub fn format(namespace: &str, tokens: &mut String, use_rustfmt: bool) {
     if use_rustfmt {
@@ -22,7 +25,7 @@ pub fn rustfmt(name: &str, tokens: &mut String) {
     if output.status.success() {
         *tokens = String::from_utf8(output.stdout).expect("Failed to parse UTF-8");
     } else {
-        println!("rustfmt failed: for `{}`\nError:\n{}", name, String::from_utf8_lossy(&output.stderr));
+        println!("rustfmt failed for `{}` with status {}\nError:\n{}", name, output.status, String::from_utf8_lossy(&output.stderr));
     }
 }
 

@@ -2,19 +2,17 @@
 #[repr(transparent)]
 pub struct GpioPinProviderValueChangedEventArgs(::windows::core::IUnknown);
 impl GpioPinProviderValueChangedEventArgs {
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn Edge(&self) -> ::windows::core::Result<ProviderGpioPinEdge> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<ProviderGpioPinEdge>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Edge)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<ProviderGpioPinEdge>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
-    pub fn Create<'a, Param0: ::std::convert::Into<ProviderGpioPinEdge>>(edge: Param0) -> ::windows::core::Result<GpioPinProviderValueChangedEventArgs> {
+    pub fn Create(edge: ProviderGpioPinEdge) -> ::windows::core::Result<GpioPinProviderValueChangedEventArgs> {
         Self::IGpioPinProviderValueChangedEventArgsFactory(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).Create)(::windows::core::Interface::as_raw(this), edge.into(), result__.as_mut_ptr()).from_abi::<GpioPinProviderValueChangedEventArgs>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).Create)(::windows::core::Interface::as_raw(this), edge, result__.as_mut_ptr()).from_abi::<GpioPinProviderValueChangedEventArgs>(result__)
         })
     }
     #[doc(hidden)]
@@ -89,20 +87,18 @@ unsafe impl ::core::marker::Sync for GpioPinProviderValueChangedEventArgs {}
 #[repr(transparent)]
 pub struct IGpioControllerProvider(::windows::core::IUnknown);
 impl IGpioControllerProvider {
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn PinCount(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PinCount)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
-    pub fn OpenPinProvider<'a, Param1: ::std::convert::Into<ProviderGpioSharingMode>>(&self, pin: i32, sharingmode: Param1) -> ::windows::core::Result<IGpioPinProvider> {
+    pub fn OpenPinProvider(&self, pin: i32, sharingmode: ProviderGpioSharingMode) -> ::windows::core::Result<IGpioPinProvider> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).OpenPinProvider)(::windows::core::Interface::as_raw(this), pin, sharingmode.into(), result__.as_mut_ptr()).from_abi::<IGpioPinProvider>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).OpenPinProvider)(::windows::core::Interface::as_raw(this), pin, sharingmode, result__.as_mut_ptr()).from_abi::<IGpioPinProvider>(result__)
         }
     }
 }
@@ -174,83 +170,79 @@ pub struct IGpioControllerProvider_Vtbl {
 #[repr(transparent)]
 pub struct IGpioPinProvider(::windows::core::IUnknown);
 impl IGpioPinProvider {
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
-    pub fn ValueChanged<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::Foundation::TypedEventHandler<IGpioPinProvider, GpioPinProviderValueChangedEventArgs>>>>(&self, handler: Param0) -> ::windows::core::Result<super::super::super::Foundation::EventRegistrationToken> {
+    pub fn ValueChanged<'a, P0>(&self, handler: P0) -> ::windows::core::Result<super::super::super::Foundation::EventRegistrationToken>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::Foundation::TypedEventHandler<IGpioPinProvider, GpioPinProviderValueChangedEventArgs>>>,
+    {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<super::super::super::Foundation::EventRegistrationToken>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).ValueChanged)(::windows::core::Interface::as_raw(this), handler.into().abi(), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::EventRegistrationToken>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn RemoveValueChanged(&self, token: super::super::super::Foundation::EventRegistrationToken) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).RemoveValueChanged)(::windows::core::Interface::as_raw(this), token).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn DebounceTimeout(&self) -> ::windows::core::Result<super::super::super::Foundation::TimeSpan> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<super::super::super::Foundation::TimeSpan>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DebounceTimeout)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::TimeSpan>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn SetDebounceTimeout(&self, value: super::super::super::Foundation::TimeSpan) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetDebounceTimeout)(::windows::core::Interface::as_raw(this), value).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn PinNumber(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PinNumber)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn SharingMode(&self) -> ::windows::core::Result<ProviderGpioSharingMode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<ProviderGpioSharingMode>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).SharingMode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<ProviderGpioSharingMode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
-    pub fn IsDriveModeSupported<'a, Param0: ::std::convert::Into<ProviderGpioPinDriveMode>>(&self, drivemode: Param0) -> ::windows::core::Result<bool> {
+    pub fn IsDriveModeSupported(&self, drivemode: ProviderGpioPinDriveMode) -> ::windows::core::Result<bool> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).IsDriveModeSupported)(::windows::core::Interface::as_raw(this), drivemode.into(), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).IsDriveModeSupported)(::windows::core::Interface::as_raw(this), drivemode, result__.as_mut_ptr()).from_abi::<bool>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn GetDriveMode(&self) -> ::windows::core::Result<ProviderGpioPinDriveMode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<ProviderGpioPinDriveMode>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetDriveMode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<ProviderGpioPinDriveMode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
-    pub fn SetDriveMode<'a, Param0: ::std::convert::Into<ProviderGpioPinDriveMode>>(&self, value: Param0) -> ::windows::core::Result<()> {
+    pub fn SetDriveMode(&self, value: ProviderGpioPinDriveMode) -> ::windows::core::Result<()> {
         let this = self;
-        unsafe { (::windows::core::Interface::vtable(this).SetDriveMode)(::windows::core::Interface::as_raw(this), value.into()).ok() }
+        unsafe { (::windows::core::Interface::vtable(this).SetDriveMode)(::windows::core::Interface::as_raw(this), value).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
-    pub fn Write<'a, Param0: ::std::convert::Into<ProviderGpioPinValue>>(&self, value: Param0) -> ::windows::core::Result<()> {
+    pub fn Write(&self, value: ProviderGpioPinValue) -> ::windows::core::Result<()> {
         let this = self;
-        unsafe { (::windows::core::Interface::vtable(this).Write)(::windows::core::Interface::as_raw(this), value.into()).ok() }
+        unsafe { (::windows::core::Interface::vtable(this).Write)(::windows::core::Interface::as_raw(this), value).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`*"]
     pub fn Read(&self) -> ::windows::core::Result<ProviderGpioPinValue> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<ProviderGpioPinValue>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Read)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<ProviderGpioPinValue>(result__)
         }
     }
@@ -370,12 +362,12 @@ pub struct IGpioPinProviderValueChangedEventArgsFactory_Vtbl {
 #[repr(transparent)]
 pub struct IGpioProvider(::windows::core::IUnknown);
 impl IGpioProvider {
-    #[doc = "*Required features: `\"Devices_Gpio_Provider\"`, `\"Foundation_Collections\"`*"]
+    #[doc = "*Required features: `\"Foundation_Collections\"`*"]
     #[cfg(feature = "Foundation_Collections")]
     pub fn GetControllers(&self) -> ::windows::core::Result<super::super::super::Foundation::Collections::IVectorView<IGpioControllerProvider>> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetControllers)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::Collections::IVectorView<IGpioControllerProvider>>(result__)
         }
     }

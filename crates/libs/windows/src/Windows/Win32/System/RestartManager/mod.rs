@@ -365,12 +365,16 @@ pub type RM_WRITE_STATUS_CALLBACK = ::core::option::Option<unsafe extern "system
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn RmAddFilter<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>, Param4: ::std::convert::Into<RM_FILTER_ACTION>>(dwsessionhandle: u32, strmodulename: Param1, pprocess: *const RM_UNIQUE_PROCESS, strserviceshortname: Param3, filteraction: Param4) -> u32 {
+pub unsafe fn RmAddFilter<'a, P0, P1>(dwsessionhandle: u32, strmodulename: P0, pprocess: ::core::option::Option<&RM_UNIQUE_PROCESS>, strserviceshortname: P1, filteraction: RM_FILTER_ACTION) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmAddFilter(dwsessionhandle: u32, strmodulename: ::windows::core::PCWSTR, pprocess: *const RM_UNIQUE_PROCESS, strserviceshortname: ::windows::core::PCWSTR, filteraction: RM_FILTER_ACTION) -> u32;
     }
-    ::core::mem::transmute(RmAddFilter(::core::mem::transmute(dwsessionhandle), strmodulename.into(), ::core::mem::transmute(pprocess), strserviceshortname.into(), filteraction.into()))
+    RmAddFilter(dwsessionhandle, strmodulename.into(), ::core::mem::transmute(pprocess), strserviceshortname.into(), filteraction)
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
@@ -379,7 +383,7 @@ pub unsafe fn RmCancelCurrentTask(dwsessionhandle: u32) -> u32 {
     extern "system" {
         fn RmCancelCurrentTask(dwsessionhandle: u32) -> u32;
     }
-    ::core::mem::transmute(RmCancelCurrentTask(::core::mem::transmute(dwsessionhandle)))
+    RmCancelCurrentTask(dwsessionhandle)
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
@@ -388,55 +392,70 @@ pub unsafe fn RmEndSession(dwsessionhandle: u32) -> u32 {
     extern "system" {
         fn RmEndSession(dwsessionhandle: u32) -> u32;
     }
-    ::core::mem::transmute(RmEndSession(::core::mem::transmute(dwsessionhandle)))
+    RmEndSession(dwsessionhandle)
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
-pub unsafe fn RmGetFilterList(dwsessionhandle: u32, pbfilterbuf: *mut u8, cbfilterbuf: u32, cbfilterbufneeded: *mut u32) -> u32 {
+pub unsafe fn RmGetFilterList(dwsessionhandle: u32, pbfilterbuf: ::core::option::Option<&mut [u8]>, cbfilterbufneeded: &mut u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmGetFilterList(dwsessionhandle: u32, pbfilterbuf: *mut u8, cbfilterbuf: u32, cbfilterbufneeded: *mut u32) -> u32;
     }
-    ::core::mem::transmute(RmGetFilterList(::core::mem::transmute(dwsessionhandle), ::core::mem::transmute(pbfilterbuf), ::core::mem::transmute(cbfilterbuf), ::core::mem::transmute(cbfilterbufneeded)))
+    RmGetFilterList(dwsessionhandle, ::core::mem::transmute(pbfilterbuf.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pbfilterbuf.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(cbfilterbufneeded))
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn RmGetList(dwsessionhandle: u32, pnprocinfoneeded: *mut u32, pnprocinfo: *mut u32, rgaffectedapps: *mut RM_PROCESS_INFO, lpdwrebootreasons: *mut u32) -> u32 {
+pub unsafe fn RmGetList(dwsessionhandle: u32, pnprocinfoneeded: &mut u32, pnprocinfo: &mut u32, rgaffectedapps: *mut RM_PROCESS_INFO, lpdwrebootreasons: &mut u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmGetList(dwsessionhandle: u32, pnprocinfoneeded: *mut u32, pnprocinfo: *mut u32, rgaffectedapps: *mut RM_PROCESS_INFO, lpdwrebootreasons: *mut u32) -> u32;
     }
-    ::core::mem::transmute(RmGetList(::core::mem::transmute(dwsessionhandle), ::core::mem::transmute(pnprocinfoneeded), ::core::mem::transmute(pnprocinfo), ::core::mem::transmute(rgaffectedapps), ::core::mem::transmute(lpdwrebootreasons)))
+    RmGetList(dwsessionhandle, ::core::mem::transmute(pnprocinfoneeded), ::core::mem::transmute(pnprocinfo), ::core::mem::transmute(rgaffectedapps), ::core::mem::transmute(lpdwrebootreasons))
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
-pub unsafe fn RmJoinSession<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(psessionhandle: *mut u32, strsessionkey: Param1) -> u32 {
+pub unsafe fn RmJoinSession<'a, P0>(psessionhandle: &mut u32, strsessionkey: P0) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmJoinSession(psessionhandle: *mut u32, strsessionkey: ::windows::core::PCWSTR) -> u32;
     }
-    ::core::mem::transmute(RmJoinSession(::core::mem::transmute(psessionhandle), strsessionkey.into()))
+    RmJoinSession(::core::mem::transmute(psessionhandle), strsessionkey.into())
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn RmRegisterResources(dwsessionhandle: u32, rgsfilenames: &[::windows::core::PWSTR], rgapplications: &[RM_UNIQUE_PROCESS], rgsservicenames: &[::windows::core::PWSTR]) -> u32 {
+pub unsafe fn RmRegisterResources(dwsessionhandle: u32, rgsfilenames: ::core::option::Option<&[::windows::core::PWSTR]>, rgapplications: ::core::option::Option<&[RM_UNIQUE_PROCESS]>, rgsservicenames: ::core::option::Option<&[::windows::core::PWSTR]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmRegisterResources(dwsessionhandle: u32, nfiles: u32, rgsfilenames: *const ::windows::core::PWSTR, napplications: u32, rgapplications: *const RM_UNIQUE_PROCESS, nservices: u32, rgsservicenames: *const ::windows::core::PWSTR) -> u32;
     }
-    ::core::mem::transmute(RmRegisterResources(::core::mem::transmute(dwsessionhandle), rgsfilenames.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(rgsfilenames)), rgapplications.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(rgapplications)), rgsservicenames.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(rgsservicenames))))
+    RmRegisterResources(
+        dwsessionhandle,
+        rgsfilenames.as_deref().map_or(0, |slice| slice.len() as _),
+        ::core::mem::transmute(rgsfilenames.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())),
+        rgapplications.as_deref().map_or(0, |slice| slice.len() as _),
+        ::core::mem::transmute(rgapplications.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())),
+        rgsservicenames.as_deref().map_or(0, |slice| slice.len() as _),
+        ::core::mem::transmute(rgsservicenames.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())),
+    )
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn RmRemoveFilter<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(dwsessionhandle: u32, strmodulename: Param1, pprocess: *const RM_UNIQUE_PROCESS, strserviceshortname: Param3) -> u32 {
+pub unsafe fn RmRemoveFilter<'a, P0, P1>(dwsessionhandle: u32, strmodulename: P0, pprocess: ::core::option::Option<&RM_UNIQUE_PROCESS>, strserviceshortname: P1) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmRemoveFilter(dwsessionhandle: u32, strmodulename: ::windows::core::PCWSTR, pprocess: *const RM_UNIQUE_PROCESS, strserviceshortname: ::windows::core::PCWSTR) -> u32;
     }
-    ::core::mem::transmute(RmRemoveFilter(::core::mem::transmute(dwsessionhandle), strmodulename.into(), ::core::mem::transmute(pprocess), strserviceshortname.into()))
+    RmRemoveFilter(dwsessionhandle, strmodulename.into(), ::core::mem::transmute(pprocess), strserviceshortname.into())
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
@@ -445,7 +464,7 @@ pub unsafe fn RmRestart(dwsessionhandle: u32, dwrestartflags: u32, fnstatus: RM_
     extern "system" {
         fn RmRestart(dwsessionhandle: u32, dwrestartflags: u32, fnstatus: *mut ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(RmRestart(::core::mem::transmute(dwsessionhandle), ::core::mem::transmute(dwrestartflags), ::core::mem::transmute(fnstatus)))
+    RmRestart(dwsessionhandle, dwrestartflags, ::core::mem::transmute(fnstatus))
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
@@ -454,16 +473,16 @@ pub unsafe fn RmShutdown(dwsessionhandle: u32, lactionflags: u32, fnstatus: RM_W
     extern "system" {
         fn RmShutdown(dwsessionhandle: u32, lactionflags: u32, fnstatus: *mut ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(RmShutdown(::core::mem::transmute(dwsessionhandle), ::core::mem::transmute(lactionflags), ::core::mem::transmute(fnstatus)))
+    RmShutdown(dwsessionhandle, lactionflags, ::core::mem::transmute(fnstatus))
 }
 #[doc = "*Required features: `\"Win32_System_RestartManager\"`*"]
 #[inline]
-pub unsafe fn RmStartSession(psessionhandle: *mut u32, dwsessionflags: u32, strsessionkey: ::windows::core::PWSTR) -> u32 {
+pub unsafe fn RmStartSession(psessionhandle: &mut u32, dwsessionflags: u32, strsessionkey: ::windows::core::PWSTR) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RmStartSession(psessionhandle: *mut u32, dwsessionflags: u32, strsessionkey: ::windows::core::PWSTR) -> u32;
     }
-    ::core::mem::transmute(RmStartSession(::core::mem::transmute(psessionhandle), ::core::mem::transmute(dwsessionflags), ::core::mem::transmute(strsessionkey)))
+    RmStartSession(::core::mem::transmute(psessionhandle), dwsessionflags, ::core::mem::transmute(strsessionkey))
 }
 #[cfg(feature = "implement")]
 ::core::include!("impl.rs");

@@ -35,30 +35,31 @@ pub struct IPowerManagerStatics2_Vtbl {
 #[doc = "*Required features: `\"Phone_System_Power\"`*"]
 pub struct PowerManager;
 impl PowerManager {
-    #[doc = "*Required features: `\"Phone_System_Power\"`*"]
     pub fn PowerSavingMode() -> ::windows::core::Result<PowerSavingMode> {
         Self::IPowerManagerStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<PowerSavingMode>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PowerSavingMode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PowerSavingMode>(result__)
         })
     }
-    #[doc = "*Required features: `\"Phone_System_Power\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
-    pub fn PowerSavingModeChanged<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::Foundation::EventHandler<::windows::core::IInspectable>>>>(changehandler: Param0) -> ::windows::core::Result<super::super::super::Foundation::EventRegistrationToken> {
+    pub fn PowerSavingModeChanged<'a, P0>(changehandler: P0) -> ::windows::core::Result<super::super::super::Foundation::EventRegistrationToken>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::Foundation::EventHandler<::windows::core::IInspectable>>>,
+    {
         Self::IPowerManagerStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<super::super::super::Foundation::EventRegistrationToken>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PowerSavingModeChanged)(::windows::core::Interface::as_raw(this), changehandler.into().abi(), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::EventRegistrationToken>(result__)
         })
     }
-    #[doc = "*Required features: `\"Phone_System_Power\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn RemovePowerSavingModeChanged(token: super::super::super::Foundation::EventRegistrationToken) -> ::windows::core::Result<()> {
         Self::IPowerManagerStatics(|this| unsafe { (::windows::core::Interface::vtable(this).RemovePowerSavingModeChanged)(::windows::core::Interface::as_raw(this), token).ok() })
     }
-    #[doc = "*Required features: `\"Phone_System_Power\"`*"]
     pub fn PowerSavingModeEnabled() -> ::windows::core::Result<bool> {
         Self::IPowerManagerStatics2(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PowerSavingModeEnabled)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<bool>(result__)
         })
     }

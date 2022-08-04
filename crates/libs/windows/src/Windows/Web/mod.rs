@@ -10,12 +10,15 @@ pub mod UI;
 #[repr(transparent)]
 pub struct IUriToStreamResolver(::windows::core::IUnknown);
 impl IUriToStreamResolver {
-    #[doc = "*Required features: `\"Web\"`, `\"Foundation\"`, `\"Storage_Streams\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`, `\"Storage_Streams\"`*"]
     #[cfg(all(feature = "Foundation", feature = "Storage_Streams"))]
-    pub fn UriToStreamAsync<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, super::Foundation::Uri>>>(&self, uri: Param0) -> ::windows::core::Result<super::Foundation::IAsyncOperation<super::Storage::Streams::IInputStream>> {
+    pub fn UriToStreamAsync<'a, P0>(&self, uri: P0) -> ::windows::core::Result<super::Foundation::IAsyncOperation<super::Storage::Streams::IInputStream>>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, super::Foundation::Uri>>,
+    {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).UriToStreamAsync)(::windows::core::Interface::as_raw(this), uri.into().abi(), result__.as_mut_ptr()).from_abi::<super::Foundation::IAsyncOperation<super::Storage::Streams::IInputStream>>(result__)
         }
     }
@@ -102,10 +105,9 @@ pub struct IWebErrorStatics_Vtbl {
 #[doc = "*Required features: `\"Web\"`*"]
 pub struct WebError;
 impl WebError {
-    #[doc = "*Required features: `\"Web\"`*"]
     pub fn GetStatus(hresult: i32) -> ::windows::core::Result<WebErrorStatus> {
         Self::IWebErrorStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<WebErrorStatus>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetStatus)(::windows::core::Interface::as_raw(this), hresult, result__.as_mut_ptr()).from_abi::<WebErrorStatus>(result__)
         })
     }

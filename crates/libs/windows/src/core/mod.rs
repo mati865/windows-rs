@@ -13,19 +13,14 @@ mod generic_factory;
 mod guid;
 mod heap;
 mod hresult;
-mod hstring;
 mod inspectable;
 mod interface;
-mod literals;
 mod param;
-mod pcstr;
-mod pcwstr;
-mod pstr;
-mod pwstr;
 mod ref_count;
 mod runtime_name;
 mod runtime_type;
 mod sha1;
+mod strings;
 mod unknown;
 mod waiter;
 mod weak;
@@ -43,23 +38,15 @@ pub use compose::*;
 pub(crate) use delay_load::*;
 pub use error::*;
 pub use event::*;
-#[doc(hidden)]
 pub use factory_cache::*;
 #[doc(hidden)]
 pub use generic_factory::*;
 pub use guid::*;
 pub(crate) use heap::*;
 pub use hresult::*;
-pub use hstring::*;
 pub use inspectable::*;
 pub use interface::*;
-#[doc(hidden)]
-pub use literals::*;
 pub use param::*;
-pub use pcstr::*;
-pub use pcwstr::*;
-pub use pstr::*;
-pub use pwstr::*;
 #[doc(hidden)]
 pub use ref_count::*;
 #[doc(hidden)]
@@ -68,6 +55,7 @@ pub use runtime_name::*;
 pub use runtime_type::*;
 #[doc(hidden)]
 pub use sha1::*;
+pub use strings::*;
 pub use unknown::*;
 #[doc(hidden)]
 pub use waiter::*;
@@ -96,24 +84,6 @@ extern "C" {
 
 #[doc(hidden)]
 pub extern crate alloc;
-
-#[doc(hidden)]
-pub fn as_ptr_or_null<T>(value: &[T]) -> *const T {
-    if value.is_empty() {
-        core::ptr::null()
-    } else {
-        value.as_ptr()
-    }
-}
-
-#[doc(hidden)]
-pub fn as_mut_ptr_or_null<T>(value: &mut [T]) -> *mut T {
-    if value.is_empty() {
-        core::ptr::null_mut()
-    } else {
-        value.as_mut_ptr()
-    }
-}
 
 fn wide_trim_end(mut wide: &[u16]) -> &[u16] {
     while let Some(last) = wide.last() {

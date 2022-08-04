@@ -61,13 +61,11 @@ impl ::core::fmt::Debug for GeneratorParametersType {
 #[repr(transparent)]
 pub struct IFindSimilarResults(::windows::core::IUnknown);
 impl IFindSimilarResults {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetSize(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn GetNextFileId(&self, numtraitsmatched: *mut u32, similarityfileid: *mut SimilarityFileId) -> ::windows::core::Result<()> {
+    pub unsafe fn GetNextFileId(&self, numtraitsmatched: &mut u32, similarityfileid: &mut SimilarityFileId) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).GetNextFileId)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(numtraitsmatched), ::core::mem::transmute(similarityfileid)).ok()
     }
 }
@@ -117,9 +115,12 @@ pub struct IFindSimilarResults_Vtbl {
 #[repr(transparent)]
 pub struct IRdcComparator(::windows::core::IUnknown);
 impl IRdcComparator {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn Process<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, endofinput: Param0, endofoutput: *mut super::super::Foundation::BOOL, inputbuffer: *mut RdcBufferPointer, outputbuffer: *mut RdcNeedPointer, rdc_errorcode: *mut RDC_ErrorCode) -> ::windows::core::Result<()> {
+    pub unsafe fn Process<'a, P0>(&self, endofinput: P0, endofoutput: &mut super::super::Foundation::BOOL, inputbuffer: &mut RdcBufferPointer, outputbuffer: &mut RdcNeedPointer, rdc_errorcode: &mut RDC_ErrorCode) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
         (::windows::core::Interface::vtable(self).Process)(::windows::core::Interface::as_raw(self), endofinput.into(), ::core::mem::transmute(endofoutput), ::core::mem::transmute(inputbuffer), ::core::mem::transmute(outputbuffer), ::core::mem::transmute(rdc_errorcode)).ok()
     }
 }
@@ -171,19 +172,17 @@ pub struct IRdcComparator_Vtbl {
 #[repr(transparent)]
 pub struct IRdcFileReader(::windows::core::IUnknown);
 impl IRdcFileReader {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetFileSize(&self) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetFileSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn Read(&self, offsetfilestart: u64, bytestoread: u32, bytesactuallyread: *mut u32, buffer: *mut u8, eof: *mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Read)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(offsetfilestart), ::core::mem::transmute(bytestoread), ::core::mem::transmute(bytesactuallyread), ::core::mem::transmute(buffer), ::core::mem::transmute(eof)).ok()
+    pub unsafe fn Read(&self, offsetfilestart: u64, bytestoread: u32, bytesactuallyread: &mut u32, buffer: &mut u8, eof: &mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).Read)(::windows::core::Interface::as_raw(self), offsetfilestart, bytestoread, ::core::mem::transmute(bytesactuallyread), ::core::mem::transmute(buffer), ::core::mem::transmute(eof)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetFilePosition(&self) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetFilePosition)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
 }
@@ -237,31 +236,26 @@ pub struct IRdcFileReader_Vtbl {
 #[repr(transparent)]
 pub struct IRdcFileWriter(::windows::core::IUnknown);
 impl IRdcFileWriter {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetFileSize(&self) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).base__.GetFileSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn Read(&self, offsetfilestart: u64, bytestoread: u32, bytesactuallyread: *mut u32, buffer: *mut u8, eof: *mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).base__.Read)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(offsetfilestart), ::core::mem::transmute(bytestoread), ::core::mem::transmute(bytesactuallyread), ::core::mem::transmute(buffer), ::core::mem::transmute(eof)).ok()
+    pub unsafe fn Read(&self, offsetfilestart: u64, bytestoread: u32, bytesactuallyread: &mut u32, buffer: &mut u8, eof: &mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).base__.Read)(::windows::core::Interface::as_raw(self), offsetfilestart, bytestoread, ::core::mem::transmute(bytesactuallyread), ::core::mem::transmute(buffer), ::core::mem::transmute(eof)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetFilePosition(&self) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).base__.GetFilePosition)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Write(&self, offsetfilestart: u64, bytestowrite: u32) -> ::windows::core::Result<u8> {
-        let mut result__ = ::core::mem::MaybeUninit::<u8>::zeroed();
-        (::windows::core::Interface::vtable(self).Write)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(offsetfilestart), ::core::mem::transmute(bytestowrite), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u8>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).Write)(::windows::core::Interface::as_raw(self), offsetfilestart, bytestowrite, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u8>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Truncate(&self) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).Truncate)(::windows::core::Interface::as_raw(self)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn DeleteOnClose(&self) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).DeleteOnClose)(::windows::core::Interface::as_raw(self)).ok()
     }
@@ -328,15 +322,17 @@ pub struct IRdcFileWriter_Vtbl {
 #[repr(transparent)]
 pub struct IRdcGenerator(::windows::core::IUnknown);
 impl IRdcGenerator {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetGeneratorParameters(&self, level: u32) -> ::windows::core::Result<IRdcGeneratorParameters> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).GetGeneratorParameters)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(level), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).GetGeneratorParameters)(::windows::core::Interface::as_raw(self), level, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn Process<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, endofinput: Param0, endofoutput: *mut super::super::Foundation::BOOL, inputbuffer: *mut RdcBufferPointer, outputbuffers: &mut [*mut RdcBufferPointer], rdc_errorcode: *mut RDC_ErrorCode) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Process)(::windows::core::Interface::as_raw(self), endofinput.into(), ::core::mem::transmute(endofoutput), ::core::mem::transmute(inputbuffer), outputbuffers.len() as _, ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(outputbuffers)), ::core::mem::transmute(rdc_errorcode)).ok()
+    pub unsafe fn Process<'a, P0>(&self, endofinput: P0, endofoutput: &mut super::super::Foundation::BOOL, inputbuffer: &mut RdcBufferPointer, outputbuffers: &mut [*mut RdcBufferPointer], rdc_errorcode: &mut RDC_ErrorCode) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        (::windows::core::Interface::vtable(self).Process)(::windows::core::Interface::as_raw(self), endofinput.into(), ::core::mem::transmute(endofoutput), ::core::mem::transmute(inputbuffer), outputbuffers.len() as _, ::core::mem::transmute(outputbuffers.as_ptr()), ::core::mem::transmute(rdc_errorcode)).ok()
     }
 }
 impl ::core::convert::From<IRdcGenerator> for ::windows::core::IUnknown {
@@ -388,23 +384,19 @@ pub struct IRdcGenerator_Vtbl {
 #[repr(transparent)]
 pub struct IRdcGeneratorFilterMaxParameters(::windows::core::IUnknown);
 impl IRdcGeneratorFilterMaxParameters {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetHorizonSize(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetHorizonSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn SetHorizonSize(&self, horizonsize: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).SetHorizonSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(horizonsize)).ok()
+        (::windows::core::Interface::vtable(self).SetHorizonSize)(::windows::core::Interface::as_raw(self), horizonsize).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetHashWindowSize(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetHashWindowSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn SetHashWindowSize(&self, hashwindowsize: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).SetHashWindowSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(hashwindowsize)).ok()
+        (::windows::core::Interface::vtable(self).SetHashWindowSize)(::windows::core::Interface::as_raw(self), hashwindowsize).ok()
     }
 }
 impl ::core::convert::From<IRdcGeneratorFilterMaxParameters> for ::windows::core::IUnknown {
@@ -455,23 +447,19 @@ pub struct IRdcGeneratorFilterMaxParameters_Vtbl {
 #[repr(transparent)]
 pub struct IRdcGeneratorParameters(::windows::core::IUnknown);
 impl IRdcGeneratorParameters {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetGeneratorParametersType(&self) -> ::windows::core::Result<GeneratorParametersType> {
-        let mut result__ = ::core::mem::MaybeUninit::<GeneratorParametersType>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetGeneratorParametersType)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<GeneratorParametersType>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn GetParametersVersion(&self, currentversion: *mut u32, minimumcompatibleappversion: *mut u32) -> ::windows::core::Result<()> {
+    pub unsafe fn GetParametersVersion(&self, currentversion: &mut u32, minimumcompatibleappversion: &mut u32) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).GetParametersVersion)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(currentversion), ::core::mem::transmute(minimumcompatibleappversion)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetSerializeSize(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetSerializeSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn Serialize(&self, size: u32, parametersblob: *mut u8, byteswritten: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Serialize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(size), ::core::mem::transmute(parametersblob), ::core::mem::transmute(byteswritten)).ok()
+    pub unsafe fn Serialize(&self, size: u32, parametersblob: &mut u8, byteswritten: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).Serialize)(::windows::core::Interface::as_raw(self), size, ::core::mem::transmute(parametersblob), ::core::mem::transmute(byteswritten)).ok()
     }
 }
 impl ::core::convert::From<IRdcGeneratorParameters> for ::windows::core::IUnknown {
@@ -522,38 +510,37 @@ pub struct IRdcGeneratorParameters_Vtbl {
 #[repr(transparent)]
 pub struct IRdcLibrary(::windows::core::IUnknown);
 impl IRdcLibrary {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn ComputeDefaultRecursionDepth(&self, filesize: u64) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
-        (::windows::core::Interface::vtable(self).ComputeDefaultRecursionDepth)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(filesize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).ComputeDefaultRecursionDepth)(::windows::core::Interface::as_raw(self), filesize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn CreateGeneratorParameters<'a, Param0: ::std::convert::Into<GeneratorParametersType>>(&self, parameterstype: Param0, level: u32) -> ::windows::core::Result<IRdcGeneratorParameters> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateGeneratorParameters)(::windows::core::Interface::as_raw(self), parameterstype.into(), ::core::mem::transmute(level), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
+    pub unsafe fn CreateGeneratorParameters(&self, parameterstype: GeneratorParametersType, level: u32) -> ::windows::core::Result<IRdcGeneratorParameters> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateGeneratorParameters)(::windows::core::Interface::as_raw(self), parameterstype, level, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn OpenGeneratorParameters(&self, size: u32, parametersblob: *const u8) -> ::windows::core::Result<IRdcGeneratorParameters> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).OpenGeneratorParameters)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(size), ::core::mem::transmute(parametersblob), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
+    pub unsafe fn OpenGeneratorParameters(&self, size: u32, parametersblob: &u8) -> ::windows::core::Result<IRdcGeneratorParameters> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).OpenGeneratorParameters)(::windows::core::Interface::as_raw(self), size, ::core::mem::transmute(parametersblob), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGeneratorParameters>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn CreateGenerator(&self, igeneratorparametersarray: &[::core::option::Option<IRdcGeneratorParameters>]) -> ::windows::core::Result<IRdcGenerator> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateGenerator)(::windows::core::Interface::as_raw(self), igeneratorparametersarray.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(igeneratorparametersarray)), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGenerator>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateGenerator)(::windows::core::Interface::as_raw(self), igeneratorparametersarray.len() as _, ::core::mem::transmute(igeneratorparametersarray.as_ptr()), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcGenerator>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn CreateComparator<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileReader>>>(&self, iseedsignaturesfile: Param0, comparatorbuffersize: u32) -> ::windows::core::Result<IRdcComparator> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateComparator)(::windows::core::Interface::as_raw(self), iseedsignaturesfile.into().abi(), ::core::mem::transmute(comparatorbuffersize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcComparator>(result__)
+    pub unsafe fn CreateComparator<'a, P0>(&self, iseedsignaturesfile: P0, comparatorbuffersize: u32) -> ::windows::core::Result<IRdcComparator>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileReader>>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateComparator)(::windows::core::Interface::as_raw(self), iseedsignaturesfile.into().abi(), comparatorbuffersize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcComparator>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn CreateSignatureReader<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileReader>>>(&self, ifilereader: Param0) -> ::windows::core::Result<IRdcSignatureReader> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+    pub unsafe fn CreateSignatureReader<'a, P0>(&self, ifilereader: P0) -> ::windows::core::Result<IRdcSignatureReader>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileReader>>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).CreateSignatureReader)(::windows::core::Interface::as_raw(self), ifilereader.into().abi(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IRdcSignatureReader>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn GetRDCVersion(&self, currentversion: *mut u32, minimumcompatibleappversion: *mut u32) -> ::windows::core::Result<()> {
+    pub unsafe fn GetRDCVersion(&self, currentversion: &mut u32, minimumcompatibleappversion: &mut u32) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).GetRDCVersion)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(currentversion), ::core::mem::transmute(minimumcompatibleappversion)).ok()
     }
 }
@@ -608,14 +595,13 @@ pub struct IRdcLibrary_Vtbl {
 #[repr(transparent)]
 pub struct IRdcSignatureReader(::windows::core::IUnknown);
 impl IRdcSignatureReader {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn ReadHeader(&self) -> ::windows::core::Result<RDC_ErrorCode> {
-        let mut result__ = ::core::mem::MaybeUninit::<RDC_ErrorCode>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).ReadHeader)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RDC_ErrorCode>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn ReadSignatures(&self, rdcsignaturepointer: *mut RdcSignaturePointer, endofoutput: *mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
+    pub unsafe fn ReadSignatures(&self, rdcsignaturepointer: &mut RdcSignaturePointer, endofoutput: &mut super::super::Foundation::BOOL) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).ReadSignatures)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(rdcsignaturepointer), ::core::mem::transmute(endofoutput)).ok()
     }
 }
@@ -668,13 +654,11 @@ pub struct IRdcSignatureReader_Vtbl {
 #[repr(transparent)]
 pub struct IRdcSimilarityGenerator(::windows::core::IUnknown);
 impl IRdcSimilarityGenerator {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn EnableSimilarity(&self) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).EnableSimilarity)(::windows::core::Interface::as_raw(self)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Results(&self) -> ::windows::core::Result<SimilarityData> {
-        let mut result__ = ::core::mem::MaybeUninit::<SimilarityData>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).Results)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<SimilarityData>(result__)
     }
 }
@@ -724,39 +708,51 @@ pub struct IRdcSimilarityGenerator_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarity(::windows::core::IUnknown);
 impl ISimilarity {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTable<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, path: Param0, truncate: Param1, securitydescriptor: *const u8, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateTable)(::windows::core::Interface::as_raw(self), path.into(), truncate.into(), ::core::mem::transmute(securitydescriptor), ::core::mem::transmute(recordsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
+    pub unsafe fn CreateTable<'a, P0, P1>(&self, path: P0, truncate: P1, securitydescriptor: &u8, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::PCWSTR>,
+        P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateTable)(::windows::core::Interface::as_raw(self), path.into(), truncate.into(), ::core::mem::transmute(securitydescriptor), recordsize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTableIndirect<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityTraitsMapping>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileWriter>>, Param2: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, mapping: Param0, fileidfile: Param1, truncate: Param2, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateTableIndirect)(::windows::core::Interface::as_raw(self), mapping.into().abi(), fileidfile.into().abi(), truncate.into(), ::core::mem::transmute(recordsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
+    pub unsafe fn CreateTableIndirect<'a, P0, P1, P2>(&self, mapping: P0, fileidfile: P1, truncate: P2, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityTraitsMapping>>,
+        P1: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileWriter>>,
+        P2: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateTableIndirect)(::windows::core::Interface::as_raw(self), mapping.into().abi(), fileidfile.into().abi(), truncate.into(), recordsize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CloseTable<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, isvalid: Param0) -> ::windows::core::Result<()> {
+    pub unsafe fn CloseTable<'a, P0>(&self, isvalid: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
         (::windows::core::Interface::vtable(self).CloseTable)(::windows::core::Interface::as_raw(self), isvalid.into()).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn Append(&self, similarityfileid: *const SimilarityFileId, similaritydata: *const SimilarityData) -> ::windows::core::Result<()> {
+    pub unsafe fn Append(&self, similarityfileid: &SimilarityFileId, similaritydata: &SimilarityData) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).Append)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similarityfileid), ::core::mem::transmute(similaritydata)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn FindSimilarFileId(&self, similaritydata: *const SimilarityData, numberofmatchesrequired: u16, resultssize: u32) -> ::windows::core::Result<IFindSimilarResults> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).FindSimilarFileId)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similaritydata), ::core::mem::transmute(numberofmatchesrequired), ::core::mem::transmute(resultssize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IFindSimilarResults>(result__)
+    pub unsafe fn FindSimilarFileId(&self, similaritydata: &SimilarityData, numberofmatchesrequired: u16, resultssize: u32) -> ::windows::core::Result<IFindSimilarResults> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).FindSimilarFileId)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similaritydata), numberofmatchesrequired, resultssize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<IFindSimilarResults>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn CopyAndSwap<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarity>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityReportProgress>>>(&self, newsimilaritytables: Param0, reportprogress: Param1) -> ::windows::core::Result<()> {
+    pub unsafe fn CopyAndSwap<'a, P0, P1>(&self, newsimilaritytables: P0, reportprogress: P1) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarity>>,
+        P1: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityReportProgress>>,
+    {
         (::windows::core::Interface::vtable(self).CopyAndSwap)(::windows::core::Interface::as_raw(self), newsimilaritytables.into().abi(), reportprogress.into().abi()).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetRecordCount(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetRecordCount)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
 }
@@ -820,40 +816,47 @@ pub struct ISimilarity_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityFileIdTable(::windows::core::IUnknown);
 impl ISimilarityFileIdTable {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTable<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, path: Param0, truncate: Param1, securitydescriptor: *const u8, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateTable)(::windows::core::Interface::as_raw(self), path.into(), truncate.into(), ::core::mem::transmute(securitydescriptor), ::core::mem::transmute(recordsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
+    pub unsafe fn CreateTable<'a, P0, P1>(&self, path: P0, truncate: P1, securitydescriptor: &u8, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::PCWSTR>,
+        P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateTable)(::windows::core::Interface::as_raw(self), path.into(), truncate.into(), ::core::mem::transmute(securitydescriptor), recordsize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTableIndirect<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileWriter>>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, fileidfile: Param0, truncate: Param1, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateTableIndirect)(::windows::core::Interface::as_raw(self), fileidfile.into().abi(), truncate.into(), ::core::mem::transmute(recordsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
+    pub unsafe fn CreateTableIndirect<'a, P0, P1>(&self, fileidfile: P0, truncate: P1, recordsize: u32) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, IRdcFileWriter>>,
+        P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateTableIndirect)(::windows::core::Interface::as_raw(self), fileidfile.into().abi(), truncate.into(), recordsize, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CloseTable<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, isvalid: Param0) -> ::windows::core::Result<()> {
+    pub unsafe fn CloseTable<'a, P0>(&self, isvalid: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
         (::windows::core::Interface::vtable(self).CloseTable)(::windows::core::Interface::as_raw(self), isvalid.into()).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn Append(&self, similarityfileid: *const SimilarityFileId) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+    pub unsafe fn Append(&self, similarityfileid: &SimilarityFileId) -> ::windows::core::Result<u32> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).Append)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similarityfileid), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Lookup(&self, similarityfileindex: u32) -> ::windows::core::Result<SimilarityFileId> {
-        let mut result__ = ::core::mem::MaybeUninit::<SimilarityFileId>::zeroed();
-        (::windows::core::Interface::vtable(self).Lookup)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similarityfileindex), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<SimilarityFileId>(result__)
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).Lookup)(::windows::core::Interface::as_raw(self), similarityfileindex, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<SimilarityFileId>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Invalidate(&self, similarityfileindex: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Invalidate)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similarityfileindex)).ok()
+        (::windows::core::Interface::vtable(self).Invalidate)(::windows::core::Interface::as_raw(self), similarityfileindex).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetRecordCount(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetRecordCount)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
 }
@@ -917,9 +920,8 @@ pub struct ISimilarityFileIdTable_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityReportProgress(::windows::core::IUnknown);
 impl ISimilarityReportProgress {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn ReportProgress(&self, percentcompleted: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).ReportProgress)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(percentcompleted)).ok()
+        (::windows::core::Interface::vtable(self).ReportProgress)(::windows::core::Interface::as_raw(self), percentcompleted).ok()
     }
 }
 impl ::core::convert::From<ISimilarityReportProgress> for ::windows::core::IUnknown {
@@ -967,10 +969,10 @@ pub struct ISimilarityReportProgress_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityTableDumpState(::windows::core::IUnknown);
 impl ISimilarityTableDumpState {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn GetNextData(&self, resultssize: u32, resultsused: *mut u32, eof: *mut super::super::Foundation::BOOL, results: *mut SimilarityDumpData) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).GetNextData)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(resultssize), ::core::mem::transmute(resultsused), ::core::mem::transmute(eof), ::core::mem::transmute(results)).ok()
+    pub unsafe fn GetNextData(&self, resultssize: u32, resultsused: &mut u32, eof: &mut super::super::Foundation::BOOL, results: &mut SimilarityDumpData) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).GetNextData)(::windows::core::Interface::as_raw(self), resultssize, ::core::mem::transmute(resultsused), ::core::mem::transmute(eof), ::core::mem::transmute(results)).ok()
     }
 }
 impl ::core::convert::From<ISimilarityTableDumpState> for ::windows::core::IUnknown {
@@ -1021,22 +1023,22 @@ pub struct ISimilarityTableDumpState_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityTraitsMappedView(::windows::core::IUnknown);
 impl ISimilarityTraitsMappedView {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Flush(&self) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).Flush)(::windows::core::Interface::as_raw(self)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn Unmap(&self) -> ::windows::core::Result<()> {
         (::windows::core::Interface::vtable(self).Unmap)(::windows::core::Interface::as_raw(self)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn Get<'a, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, index: u64, dirty: Param1, numelements: u32) -> ::windows::core::Result<SimilarityMappedViewInfo> {
-        let mut result__ = ::core::mem::MaybeUninit::<SimilarityMappedViewInfo>::zeroed();
-        (::windows::core::Interface::vtable(self).Get)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(index), dirty.into(), ::core::mem::transmute(numelements), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<SimilarityMappedViewInfo>(result__)
+    pub unsafe fn Get<'a, P0>(&self, index: u64, dirty: P0, numelements: u32) -> ::windows::core::Result<SimilarityMappedViewInfo>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).Get)(::windows::core::Interface::as_raw(self), index, dirty.into(), numelements, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<SimilarityMappedViewInfo>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn GetView(&self, mappedpagebegin: *mut *mut u8, mappedpageend: *mut *mut u8) {
+    pub unsafe fn GetView(&self, mappedpagebegin: &mut *mut u8, mappedpageend: &mut *mut u8) {
         (::windows::core::Interface::vtable(self).GetView)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(mappedpagebegin), ::core::mem::transmute(mappedpageend))
     }
 }
@@ -1091,37 +1093,30 @@ pub struct ISimilarityTraitsMappedView_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityTraitsMapping(::windows::core::IUnknown);
 impl ISimilarityTraitsMapping {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn CloseMapping(&self) {
         (::windows::core::Interface::vtable(self).CloseMapping)(::windows::core::Interface::as_raw(self))
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn SetFileSize(&self, filesize: u64) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).SetFileSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(filesize)).ok()
+        (::windows::core::Interface::vtable(self).SetFileSize)(::windows::core::Interface::as_raw(self), filesize).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetFileSize(&self) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetFileSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn OpenMapping<'a, Param0: ::std::convert::Into<RdcMappingAccessMode>>(&self, accessmode: Param0, begin: u64, end: u64) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
-        (::windows::core::Interface::vtable(self).OpenMapping)(::windows::core::Interface::as_raw(self), accessmode.into(), ::core::mem::transmute(begin), ::core::mem::transmute(end), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
+    pub unsafe fn OpenMapping(&self, accessmode: RdcMappingAccessMode, begin: u64, end: u64) -> ::windows::core::Result<u64> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).OpenMapping)(::windows::core::Interface::as_raw(self), accessmode, begin, end, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn ResizeMapping<'a, Param0: ::std::convert::Into<RdcMappingAccessMode>>(&self, accessmode: Param0, begin: u64, end: u64) -> ::windows::core::Result<u64> {
-        let mut result__ = ::core::mem::MaybeUninit::<u64>::zeroed();
-        (::windows::core::Interface::vtable(self).ResizeMapping)(::windows::core::Interface::as_raw(self), accessmode.into(), ::core::mem::transmute(begin), ::core::mem::transmute(end), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
+    pub unsafe fn ResizeMapping(&self, accessmode: RdcMappingAccessMode, begin: u64, end: u64) -> ::windows::core::Result<u64> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).ResizeMapping)(::windows::core::Interface::as_raw(self), accessmode, begin, end, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u64>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn GetPageSize(&self, pagesize: *mut u32) {
+    pub unsafe fn GetPageSize(&self, pagesize: &mut u32) {
         (::windows::core::Interface::vtable(self).GetPageSize)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(pagesize))
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn CreateView<'a, Param1: ::std::convert::Into<RdcMappingAccessMode>>(&self, minimummappedpages: u32, accessmode: Param1) -> ::windows::core::Result<ISimilarityTraitsMappedView> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-        (::windows::core::Interface::vtable(self).CreateView)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(minimummappedpages), accessmode.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<ISimilarityTraitsMappedView>(result__)
+    pub unsafe fn CreateView(&self, minimummappedpages: u32, accessmode: RdcMappingAccessMode) -> ::windows::core::Result<ISimilarityTraitsMappedView> {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
+        (::windows::core::Interface::vtable(self).CreateView)(::windows::core::Interface::as_raw(self), minimummappedpages, accessmode, ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<ISimilarityTraitsMappedView>(result__)
     }
 }
 impl ::core::convert::From<ISimilarityTraitsMapping> for ::windows::core::IUnknown {
@@ -1175,39 +1170,46 @@ pub struct ISimilarityTraitsMapping_Vtbl {
 #[repr(transparent)]
 pub struct ISimilarityTraitsTable(::windows::core::IUnknown);
 impl ISimilarityTraitsTable {
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTable<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, path: Param0, truncate: Param1, securitydescriptor: *const u8) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
+    pub unsafe fn CreateTable<'a, P0, P1>(&self, path: P0, truncate: P1, securitydescriptor: &u8) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::PCWSTR>,
+        P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).CreateTable)(::windows::core::Interface::as_raw(self), path.into(), truncate.into(), ::core::mem::transmute(securitydescriptor), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateTableIndirect<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityTraitsMapping>>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, mapping: Param0, truncate: Param1) -> ::windows::core::Result<RdcCreatedTables> {
-        let mut result__ = ::core::mem::MaybeUninit::<RdcCreatedTables>::zeroed();
+    pub unsafe fn CreateTableIndirect<'a, P0, P1>(&self, mapping: P0, truncate: P1) -> ::windows::core::Result<RdcCreatedTables>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, ISimilarityTraitsMapping>>,
+        P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).CreateTableIndirect)(::windows::core::Interface::as_raw(self), mapping.into().abi(), truncate.into(), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<RdcCreatedTables>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CloseTable<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(&self, isvalid: Param0) -> ::windows::core::Result<()> {
+    pub unsafe fn CloseTable<'a, P0>(&self, isvalid: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+    {
         (::windows::core::Interface::vtable(self).CloseTable)(::windows::core::Interface::as_raw(self), isvalid.into()).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn Append(&self, data: *const SimilarityData, fileindex: u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).Append)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(data), ::core::mem::transmute(fileindex)).ok()
+    pub unsafe fn Append(&self, data: &SimilarityData, fileindex: u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).Append)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(data), fileindex).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
-    pub unsafe fn FindSimilarFileIndex(&self, similaritydata: *const SimilarityData, numberofmatchesrequired: u16, findsimilarfileindexresults: *mut FindSimilarFileIndexResults, resultssize: u32, resultsused: *mut u32) -> ::windows::core::Result<()> {
-        (::windows::core::Interface::vtable(self).FindSimilarFileIndex)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similaritydata), ::core::mem::transmute(numberofmatchesrequired), ::core::mem::transmute(findsimilarfileindexresults), ::core::mem::transmute(resultssize), ::core::mem::transmute(resultsused)).ok()
+    pub unsafe fn FindSimilarFileIndex(&self, similaritydata: &SimilarityData, numberofmatchesrequired: u16, findsimilarfileindexresults: &mut FindSimilarFileIndexResults, resultssize: u32, resultsused: &mut u32) -> ::windows::core::Result<()> {
+        (::windows::core::Interface::vtable(self).FindSimilarFileIndex)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(similaritydata), numberofmatchesrequired, ::core::mem::transmute(findsimilarfileindexresults), resultssize, ::core::mem::transmute(resultsused)).ok()
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn BeginDump(&self) -> ::windows::core::Result<ISimilarityTableDumpState> {
-        let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).BeginDump)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<ISimilarityTableDumpState>(result__)
     }
-    #[doc = "*Required features: `\"Win32_Networking_RemoteDifferentialCompression\"`*"]
     pub unsafe fn GetLastIndex(&self) -> ::windows::core::Result<u32> {
-        let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+        let mut result__ = ::core::mem::MaybeUninit::zeroed();
         (::windows::core::Interface::vtable(self).GetLastIndex)(::windows::core::Interface::as_raw(self), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<u32>(result__)
     }
 }

@@ -109,11 +109,28 @@ pub fn namespace(gen: &Gen, tree: &Tree) -> String {
 
     let types = types.values();
 
-    let tokens = quote! {
+    let mut tokens = quote! {
         #(#namespaces)*
         #(#functions)*
         #(#types)*
     };
+
+    if tree.namespace == "Windows.Win32.UI.WindowsAndMessaging" {
+        tokens.combine(&quote! {
+            #[cfg(target_pointer_width = "32")]
+            #[cfg(feature = "Win32_Foundation")]
+            pub use SetWindowLongA as SetWindowLongPtrA;
+            #[cfg(target_pointer_width = "32")]
+            #[cfg(feature = "Win32_Foundation")]
+            pub use GetWindowLongA as GetWindowLongPtrA;
+            #[cfg(target_pointer_width = "32")]
+            #[cfg(feature = "Win32_Foundation")]
+            pub use SetWindowLongW as SetWindowLongPtrW;
+            #[cfg(target_pointer_width = "32")]
+            #[cfg(feature = "Win32_Foundation")]
+            pub use GetWindowLongW as GetWindowLongPtrW;
+        });
+    }
 
     tokens.into_string()
 }
@@ -152,5 +169,23 @@ fn combine<'a>(types: &mut BTreeMap<&'a str, TokenStream>, name: &'a str, tokens
 fn combine_type<'a>(types: &mut BTreeMap<&'a str, TokenStream>, type_name: TypeName<'a>, tokens: TokenStream) {
     if !CORE_TYPES.iter().any(|(x, _)| x == &type_name) {
         types.entry(type_name.name).or_default().combine(&tokens);
+    }
+}
+
+/// Expand a possibly empty generics list with a new generic
+fn expand_generics(generics: TokenStream, new: TokenStream) -> TokenStream {
+    if generics.is_empty() {
+        quote!(#new)
+    } else {
+        quote!(#generics, #new)
+    }
+}
+
+/// Expand a possibly emppty where clause with a new generic constraint
+fn expand_where_clause(where_clause: TokenStream, generic: TokenStream) -> TokenStream {
+    if where_clause.is_empty() {
+        quote!(where #generic)
+    } else {
+        quote!(#where_clause #generic)
     }
 }

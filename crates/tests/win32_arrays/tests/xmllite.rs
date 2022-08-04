@@ -11,11 +11,11 @@ fn test() -> Result<()> {
         writer.SetOutput(&stream)?;
 
         writer.WriteStartDocument(XmlStandalone_Omit)?;
-        writer.WriteStartElement(PCWSTR::default(), PCWSTR::from(&"html".into()), PCWSTR::default())?;
-        writer.WriteElementString(PCWSTR::default(), PCWSTR::from(&"head".into()), PCWSTR::default(), PCWSTR::from(&"The quick brown fox jumps over the lazy dog".into()))?;
-        writer.WriteStartElement(PCWSTR::default(), PCWSTR::from(&"body".into()), PCWSTR::default())?;
-        writer.WriteChars(&[])?;
-        writer.WriteChars(&[0x52, 0x75, 0x73, 0x74])?;
+        writer.WriteStartElement(None, w!("html"), None)?;
+        writer.WriteElementString(None, w!("head"), None, w!("The quick brown fox jumps over the lazy dog"))?;
+        writer.WriteStartElement(None, w!("body"), None)?;
+        writer.WriteChars(None)?;
+        writer.WriteChars(Some(&[0x52, 0x75, 0x73, 0x74]))?;
         writer.WriteEndDocument()?;
         writer.Flush()?;
 
@@ -28,26 +28,28 @@ fn test() -> Result<()> {
         reader.SetInput(&stream)?;
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_XmlDeclaration);
 
-        let mut name = PWSTR::default();
+        let mut name = PWSTR::null();
         let mut name_len = 0;
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Element);
-        reader.GetLocalName(&mut name, &mut name_len)?;
+        // TODO: workaround for https://github.com/microsoft/win32metadata/issues/1005
+        reader.GetLocalName(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "html");
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Element);
-        reader.GetLocalName(&mut name, &mut name_len)?;
+        // TODO: workaround for https://github.com/microsoft/win32metadata/issues/1005
+        reader.GetLocalName(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "head");
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Text);
 
         let mut message = Vec::new();
@@ -65,15 +67,15 @@ fn test() -> Result<()> {
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(message.as_ptr(), message.len())), "The quick brown fox jumps over the lazy dog");
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_EndElement);
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Element);
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Text);
 
         reader.ReadValueChunk(&mut chunk, &mut chars_read).ok()?;
@@ -95,8 +97,8 @@ fn lite() -> Result<()> {
         writer.SetOutput(&stream)?;
 
         writer.WriteStartElement(HSTRING::from("html").as_wide())?;
-        writer.WriteAttributeString(HSTRING::from("no-value").as_wide(), &[])?;
-        writer.WriteAttributeString(HSTRING::from("with-value").as_wide(), HSTRING::from("value").as_wide())?;
+        writer.WriteAttributeString(HSTRING::from("no-value").as_wide(), None)?;
+        writer.WriteAttributeString(HSTRING::from("with-value").as_wide(), Some(HSTRING::from("value").as_wide()))?;
         writer.WriteEndElement(HSTRING::from("html").as_wide())?;
         writer.Flush()?;
 
@@ -108,30 +110,31 @@ fn lite() -> Result<()> {
         let reader = reader.unwrap();
         reader.SetInput(&stream)?;
 
-        let mut name = PWSTR::default();
+        let mut name = PWSTR::null();
         let mut name_len = 0;
 
         let mut node_type = XmlNodeType_None;
-        reader.Read(&mut node_type).ok()?;
+        reader.Read(Some(&mut node_type)).ok()?;
         assert_eq!(node_type, XmlNodeType_Element);
-        reader.GetLocalName(&mut name, &mut name_len)?;
+        // TODO: workaround for https://github.com/microsoft/win32metadata/issues/1005
+        reader.GetLocalName(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "html");
 
         assert_eq!(reader.GetAttributeCount()?, 2);
         reader.MoveToFirstAttribute().ok()?;
 
-        reader.GetLocalName(&mut name, &mut name_len)?;
+        reader.GetLocalName(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "no-value");
 
-        reader.GetValue(&mut name, &mut name_len)?;
+        reader.GetValue(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "");
 
         reader.MoveToNextAttribute().ok()?;
 
-        reader.GetLocalName(&mut name, &mut name_len)?;
+        reader.GetLocalName(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "with-value");
 
-        reader.GetValue(&mut name, &mut name_len)?;
+        reader.GetValue(Some(&mut name), Some(&mut name_len))?;
         assert_eq!(String::from_utf16_lossy(std::slice::from_raw_parts(name.0, name_len as _)), "value");
 
         Ok(())

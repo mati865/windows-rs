@@ -2,7 +2,7 @@ use windows::{core::*, Win32::Foundation::*, Win32::Graphics::Gdi::ValidateRect,
 
 fn main() -> Result<()> {
     unsafe {
-        let instance = GetModuleHandleA(PCSTR::default())?;
+        let instance = GetModuleHandleA(None)?;
         debug_assert!(instance.0 != 0);
 
         let window_class = s!("window");
@@ -37,7 +37,7 @@ extern "system" fn wndproc(window: HWND, message: u32, wparam: WPARAM, lparam: L
         match message as u32 {
             WM_PAINT => {
                 println!("WM_PAINT");
-                ValidateRect(window, std::ptr::null());
+                ValidateRect(window, None);
                 LRESULT(0)
             }
             WM_DESTROY => {

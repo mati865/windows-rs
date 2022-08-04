@@ -66,12 +66,12 @@ impl ::core::ops::Not for CREATE_TOOLHELP_SNAPSHOT_FLAGS {
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CreateToolhelp32Snapshot<'a, Param0: ::std::convert::Into<CREATE_TOOLHELP_SNAPSHOT_FLAGS>>(dwflags: Param0, th32processid: u32) -> ::windows::core::Result<super::super::super::Foundation::HANDLE> {
+pub unsafe fn CreateToolhelp32Snapshot(dwflags: CREATE_TOOLHELP_SNAPSHOT_FLAGS, th32processid: u32) -> ::windows::core::Result<super::super::super::Foundation::HANDLE> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateToolhelp32Snapshot(dwflags: CREATE_TOOLHELP_SNAPSHOT_FLAGS, th32processid: u32) -> super::super::super::Foundation::HANDLE;
     }
-    let result__ = CreateToolhelp32Snapshot(dwflags.into(), ::core::mem::transmute(th32processid));
+    let result__ = CreateToolhelp32Snapshot(dwflags, th32processid);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[repr(C)]
@@ -189,42 +189,48 @@ pub const HF32_SHARED: u32 = 2u32;
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Heap32First(lphe: *mut HEAPENTRY32, th32processid: u32, th32heapid: usize) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Heap32First(lphe: &mut HEAPENTRY32, th32processid: u32, th32heapid: usize) -> super::super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Heap32First(lphe: *mut HEAPENTRY32, th32processid: u32, th32heapid: usize) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Heap32First(::core::mem::transmute(lphe), ::core::mem::transmute(th32processid), ::core::mem::transmute(th32heapid)))
+    Heap32First(::core::mem::transmute(lphe), th32processid, th32heapid)
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Heap32ListFirst<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lphl: *mut HEAPLIST32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Heap32ListFirst<'a, P0>(hsnapshot: P0, lphl: &mut HEAPLIST32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Heap32ListFirst(hsnapshot: super::super::super::Foundation::HANDLE, lphl: *mut HEAPLIST32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Heap32ListFirst(hsnapshot.into(), ::core::mem::transmute(lphl)))
+    Heap32ListFirst(hsnapshot.into(), ::core::mem::transmute(lphl))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Heap32ListNext<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lphl: *mut HEAPLIST32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Heap32ListNext<'a, P0>(hsnapshot: P0, lphl: &mut HEAPLIST32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Heap32ListNext(hsnapshot: super::super::super::Foundation::HANDLE, lphl: *mut HEAPLIST32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Heap32ListNext(hsnapshot.into(), ::core::mem::transmute(lphl)))
+    Heap32ListNext(hsnapshot.into(), ::core::mem::transmute(lphl))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Heap32Next(lphe: *mut HEAPENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Heap32Next(lphe: &mut HEAPENTRY32) -> super::super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Heap32Next(lphe: *mut HEAPENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Heap32Next(::core::mem::transmute(lphe)))
+    Heap32Next(::core::mem::transmute(lphe))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`*"]
 pub const MAX_MODULE_NAME32: u32 = 255u32;
@@ -325,42 +331,54 @@ impl ::core::default::Default for MODULEENTRY32W {
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Module32First<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpme: *mut MODULEENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Module32First<'a, P0>(hsnapshot: P0, lpme: &mut MODULEENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Module32First(hsnapshot: super::super::super::Foundation::HANDLE, lpme: *mut MODULEENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Module32First(hsnapshot.into(), ::core::mem::transmute(lpme)))
+    Module32First(hsnapshot.into(), ::core::mem::transmute(lpme))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Module32FirstW<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpme: *mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Module32FirstW<'a, P0>(hsnapshot: P0, lpme: &mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Module32FirstW(hsnapshot: super::super::super::Foundation::HANDLE, lpme: *mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Module32FirstW(hsnapshot.into(), ::core::mem::transmute(lpme)))
+    Module32FirstW(hsnapshot.into(), ::core::mem::transmute(lpme))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Module32Next<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpme: *mut MODULEENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Module32Next<'a, P0>(hsnapshot: P0, lpme: &mut MODULEENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Module32Next(hsnapshot: super::super::super::Foundation::HANDLE, lpme: *mut MODULEENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Module32Next(hsnapshot.into(), ::core::mem::transmute(lpme)))
+    Module32Next(hsnapshot.into(), ::core::mem::transmute(lpme))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Module32NextW<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpme: *mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Module32NextW<'a, P0>(hsnapshot: P0, lpme: &mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Module32NextW(hsnapshot: super::super::super::Foundation::HANDLE, lpme: *mut MODULEENTRY32W) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Module32NextW(hsnapshot.into(), ::core::mem::transmute(lpme)))
+    Module32NextW(hsnapshot.into(), ::core::mem::transmute(lpme))
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
@@ -451,42 +469,54 @@ impl ::core::default::Default for PROCESSENTRY32W {
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Process32First<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lppe: *mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Process32First<'a, P0>(hsnapshot: P0, lppe: &mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Process32First(hsnapshot: super::super::super::Foundation::HANDLE, lppe: *mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Process32First(hsnapshot.into(), ::core::mem::transmute(lppe)))
+    Process32First(hsnapshot.into(), ::core::mem::transmute(lppe))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Process32FirstW<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lppe: *mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Process32FirstW<'a, P0>(hsnapshot: P0, lppe: &mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Process32FirstW(hsnapshot: super::super::super::Foundation::HANDLE, lppe: *mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Process32FirstW(hsnapshot.into(), ::core::mem::transmute(lppe)))
+    Process32FirstW(hsnapshot.into(), ::core::mem::transmute(lppe))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Process32Next<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lppe: *mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Process32Next<'a, P0>(hsnapshot: P0, lppe: &mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Process32Next(hsnapshot: super::super::super::Foundation::HANDLE, lppe: *mut PROCESSENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Process32Next(hsnapshot.into(), ::core::mem::transmute(lppe)))
+    Process32Next(hsnapshot.into(), ::core::mem::transmute(lppe))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Process32NextW<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lppe: *mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Process32NextW<'a, P0>(hsnapshot: P0, lppe: &mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Process32NextW(hsnapshot: super::super::super::Foundation::HANDLE, lppe: *mut PROCESSENTRY32W) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Process32NextW(hsnapshot.into(), ::core::mem::transmute(lppe)))
+    Process32NextW(hsnapshot.into(), ::core::mem::transmute(lppe))
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`*"]
@@ -527,32 +557,38 @@ impl ::core::default::Default for THREADENTRY32 {
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Thread32First<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpte: *mut THREADENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Thread32First<'a, P0>(hsnapshot: P0, lpte: &mut THREADENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Thread32First(hsnapshot: super::super::super::Foundation::HANDLE, lpte: *mut THREADENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Thread32First(hsnapshot.into(), ::core::mem::transmute(lpte)))
+    Thread32First(hsnapshot.into(), ::core::mem::transmute(lpte))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Thread32Next<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HANDLE>>(hsnapshot: Param0, lpte: *mut THREADENTRY32) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Thread32Next<'a, P0>(hsnapshot: P0, lpte: &mut THREADENTRY32) -> super::super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Thread32Next(hsnapshot: super::super::super::Foundation::HANDLE, lpte: *mut THREADENTRY32) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Thread32Next(hsnapshot.into(), ::core::mem::transmute(lpte)))
+    Thread32Next(hsnapshot.into(), ::core::mem::transmute(lpte))
 }
 #[doc = "*Required features: `\"Win32_System_Diagnostics_ToolHelp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn Toolhelp32ReadProcessMemory(th32processid: u32, lpbaseaddress: *const ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, cbread: usize, lpnumberofbytesread: *mut usize) -> super::super::super::Foundation::BOOL {
+pub unsafe fn Toolhelp32ReadProcessMemory(th32processid: u32, lpbaseaddress: *const ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, cbread: usize, lpnumberofbytesread: &mut usize) -> super::super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn Toolhelp32ReadProcessMemory(th32processid: u32, lpbaseaddress: *const ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, cbread: usize, lpnumberofbytesread: *mut usize) -> super::super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(Toolhelp32ReadProcessMemory(::core::mem::transmute(th32processid), ::core::mem::transmute(lpbaseaddress), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(cbread), ::core::mem::transmute(lpnumberofbytesread)))
+    Toolhelp32ReadProcessMemory(th32processid, ::core::mem::transmute(lpbaseaddress), ::core::mem::transmute(lpbuffer), cbread, ::core::mem::transmute(lpnumberofbytesread))
 }
 #[cfg(feature = "implement")]
 ::core::include!("impl.rs");

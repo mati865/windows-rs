@@ -1288,207 +1288,304 @@ pub const NET_DFS_SETDC_INITPKT: u32 = 2u32;
 pub const NET_DFS_SETDC_TIMEOUT: u32 = 1u32;
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsAdd<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2, comment: Param3, flags: u32) -> u32 {
+pub unsafe fn NetDfsAdd<'a, P0, P1, P2, P3>(dfsentrypath: P0, servername: P1, sharename: P2, comment: P3, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+    P3: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsAdd(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR, comment: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsAdd(dfsentrypath.into(), servername.into(), sharename.into(), comment.into(), ::core::mem::transmute(flags)))
+    NetDfsAdd(dfsentrypath.into(), servername.into(), sharename.into(), comment.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsAddFtRoot<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(servername: Param0, rootshare: Param1, ftdfsname: Param2, comment: Param3, flags: u32) -> u32 {
+pub unsafe fn NetDfsAddFtRoot<'a, P0, P1, P2, P3>(servername: P0, rootshare: P1, ftdfsname: P2, comment: P3, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+    P3: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsAddFtRoot(servername: ::windows::core::PCWSTR, rootshare: ::windows::core::PCWSTR, ftdfsname: ::windows::core::PCWSTR, comment: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsAddFtRoot(servername.into(), rootshare.into(), ftdfsname.into(), comment.into(), ::core::mem::transmute(flags)))
+    NetDfsAddFtRoot(servername.into(), rootshare.into(), ftdfsname.into(), comment.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsAddRootTarget<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(pdfspath: Param0, ptargetpath: Param1, majorversion: u32, pcomment: Param3, flags: u32) -> u32 {
+pub unsafe fn NetDfsAddRootTarget<'a, P0, P1, P2>(pdfspath: P0, ptargetpath: P1, majorversion: u32, pcomment: P2, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsAddRootTarget(pdfspath: ::windows::core::PCWSTR, ptargetpath: ::windows::core::PCWSTR, majorversion: u32, pcomment: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsAddRootTarget(pdfspath.into(), ptargetpath.into(), ::core::mem::transmute(majorversion), pcomment.into(), ::core::mem::transmute(flags)))
+    NetDfsAddRootTarget(pdfspath.into(), ptargetpath.into(), majorversion, pcomment.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsAddStdRoot<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(servername: Param0, rootshare: Param1, comment: Param2, flags: u32) -> u32 {
+pub unsafe fn NetDfsAddStdRoot<'a, P0, P1, P2>(servername: P0, rootshare: P1, comment: P2, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsAddStdRoot(servername: ::windows::core::PCWSTR, rootshare: ::windows::core::PCWSTR, comment: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsAddStdRoot(servername.into(), rootshare.into(), comment.into(), ::core::mem::transmute(flags)))
+    NetDfsAddStdRoot(servername.into(), rootshare.into(), comment.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsEnum<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(dfsname: Param0, level: u32, prefmaxlen: u32, buffer: *mut *mut u8, entriesread: *mut u32, resumehandle: *mut u32) -> u32 {
+pub unsafe fn NetDfsEnum<'a, P0>(dfsname: P0, level: u32, prefmaxlen: u32, buffer: &mut *mut u8, entriesread: &mut u32, resumehandle: &mut u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsEnum(dfsname: ::windows::core::PCWSTR, level: u32, prefmaxlen: u32, buffer: *mut *mut u8, entriesread: *mut u32, resumehandle: *mut u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsEnum(dfsname.into(), ::core::mem::transmute(level), ::core::mem::transmute(prefmaxlen), ::core::mem::transmute(buffer), ::core::mem::transmute(entriesread), ::core::mem::transmute(resumehandle)))
+    NetDfsEnum(dfsname.into(), level, prefmaxlen, ::core::mem::transmute(buffer), ::core::mem::transmute(entriesread), ::core::mem::transmute(resumehandle))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsGetClientInfo<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2, level: u32, buffer: *mut *mut u8) -> u32 {
+pub unsafe fn NetDfsGetClientInfo<'a, P0, P1, P2>(dfsentrypath: P0, servername: P1, sharename: P2, level: u32, buffer: &mut *mut u8) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetClientInfo(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR, level: u32, buffer: *mut *mut u8) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetClientInfo(dfsentrypath.into(), servername.into(), sharename.into(), ::core::mem::transmute(level), ::core::mem::transmute(buffer)))
+    NetDfsGetClientInfo(dfsentrypath.into(), servername.into(), sharename.into(), level, ::core::mem::transmute(buffer))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsGetFtContainerSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(domainname: Param0, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32 {
+pub unsafe fn NetDfsGetFtContainerSecurity<'a, P0>(domainname: P0, securityinformation: u32, ppsecuritydescriptor: &mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: &mut u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetFtContainerSecurity(domainname: ::windows::core::PCWSTR, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetFtContainerSecurity(domainname.into(), ::core::mem::transmute(securityinformation), ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor)))
+    NetDfsGetFtContainerSecurity(domainname.into(), securityinformation, ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsGetInfo<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2, level: u32, buffer: *mut *mut u8) -> u32 {
+pub unsafe fn NetDfsGetInfo<'a, P0, P1, P2>(dfsentrypath: P0, servername: P1, sharename: P2, level: u32, buffer: &mut *mut u8) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetInfo(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR, level: u32, buffer: *mut *mut u8) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetInfo(dfsentrypath.into(), servername.into(), sharename.into(), ::core::mem::transmute(level), ::core::mem::transmute(buffer)))
+    NetDfsGetInfo(dfsentrypath.into(), servername.into(), sharename.into(), level, ::core::mem::transmute(buffer))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsGetSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32 {
+pub unsafe fn NetDfsGetSecurity<'a, P0>(dfsentrypath: P0, securityinformation: u32, ppsecuritydescriptor: &mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: &mut u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetSecurity(dfsentrypath: ::windows::core::PCWSTR, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetSecurity(dfsentrypath.into(), ::core::mem::transmute(securityinformation), ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor)))
+    NetDfsGetSecurity(dfsentrypath.into(), securityinformation, ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsGetStdContainerSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(machinename: Param0, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32 {
+pub unsafe fn NetDfsGetStdContainerSecurity<'a, P0>(machinename: P0, securityinformation: u32, ppsecuritydescriptor: &mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: &mut u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetStdContainerSecurity(machinename: ::windows::core::PCWSTR, securityinformation: u32, ppsecuritydescriptor: *mut super::super::Security::PSECURITY_DESCRIPTOR, lpcbsecuritydescriptor: *mut u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetStdContainerSecurity(machinename.into(), ::core::mem::transmute(securityinformation), ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor)))
+    NetDfsGetStdContainerSecurity(machinename.into(), securityinformation, ::core::mem::transmute(ppsecuritydescriptor), ::core::mem::transmute(lpcbsecuritydescriptor))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsGetSupportedNamespaceVersion<'a, Param0: ::std::convert::Into<DFS_NAMESPACE_VERSION_ORIGIN>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(origin: Param0, pname: Param1, ppversioninfo: *mut *mut DFS_SUPPORTED_NAMESPACE_VERSION_INFO) -> u32 {
+pub unsafe fn NetDfsGetSupportedNamespaceVersion<'a, P0>(origin: DFS_NAMESPACE_VERSION_ORIGIN, pname: P0, ppversioninfo: &mut *mut DFS_SUPPORTED_NAMESPACE_VERSION_INFO) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsGetSupportedNamespaceVersion(origin: DFS_NAMESPACE_VERSION_ORIGIN, pname: ::windows::core::PCWSTR, ppversioninfo: *mut *mut DFS_SUPPORTED_NAMESPACE_VERSION_INFO) -> u32;
     }
-    ::core::mem::transmute(NetDfsGetSupportedNamespaceVersion(origin.into(), pname.into(), ::core::mem::transmute(ppversioninfo)))
+    NetDfsGetSupportedNamespaceVersion(origin, pname.into(), ::core::mem::transmute(ppversioninfo))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsMove<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(olddfsentrypath: Param0, newdfsentrypath: Param1, flags: u32) -> u32 {
+pub unsafe fn NetDfsMove<'a, P0, P1>(olddfsentrypath: P0, newdfsentrypath: P1, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsMove(olddfsentrypath: ::windows::core::PCWSTR, newdfsentrypath: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsMove(olddfsentrypath.into(), newdfsentrypath.into(), ::core::mem::transmute(flags)))
+    NetDfsMove(olddfsentrypath.into(), newdfsentrypath.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsRemove<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2) -> u32 {
+pub unsafe fn NetDfsRemove<'a, P0, P1, P2>(dfsentrypath: P0, servername: P1, sharename: P2) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsRemove(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR) -> u32;
     }
-    ::core::mem::transmute(NetDfsRemove(dfsentrypath.into(), servername.into(), sharename.into()))
+    NetDfsRemove(dfsentrypath.into(), servername.into(), sharename.into())
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsRemoveFtRoot<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(servername: Param0, rootshare: Param1, ftdfsname: Param2, flags: u32) -> u32 {
+pub unsafe fn NetDfsRemoveFtRoot<'a, P0, P1, P2>(servername: P0, rootshare: P1, ftdfsname: P2, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsRemoveFtRoot(servername: ::windows::core::PCWSTR, rootshare: ::windows::core::PCWSTR, ftdfsname: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsRemoveFtRoot(servername.into(), rootshare.into(), ftdfsname.into(), ::core::mem::transmute(flags)))
+    NetDfsRemoveFtRoot(servername.into(), rootshare.into(), ftdfsname.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsRemoveFtRootForced<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(domainname: Param0, servername: Param1, rootshare: Param2, ftdfsname: Param3, flags: u32) -> u32 {
+pub unsafe fn NetDfsRemoveFtRootForced<'a, P0, P1, P2, P3>(domainname: P0, servername: P1, rootshare: P2, ftdfsname: P3, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+    P3: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsRemoveFtRootForced(domainname: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, rootshare: ::windows::core::PCWSTR, ftdfsname: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsRemoveFtRootForced(domainname.into(), servername.into(), rootshare.into(), ftdfsname.into(), ::core::mem::transmute(flags)))
+    NetDfsRemoveFtRootForced(domainname.into(), servername.into(), rootshare.into(), ftdfsname.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsRemoveRootTarget<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(pdfspath: Param0, ptargetpath: Param1, flags: u32) -> u32 {
+pub unsafe fn NetDfsRemoveRootTarget<'a, P0, P1>(pdfspath: P0, ptargetpath: P1, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsRemoveRootTarget(pdfspath: ::windows::core::PCWSTR, ptargetpath: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsRemoveRootTarget(pdfspath.into(), ptargetpath.into(), ::core::mem::transmute(flags)))
+    NetDfsRemoveRootTarget(pdfspath.into(), ptargetpath.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsRemoveStdRoot<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(servername: Param0, rootshare: Param1, flags: u32) -> u32 {
+pub unsafe fn NetDfsRemoveStdRoot<'a, P0, P1>(servername: P0, rootshare: P1, flags: u32) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsRemoveStdRoot(servername: ::windows::core::PCWSTR, rootshare: ::windows::core::PCWSTR, flags: u32) -> u32;
     }
-    ::core::mem::transmute(NetDfsRemoveStdRoot(servername.into(), rootshare.into(), ::core::mem::transmute(flags)))
+    NetDfsRemoveStdRoot(servername.into(), rootshare.into(), flags)
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsSetClientInfo<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2, level: u32, buffer: *const u8) -> u32 {
+pub unsafe fn NetDfsSetClientInfo<'a, P0, P1, P2>(dfsentrypath: P0, servername: P1, sharename: P2, level: u32, buffer: &u8) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsSetClientInfo(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR, level: u32, buffer: *const u8) -> u32;
     }
-    ::core::mem::transmute(NetDfsSetClientInfo(dfsentrypath.into(), servername.into(), sharename.into(), ::core::mem::transmute(level), ::core::mem::transmute(buffer)))
+    NetDfsSetClientInfo(dfsentrypath.into(), servername.into(), sharename.into(), level, ::core::mem::transmute(buffer))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsSetFtContainerSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>>(domainname: Param0, securityinformation: u32, psecuritydescriptor: Param2) -> u32 {
+pub unsafe fn NetDfsSetFtContainerSecurity<'a, P0, P1>(domainname: P0, securityinformation: u32, psecuritydescriptor: P1) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsSetFtContainerSecurity(domainname: ::windows::core::PCWSTR, securityinformation: u32, psecuritydescriptor: super::super::Security::PSECURITY_DESCRIPTOR) -> u32;
     }
-    ::core::mem::transmute(NetDfsSetFtContainerSecurity(domainname.into(), ::core::mem::transmute(securityinformation), psecuritydescriptor.into()))
+    NetDfsSetFtContainerSecurity(domainname.into(), securityinformation, psecuritydescriptor.into())
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`*"]
 #[inline]
-pub unsafe fn NetDfsSetInfo<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(dfsentrypath: Param0, servername: Param1, sharename: Param2, level: u32, buffer: *const u8) -> u32 {
+pub unsafe fn NetDfsSetInfo<'a, P0, P1, P2>(dfsentrypath: P0, servername: P1, sharename: P2, level: u32, buffer: &u8) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsSetInfo(dfsentrypath: ::windows::core::PCWSTR, servername: ::windows::core::PCWSTR, sharename: ::windows::core::PCWSTR, level: u32, buffer: *const u8) -> u32;
     }
-    ::core::mem::transmute(NetDfsSetInfo(dfsentrypath.into(), servername.into(), sharename.into(), ::core::mem::transmute(level), ::core::mem::transmute(buffer)))
+    NetDfsSetInfo(dfsentrypath.into(), servername.into(), sharename.into(), level, ::core::mem::transmute(buffer))
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsSetSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>>(dfsentrypath: Param0, securityinformation: u32, psecuritydescriptor: Param2) -> u32 {
+pub unsafe fn NetDfsSetSecurity<'a, P0, P1>(dfsentrypath: P0, securityinformation: u32, psecuritydescriptor: P1) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsSetSecurity(dfsentrypath: ::windows::core::PCWSTR, securityinformation: u32, psecuritydescriptor: super::super::Security::PSECURITY_DESCRIPTOR) -> u32;
     }
-    ::core::mem::transmute(NetDfsSetSecurity(dfsentrypath.into(), ::core::mem::transmute(securityinformation), psecuritydescriptor.into()))
+    NetDfsSetSecurity(dfsentrypath.into(), securityinformation, psecuritydescriptor.into())
 }
 #[doc = "*Required features: `\"Win32_Storage_DistributedFileSystem\"`, `\"Win32_Security\"`*"]
 #[cfg(feature = "Win32_Security")]
 #[inline]
-pub unsafe fn NetDfsSetStdContainerSecurity<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>>(machinename: Param0, securityinformation: u32, psecuritydescriptor: Param2) -> u32 {
+pub unsafe fn NetDfsSetStdContainerSecurity<'a, P0, P1>(machinename: P0, securityinformation: u32, psecuritydescriptor: P1) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Security::PSECURITY_DESCRIPTOR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NetDfsSetStdContainerSecurity(machinename: ::windows::core::PCWSTR, securityinformation: u32, psecuritydescriptor: super::super::Security::PSECURITY_DESCRIPTOR) -> u32;
     }
-    ::core::mem::transmute(NetDfsSetStdContainerSecurity(machinename.into(), ::core::mem::transmute(securityinformation), psecuritydescriptor.into()))
+    NetDfsSetStdContainerSecurity(machinename.into(), securityinformation, psecuritydescriptor.into())
 }
 #[cfg(feature = "implement")]
 ::core::include!("impl.rs");

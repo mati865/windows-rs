@@ -44,7 +44,7 @@ fn run_sample<S>() -> Result<()>
 where
     S: DXSample,
 {
-    let instance = unsafe { GetModuleHandleA(PCSTR::default())? };
+    let instance = unsafe { GetModuleHandleA(None)? };
 
     let wc = WNDCLASSEXA {
         cbSize: std::mem::size_of::<WNDCLASSEXA>() as u32,
@@ -132,36 +132,12 @@ fn sample_wndproc<S: DXSample>(sample: &mut S, message: u32, wparam: WPARAM) -> 
     }
 }
 
-#[allow(non_snake_case)]
-#[cfg(target_pointer_width = "32")]
-unsafe fn SetWindowLong(window: HWND, index: WINDOW_LONG_PTR_INDEX, value: isize) -> isize {
-    SetWindowLongA(window, index, value as _) as _
-}
-
-#[allow(non_snake_case)]
-#[cfg(target_pointer_width = "64")]
-unsafe fn SetWindowLong(window: HWND, index: WINDOW_LONG_PTR_INDEX, value: isize) -> isize {
-    SetWindowLongPtrA(window, index, value)
-}
-
-#[allow(non_snake_case)]
-#[cfg(target_pointer_width = "32")]
-unsafe fn GetWindowLong(window: HWND, index: WINDOW_LONG_PTR_INDEX) -> isize {
-    GetWindowLongA(window, index) as _
-}
-
-#[allow(non_snake_case)]
-#[cfg(target_pointer_width = "64")]
-unsafe fn GetWindowLong(window: HWND, index: WINDOW_LONG_PTR_INDEX) -> isize {
-    GetWindowLongPtrA(window, index)
-}
-
 extern "system" fn wndproc<S: DXSample>(window: HWND, message: u32, wparam: WPARAM, lparam: LPARAM) -> LRESULT {
     match message {
         WM_CREATE => {
             unsafe {
                 let create_struct: &CREATESTRUCTA = transmute(lparam);
-                SetWindowLong(window, GWLP_USERDATA, create_struct.lpCreateParams as _);
+                SetWindowLongPtrA(window, GWLP_USERDATA, create_struct.lpCreateParams as _);
             }
             LRESULT::default()
         }
@@ -170,7 +146,7 @@ extern "system" fn wndproc<S: DXSample>(window: HWND, message: u32, wparam: WPAR
             LRESULT::default()
         }
         _ => {
-            let user_data = unsafe { GetWindowLong(window, GWLP_USERDATA) };
+            let user_data = unsafe { GetWindowLongPtrA(window, GWLP_USERDATA) };
             let sample = std::ptr::NonNull::<S>::new(user_data as _);
             let handled = sample.map_or(false, |mut s| sample_wndproc(unsafe { s.as_mut() }, message, wparam));
 
@@ -264,7 +240,7 @@ mod d3d12_hello_triangle {
                 ..Default::default()
             };
 
-            let swap_chain: IDXGISwapChain3 = unsafe { self.dxgi_factory.CreateSwapChainForHwnd(&command_queue, *hwnd, &swap_chain_desc, std::ptr::null(), None)? }.cast()?;
+            let swap_chain: IDXGISwapChain3 = unsafe { self.dxgi_factory.CreateSwapChainForHwnd(&command_queue, *hwnd, &swap_chain_desc, None, None)? }.cast()?;
 
             // This sample does not support fullscreen transitions
             unsafe {
@@ -280,7 +256,7 @@ mod d3d12_hello_triangle {
 
             let render_targets: [ID3D12Resource; FRAME_COUNT as usize] = array_init::try_array_init(|i: usize| -> Result<ID3D12Resource> {
                 let render_target: ID3D12Resource = unsafe { swap_chain.GetBuffer(i as u32) }?;
-                unsafe { self.device.CreateRenderTargetView(&render_target, std::ptr::null(), D3D12_CPU_DESCRIPTOR_HANDLE { ptr: rtv_handle.ptr + i * rtv_descriptor_size }) };
+                unsafe { self.device.CreateRenderTargetView(&render_target, None, D3D12_CPU_DESCRIPTOR_HANDLE { ptr: rtv_handle.ptr + i * rtv_descriptor_size }) };
                 Ok(render_target)
             })?;
 
@@ -306,7 +282,7 @@ mod d3d12_hello_triangle {
 
             let fence_value = 1;
 
-            let fence_event = unsafe { CreateEventA(std::ptr::null(), false, false, PCSTR::default())? };
+            let fence_event = unsafe { CreateEventA(None, false, false, None)? };
 
             self.resources = Some(Resources {
                 command_queue,
@@ -385,13 +361,14 @@ mod d3d12_hello_triangle {
 
         let rtv_handle = D3D12_CPU_DESCRIPTOR_HANDLE { ptr: unsafe { resources.rtv_heap.GetCPUDescriptorHandleForHeapStart() }.ptr + resources.frame_index as usize * resources.rtv_descriptor_size };
 
-        unsafe { command_list.OMSetRenderTargets(1, &rtv_handle, false, std::ptr::null()) };
+        unsafe { command_list.OMSetRenderTargets(1, Some(&rtv_handle), false, None) };
 
         // Record commands.
         unsafe {
-            command_list.ClearRenderTargetView(rtv_handle, [0.0, 0.2, 0.4, 1.0].as_ptr(), &[]);
+            // TODO: workaround for https://github.com/microsoft/win32metadata/issues/1006
+            command_list.ClearRenderTargetView(rtv_handle, &*[0.0_f32, 0.2_f32, 0.4_f32, 1.0_f32].as_ptr(), &[]);
             command_list.IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-            command_list.IASetVertexBuffers(0, &[resources.vbv]);
+            command_list.IASetVertexBuffers(0, Some(&[resources.vbv]));
             command_list.DrawInstanced(3, 1, 0, 0);
 
             // Indicate that the back buffer will now be used to present.
@@ -437,7 +414,7 @@ mod d3d12_hello_triangle {
 
         let mut signature = None;
 
-        let signature = unsafe { D3D12SerializeRootSignature(&desc, D3D_ROOT_SIGNATURE_VERSION_1, &mut signature, std::ptr::null_mut()) }.map(|()| signature.unwrap())?;
+        let signature = unsafe { D3D12SerializeRootSignature(&desc, D3D_ROOT_SIGNATURE_VERSION_1, &mut signature, None) }.map(|()| signature.unwrap())?;
 
         unsafe { device.CreateRootSignature(0, std::slice::from_raw_parts(signature.GetBufferPointer() as _, signature.GetBufferSize())) }
     }
@@ -452,10 +429,10 @@ mod d3d12_hello_triangle {
         let shaders_hlsl = PCWSTR::from(&shaders_hlsl.into());
 
         let mut vertex_shader = None;
-        let vertex_shader = unsafe { D3DCompileFromFile(shaders_hlsl, std::ptr::null(), None, PCSTR(b"VSMain\0".as_ptr()), PCSTR(b"vs_5_0\0".as_ptr()), compile_flags, 0, &mut vertex_shader, std::ptr::null_mut()) }.map(|()| vertex_shader.unwrap())?;
+        let vertex_shader = unsafe { D3DCompileFromFile(shaders_hlsl, None, None, PCSTR(b"VSMain\0".as_ptr()), PCSTR(b"vs_5_0\0".as_ptr()), compile_flags, 0, &mut vertex_shader, None) }.map(|()| vertex_shader.unwrap())?;
 
         let mut pixel_shader = None;
-        let pixel_shader = unsafe { D3DCompileFromFile(shaders_hlsl, std::ptr::null(), None, PCSTR(b"PSMain\0".as_ptr()), PCSTR(b"ps_5_0\0".as_ptr()), compile_flags, 0, &mut pixel_shader, std::ptr::null_mut()) }.map(|()| pixel_shader.unwrap())?;
+        let pixel_shader = unsafe { D3DCompileFromFile(shaders_hlsl, None, None, PCSTR(b"PSMain\0".as_ptr()), PCSTR(b"ps_5_0\0".as_ptr()), compile_flags, 0, &mut pixel_shader, None) }.map(|()| pixel_shader.unwrap())?;
 
         let mut input_element_descs: [D3D12_INPUT_ELEMENT_DESC; 2] = [
             D3D12_INPUT_ELEMENT_DESC {
@@ -545,7 +522,7 @@ mod d3d12_hello_triangle {
                     ..Default::default()
                 },
                 D3D12_RESOURCE_STATE_GENERIC_READ,
-                std::ptr::null(),
+                None,
                 &mut vertex_buffer,
             )?
         };
@@ -554,9 +531,9 @@ mod d3d12_hello_triangle {
         // Copy the triangle data to the vertex buffer.
         unsafe {
             let mut data = std::ptr::null_mut();
-            vertex_buffer.Map(0, std::ptr::null(), &mut data)?;
+            vertex_buffer.Map(0, None, &mut data)?;
             std::ptr::copy_nonoverlapping(vertices.as_ptr(), data as *mut Vertex, std::mem::size_of_val(&vertices));
-            vertex_buffer.Unmap(0, std::ptr::null());
+            vertex_buffer.Unmap(0, None);
         }
 
         let vbv = D3D12_VERTEX_BUFFER_VIEW {

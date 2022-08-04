@@ -43,7 +43,7 @@ impl ::core::default::Default for UAL_DATA_BLOB {
 #[doc = "*Required features: `\"Win32_System_UserAccessLogging\"`, `\"Win32_Foundation\"`, `\"Win32_Networking_WinSock\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Networking_WinSock"))]
 #[inline]
-pub unsafe fn UalInstrument(data: *const UAL_DATA_BLOB) -> ::windows::core::Result<()> {
+pub unsafe fn UalInstrument(data: &UAL_DATA_BLOB) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn UalInstrument(data: *const UAL_DATA_BLOB) -> ::windows::core::HRESULT;
@@ -52,7 +52,12 @@ pub unsafe fn UalInstrument(data: *const UAL_DATA_BLOB) -> ::windows::core::Resu
 }
 #[doc = "*Required features: `\"Win32_System_UserAccessLogging\"`*"]
 #[inline]
-pub unsafe fn UalRegisterProduct<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(wszproductname: Param0, wszrolename: Param1, wszguid: Param2) -> ::windows::core::Result<()> {
+pub unsafe fn UalRegisterProduct<'a, P0, P1, P2>(wszproductname: P0, wszrolename: P1, wszguid: P2) -> ::windows::core::Result<()>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn UalRegisterProduct(wszproductname: ::windows::core::PCWSTR, wszrolename: ::windows::core::PCWSTR, wszguid: ::windows::core::PCWSTR) -> ::windows::core::HRESULT;
@@ -62,7 +67,7 @@ pub unsafe fn UalRegisterProduct<'a, Param0: ::std::convert::Into<::windows::cor
 #[doc = "*Required features: `\"Win32_System_UserAccessLogging\"`, `\"Win32_Foundation\"`, `\"Win32_Networking_WinSock\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Networking_WinSock"))]
 #[inline]
-pub unsafe fn UalStart(data: *const UAL_DATA_BLOB) -> ::windows::core::Result<()> {
+pub unsafe fn UalStart(data: &UAL_DATA_BLOB) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn UalStart(data: *const UAL_DATA_BLOB) -> ::windows::core::HRESULT;
@@ -72,7 +77,7 @@ pub unsafe fn UalStart(data: *const UAL_DATA_BLOB) -> ::windows::core::Result<()
 #[doc = "*Required features: `\"Win32_System_UserAccessLogging\"`, `\"Win32_Foundation\"`, `\"Win32_Networking_WinSock\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Networking_WinSock"))]
 #[inline]
-pub unsafe fn UalStop(data: *const UAL_DATA_BLOB) -> ::windows::core::Result<()> {
+pub unsafe fn UalStop(data: &UAL_DATA_BLOB) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn UalStop(data: *const UAL_DATA_BLOB) -> ::windows::core::HRESULT;

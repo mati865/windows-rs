@@ -51,37 +51,39 @@ pub struct IRadialControllerIndependentInputSourceStatics_Vtbl {
 #[repr(transparent)]
 pub struct RadialControllerIndependentInputSource(::windows::core::IUnknown);
 impl RadialControllerIndependentInputSource {
-    #[doc = "*Required features: `\"UI_Input_Core\"`*"]
     pub fn Controller(&self) -> ::windows::core::Result<super::RadialController> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Controller)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::RadialController>(result__)
         }
     }
-    #[doc = "*Required features: `\"UI_Input_Core\"`, `\"UI_Core\"`*"]
+    #[doc = "*Required features: `\"UI_Core\"`*"]
     #[cfg(feature = "UI_Core")]
     pub fn Dispatcher(&self) -> ::windows::core::Result<super::super::Core::CoreDispatcher> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Dispatcher)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::Core::CoreDispatcher>(result__)
         }
     }
-    #[doc = "*Required features: `\"UI_Input_Core\"`, `\"System\"`*"]
+    #[doc = "*Required features: `\"System\"`*"]
     #[cfg(feature = "System")]
     pub fn DispatcherQueue(&self) -> ::windows::core::Result<super::super::super::System::DispatcherQueue> {
         let this = &::windows::core::Interface::cast::<IRadialControllerIndependentInputSource2>(self)?;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DispatcherQueue)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::System::DispatcherQueue>(result__)
         }
     }
-    #[doc = "*Required features: `\"UI_Input_Core\"`, `\"ApplicationModel_Core\"`*"]
+    #[doc = "*Required features: `\"ApplicationModel_Core\"`*"]
     #[cfg(feature = "ApplicationModel_Core")]
-    pub fn CreateForView<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::ApplicationModel::Core::CoreApplicationView>>>(view: Param0) -> ::windows::core::Result<RadialControllerIndependentInputSource> {
+    pub fn CreateForView<'a, P0>(view: P0) -> ::windows::core::Result<RadialControllerIndependentInputSource>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, super::super::super::ApplicationModel::Core::CoreApplicationView>>,
+    {
         Self::IRadialControllerIndependentInputSourceStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).CreateForView)(::windows::core::Interface::as_raw(this), view.into().abi(), result__.as_mut_ptr()).from_abi::<RadialControllerIndependentInputSource>(result__)
         })
     }

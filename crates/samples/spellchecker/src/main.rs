@@ -43,9 +43,9 @@ fn main() -> Result<()> {
                 // Get the replacement as a widestring and convert to a Rust String
                 let replacement = unsafe { error.Replacement()? };
 
-                println!("Replace: {} with {}", substring, unsafe { read_to_string(replacement) });
+                println!("Replace: {} with {}", substring, unsafe { replacement.display() });
 
-                unsafe { CoTaskMemFree(replacement.0 as *mut _) };
+                unsafe { CoTaskMemFree(replacement.as_ptr() as *mut _) };
             }
             CORRECTIVE_ACTION_GET_SUGGESTIONS => {
                 // Get an enumerator for all the suggestions for a substring
@@ -54,37 +54,21 @@ fn main() -> Result<()> {
                 // Loop through the suggestions
                 loop {
                     // Get the next suggestion breaking if the call to `Next` failed
-                    let mut suggestion = [PWSTR::default()];
+                    let mut suggestion = [PWSTR::null()];
                     unsafe {
-                        let _ = suggestions.Next(&mut suggestion, std::ptr::null_mut());
+                        let _ = suggestions.Next(&mut suggestion, None);
                     }
-                    if suggestion[0].0.is_null() {
+                    if suggestion[0].is_null() {
                         break;
                     }
 
-                    println!("Maybe replace: {} with {}", substring, unsafe { read_to_string(suggestion[0]) });
+                    println!("Maybe replace: {} with {}", substring, unsafe { suggestion[0].display() });
 
-                    unsafe { CoTaskMemFree(suggestion[0].0 as *mut _) };
+                    unsafe { CoTaskMemFree(suggestion[0].as_ptr() as *mut _) };
                 }
             }
             _ => {}
         }
     }
     Ok(())
-}
-
-unsafe fn read_to_string(ptr: PWSTR) -> String {
-    let mut len = 0usize;
-    let mut cursor = ptr;
-    loop {
-        let val = cursor.0.read();
-        if val == 0 {
-            break;
-        }
-        len += 1;
-        cursor = PWSTR(cursor.0.add(1));
-    }
-
-    let slice = std::slice::from_raw_parts(ptr.0, len);
-    String::from_utf16(slice).unwrap()
 }

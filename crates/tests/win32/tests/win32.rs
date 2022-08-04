@@ -10,7 +10,7 @@ use windows::{
     Win32::System::{Com::CreateUri, Diagnostics::Debug::*, Threading::*},
     Win32::UI::{
         Accessibility::UIA_ScrollPatternNoScroll,
-        Animation::{UIAnimationManager, UIAnimationTransitionLibrary},
+        Animation::UIAnimationManager,
         Controls::Dialogs::CHOOSECOLORW,
         WindowsAndMessaging::{PROPENUMPROCA, PROPENUMPROCW, WM_KEYUP},
     },
@@ -92,7 +92,7 @@ fn constant() {
 #[test]
 fn function() -> windows::core::Result<()> {
     unsafe {
-        let event = CreateEventW(core::ptr::null(), true, false, PCWSTR(core::ptr::null()))?;
+        let event = CreateEventW(None, true, false, None)?;
         SetEvent(event).ok()?;
 
         let result = WaitForSingleObject(event, 0);
@@ -106,7 +106,7 @@ fn function() -> windows::core::Result<()> {
 #[test]
 fn bool_as_error() {
     unsafe {
-        assert!(helpers::set_thread_ui_language("en-US"));
+        assert!(helpers::set_thread_ui_language());
         assert!(!SetEvent(HANDLE(0)).as_bool());
 
         let result: windows::core::Result<()> = SetEvent(HANDLE(0)).ok();
@@ -123,30 +123,20 @@ fn bool_as_error() {
 fn com() -> windows::core::Result<()> {
     unsafe {
         let stream = CreateStreamOnHGlobal(0, true)?;
-        let values = vec![1, 20, 300, 4000];
+        let values = vec![1, 2, 3, 4];
 
         let mut copied = 0;
-        stream.Write(values.as_ptr() as _, (values.len() * core::mem::size_of::<i32>()) as u32, &mut copied).ok()?;
-        assert!(copied == (values.len() * core::mem::size_of::<i32>()) as u32);
-
-        let mut copied = 0;
-        stream.Write(&UIAnimationTransitionLibrary as *const _ as _, core::mem::size_of::<windows::core::GUID>() as u32, &mut copied).ok()?;
-        assert!(copied == core::mem::size_of::<windows::core::GUID>() as u32);
+        stream.Write(&values, Some(&mut copied)).ok()?;
+        assert!(copied == 4);
 
         let position = stream.Seek(0, STREAM_SEEK_SET)?;
         assert!(position == 0);
 
         let mut values = vec![0, 0, 0, 0];
         let mut copied = 0;
-        stream.Read(values.as_mut_ptr() as _, (values.len() * core::mem::size_of::<i32>()) as u32, &mut copied).ok()?;
-        assert!(copied == (values.len() * core::mem::size_of::<i32>()) as u32);
-        assert!(values == vec![1, 20, 300, 4000]);
-
-        let mut value: windows::core::GUID = windows::core::GUID::default();
-        let mut copied = 0;
-        stream.Read(&mut value as *mut _ as _, core::mem::size_of::<windows::core::GUID>() as u32, &mut copied).ok()?;
-        assert!(copied == core::mem::size_of::<windows::core::GUID>() as u32);
-        assert!(value == UIAnimationTransitionLibrary);
+        stream.Read(&mut values, Some(&mut copied)).ok()?;
+        assert!(copied == 4);
+        assert!(values == vec![1, 2, 3, 4]);
     }
 
     Ok(())
@@ -180,15 +170,15 @@ fn onecore_imports() -> windows::core::Result<()> {
     unsafe {
         HasExpandedResources()?;
 
-        let uri = CreateUri(PCWSTR(windows::core::HSTRING::from("http://kennykerr.ca").as_wide().as_ptr()), URI_CREATE_FLAGS::default(), 0)?;
+        let uri = CreateUri(w!("http://kennykerr.ca"), URI_CREATE_FLAGS::default(), 0)?;
 
         let port = uri.GetPort()?;
         assert!(port == 80);
 
-        let result = MiniDumpWriteDump(None, 0, None, MiniDumpNormal, core::ptr::null_mut(), core::ptr::null_mut(), core::ptr::null_mut());
+        let result = MiniDumpWriteDump(None, 0, None, MiniDumpNormal, None, None, None);
         assert!(!result.as_bool());
 
-        assert!(D3DDisassemble11Trace(core::ptr::null_mut(), 0, None, 0, 0, 0).is_err());
+        assert!(D3DDisassemble11Trace(&[], None, 0, 0, 0).is_err());
 
         Ok(())
     }
@@ -197,8 +187,7 @@ fn onecore_imports() -> windows::core::Result<()> {
 #[test]
 fn interface() -> windows::core::Result<()> {
     unsafe {
-        let uri = HSTRING::from("http://kennykerr.ca");
-        let uri = CreateUri(PCWSTR(uri.as_wide().as_ptr()), URI_CREATE_FLAGS::default(), 0)?;
+        let uri = CreateUri(w!("http://kennykerr.ca"), URI_CREATE_FLAGS::default(), 0)?;
 
         let domain = uri.GetDomain()?;
         assert!(domain == "kennykerr.ca");
@@ -210,55 +199,28 @@ fn interface() -> windows::core::Result<()> {
 fn callback() {
     unsafe {
         let a: PROPENUMPROCA = Some(callback_a);
-        assert!(BOOL(789) == a.unwrap()(HWND(123), PCSTR("hello a\0".as_ptr()), HANDLE(456)));
+        assert!(BOOL(789) == a.unwrap()(HWND(123), s!("hello a"), HANDLE(456)));
 
         let a: PROPENUMPROCW = Some(callback_w);
-        assert!(BOOL(789) == a.unwrap()(HWND(123), PCWSTR(windows::core::HSTRING::from("hello w\0").as_wide().as_ptr()), HANDLE(456)));
+        assert!(BOOL(789) == a.unwrap()(HWND(123), w!("hello w").into(), HANDLE(456)));
     }
 }
 
 extern "system" fn callback_a(param0: HWND, param1: PCSTR, param2: HANDLE) -> BOOL {
-    unsafe {
-        assert!(param0.0 == 123);
-        assert!(param2.0 == 456);
-        let mut len = 0;
-        let mut end = param1.0;
+    assert!(param0.0 == 123);
+    assert!(param2.0 == 456);
 
-        loop {
-            if *end == 0 {
-                break;
-            }
-
-            len += 1;
-            end = end.add(1);
-        }
-
-        let s = String::from_utf8_lossy(core::slice::from_raw_parts(param1.0 as *const u8, len)).into_owned();
-        assert!(s == "hello a");
-        BOOL(789)
-    }
+    let s = unsafe { param1.to_string().unwrap() };
+    assert!(s == "hello a");
+    BOOL(789)
 }
 
 extern "system" fn callback_w(param0: HWND, param1: PCWSTR, param2: HANDLE) -> BOOL {
-    unsafe {
-        assert!(param0.0 == 123);
-        assert!(param2.0 == 456);
-        let mut len = 0;
-        let mut end = param1.0;
-
-        loop {
-            if *end == 0 {
-                break;
-            }
-
-            len += 1;
-            end = end.add(1);
-        }
-
-        let s = String::from_utf16_lossy(core::slice::from_raw_parts(param1.0, len));
-        assert!(s == "hello w");
-        BOOL(789)
-    }
+    assert!(param0.0 == 123);
+    assert!(param2.0 == 456);
+    let s = unsafe { param1.to_string().unwrap() };
+    assert!(s == "hello w");
+    BOOL(789)
 }
 
 #[test]

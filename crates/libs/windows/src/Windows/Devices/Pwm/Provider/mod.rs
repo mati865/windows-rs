@@ -2,67 +2,57 @@
 #[repr(transparent)]
 pub struct IPwmControllerProvider(::windows::core::IUnknown);
 impl IPwmControllerProvider {
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn PinCount(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PinCount)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn ActualFrequency(&self) -> ::windows::core::Result<f64> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<f64>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).ActualFrequency)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<f64>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn SetDesiredFrequency(&self, frequency: f64) -> ::windows::core::Result<f64> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<f64>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).SetDesiredFrequency)(::windows::core::Interface::as_raw(this), frequency, result__.as_mut_ptr()).from_abi::<f64>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn MaxFrequency(&self) -> ::windows::core::Result<f64> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<f64>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).MaxFrequency)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<f64>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn MinFrequency(&self) -> ::windows::core::Result<f64> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<f64>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).MinFrequency)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<f64>(result__)
         }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn AcquirePin(&self, pin: i32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).AcquirePin)(::windows::core::Interface::as_raw(this), pin).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn ReleasePin(&self, pin: i32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).ReleasePin)(::windows::core::Interface::as_raw(this), pin).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn EnablePin(&self, pin: i32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).EnablePin)(::windows::core::Interface::as_raw(this), pin).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn DisablePin(&self, pin: i32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).DisablePin)(::windows::core::Interface::as_raw(this), pin).ok() }
     }
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`*"]
     pub fn SetPulseParameters(&self, pin: i32, dutycycle: f64, invertpolarity: bool) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetPulseParameters)(::windows::core::Interface::as_raw(this), pin, dutycycle, invertpolarity).ok() }
@@ -144,12 +134,12 @@ pub struct IPwmControllerProvider_Vtbl {
 #[repr(transparent)]
 pub struct IPwmProvider(::windows::core::IUnknown);
 impl IPwmProvider {
-    #[doc = "*Required features: `\"Devices_Pwm_Provider\"`, `\"Foundation_Collections\"`*"]
+    #[doc = "*Required features: `\"Foundation_Collections\"`*"]
     #[cfg(feature = "Foundation_Collections")]
     pub fn GetControllers(&self) -> ::windows::core::Result<super::super::super::Foundation::Collections::IVectorView<IPwmControllerProvider>> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetControllers)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::Collections::IVectorView<IPwmControllerProvider>>(result__)
         }
     }

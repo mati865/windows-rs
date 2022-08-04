@@ -172,127 +172,171 @@ impl ::core::default::Default for BSMINFO {
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn BroadcastSystemMessageA<'a, Param3: ::std::convert::Into<super::super::Foundation::WPARAM>, Param4: ::std::convert::Into<super::super::Foundation::LPARAM>>(flags: u32, lpinfo: *mut u32, msg: u32, wparam: Param3, lparam: Param4) -> i32 {
+pub unsafe fn BroadcastSystemMessageA<'a, P0, P1>(flags: u32, lpinfo: ::core::option::Option<&mut u32>, msg: u32, wparam: P0, lparam: P1) -> i32
+where
+    P0: ::std::convert::Into<super::super::Foundation::WPARAM>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn BroadcastSystemMessageA(flags: u32, lpinfo: *mut u32, msg: u32, wparam: super::super::Foundation::WPARAM, lparam: super::super::Foundation::LPARAM) -> i32;
     }
-    ::core::mem::transmute(BroadcastSystemMessageA(::core::mem::transmute(flags), ::core::mem::transmute(lpinfo), ::core::mem::transmute(msg), wparam.into(), lparam.into()))
+    BroadcastSystemMessageA(flags, ::core::mem::transmute(lpinfo), msg, wparam.into(), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn BroadcastSystemMessageExA<'a, Param0: ::std::convert::Into<BROADCAST_SYSTEM_MESSAGE_FLAGS>, Param3: ::std::convert::Into<super::super::Foundation::WPARAM>, Param4: ::std::convert::Into<super::super::Foundation::LPARAM>>(flags: Param0, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: Param3, lparam: Param4, pbsminfo: *mut BSMINFO) -> i32 {
+pub unsafe fn BroadcastSystemMessageExA<'a, P0, P1>(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: ::core::option::Option<&mut BROADCAST_SYSTEM_MESSAGE_INFO>, msg: u32, wparam: P0, lparam: P1, pbsminfo: ::core::option::Option<&mut BSMINFO>) -> i32
+where
+    P0: ::std::convert::Into<super::super::Foundation::WPARAM>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn BroadcastSystemMessageExA(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: super::super::Foundation::WPARAM, lparam: super::super::Foundation::LPARAM, pbsminfo: *mut BSMINFO) -> i32;
     }
-    ::core::mem::transmute(BroadcastSystemMessageExA(flags.into(), ::core::mem::transmute(lpinfo), ::core::mem::transmute(msg), wparam.into(), lparam.into(), ::core::mem::transmute(pbsminfo)))
+    BroadcastSystemMessageExA(flags, ::core::mem::transmute(lpinfo), msg, wparam.into(), lparam.into(), ::core::mem::transmute(pbsminfo))
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn BroadcastSystemMessageExW<'a, Param0: ::std::convert::Into<BROADCAST_SYSTEM_MESSAGE_FLAGS>, Param3: ::std::convert::Into<super::super::Foundation::WPARAM>, Param4: ::std::convert::Into<super::super::Foundation::LPARAM>>(flags: Param0, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: Param3, lparam: Param4, pbsminfo: *mut BSMINFO) -> i32 {
+pub unsafe fn BroadcastSystemMessageExW<'a, P0, P1>(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: ::core::option::Option<&mut BROADCAST_SYSTEM_MESSAGE_INFO>, msg: u32, wparam: P0, lparam: P1, pbsminfo: ::core::option::Option<&mut BSMINFO>) -> i32
+where
+    P0: ::std::convert::Into<super::super::Foundation::WPARAM>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn BroadcastSystemMessageExW(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: super::super::Foundation::WPARAM, lparam: super::super::Foundation::LPARAM, pbsminfo: *mut BSMINFO) -> i32;
     }
-    ::core::mem::transmute(BroadcastSystemMessageExW(flags.into(), ::core::mem::transmute(lpinfo), ::core::mem::transmute(msg), wparam.into(), lparam.into(), ::core::mem::transmute(pbsminfo)))
+    BroadcastSystemMessageExW(flags, ::core::mem::transmute(lpinfo), msg, wparam.into(), lparam.into(), ::core::mem::transmute(pbsminfo))
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn BroadcastSystemMessageW<'a, Param0: ::std::convert::Into<BROADCAST_SYSTEM_MESSAGE_FLAGS>, Param3: ::std::convert::Into<super::super::Foundation::WPARAM>, Param4: ::std::convert::Into<super::super::Foundation::LPARAM>>(flags: Param0, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: Param3, lparam: Param4) -> i32 {
+pub unsafe fn BroadcastSystemMessageW<'a, P0, P1>(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: ::core::option::Option<&mut BROADCAST_SYSTEM_MESSAGE_INFO>, msg: u32, wparam: P0, lparam: P1) -> i32
+where
+    P0: ::std::convert::Into<super::super::Foundation::WPARAM>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn BroadcastSystemMessageW(flags: BROADCAST_SYSTEM_MESSAGE_FLAGS, lpinfo: *mut BROADCAST_SYSTEM_MESSAGE_INFO, msg: u32, wparam: super::super::Foundation::WPARAM, lparam: super::super::Foundation::LPARAM) -> i32;
     }
-    ::core::mem::transmute(BroadcastSystemMessageW(flags.into(), ::core::mem::transmute(lpinfo), ::core::mem::transmute(msg), wparam.into(), lparam.into()))
+    BroadcastSystemMessageW(flags, ::core::mem::transmute(lpinfo), msg, wparam.into(), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CloseDesktop<'a, Param0: ::std::convert::Into<HDESK>>(hdesktop: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn CloseDesktop<'a, P0>(hdesktop: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HDESK>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CloseDesktop(hdesktop: HDESK) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(CloseDesktop(hdesktop.into()))
+    CloseDesktop(hdesktop.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CloseWindowStation<'a, Param0: ::std::convert::Into<HWINSTA>>(hwinsta: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn CloseWindowStation<'a, P0>(hwinsta: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HWINSTA>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CloseWindowStation(hwinsta: HWINSTA) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(CloseWindowStation(hwinsta.into()))
+    CloseWindowStation(hwinsta.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Graphics_Gdi\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Graphics_Gdi", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateDesktopA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<::windows::core::PCSTR>>(lpszdesktop: Param0, lpszdevice: Param1, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> ::windows::core::Result<HDESK> {
+pub unsafe fn CreateDesktopA<'a, P0, P1>(lpszdesktop: P0, lpszdevice: P1, pdevmode: &mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateDesktopA(lpszdesktop: ::windows::core::PCSTR, lpszdevice: ::windows::core::PCSTR, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> HDESK;
     }
-    let result__ = CreateDesktopA(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa));
+    let result__ = CreateDesktopA(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Graphics_Gdi\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Graphics_Gdi", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateDesktopExA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<::windows::core::PCSTR>>(lpszdesktop: Param0, lpszdevice: Param1, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> ::windows::core::Result<HDESK> {
+pub unsafe fn CreateDesktopExA<'a, P0, P1>(lpszdesktop: P0, lpszdevice: P1, pdevmode: &mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateDesktopExA(lpszdesktop: ::windows::core::PCSTR, lpszdevice: ::windows::core::PCSTR, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEA, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> HDESK;
     }
-    let result__ = CreateDesktopExA(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa), ::core::mem::transmute(ulheapsize), ::core::mem::transmute(pvoid));
+    let result__ = CreateDesktopExA(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa), ulheapsize, ::core::mem::transmute(pvoid));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Graphics_Gdi\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Graphics_Gdi", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateDesktopExW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(lpszdesktop: Param0, lpszdevice: Param1, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> ::windows::core::Result<HDESK> {
+pub unsafe fn CreateDesktopExW<'a, P0, P1>(lpszdesktop: P0, lpszdevice: P1, pdevmode: &mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateDesktopExW(lpszdesktop: ::windows::core::PCWSTR, lpszdevice: ::windows::core::PCWSTR, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES, ulheapsize: u32, pvoid: *mut ::core::ffi::c_void) -> HDESK;
     }
-    let result__ = CreateDesktopExW(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa), ::core::mem::transmute(ulheapsize), ::core::mem::transmute(pvoid));
+    let result__ = CreateDesktopExW(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa), ulheapsize, ::core::mem::transmute(pvoid));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Graphics_Gdi\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Graphics_Gdi", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateDesktopW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(lpszdesktop: Param0, lpszdevice: Param1, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> ::windows::core::Result<HDESK> {
+pub unsafe fn CreateDesktopW<'a, P0, P1>(lpszdesktop: P0, lpszdevice: P1, pdevmode: &mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateDesktopW(lpszdesktop: ::windows::core::PCWSTR, lpszdevice: ::windows::core::PCWSTR, pdevmode: *mut super::super::Graphics::Gdi::DEVMODEW, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> HDESK;
     }
-    let result__ = CreateDesktopW(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa));
+    let result__ = CreateDesktopW(lpszdesktop.into(), lpszdevice.into(), ::core::mem::transmute(pdevmode), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateWindowStationA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(lpwinsta: Param0, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> ::windows::core::Result<HWINSTA> {
+pub unsafe fn CreateWindowStationA<'a, P0>(lpwinsta: P0, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>) -> ::windows::core::Result<HWINSTA>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateWindowStationA(lpwinsta: ::windows::core::PCSTR, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> HWINSTA;
     }
-    let result__ = CreateWindowStationA(lpwinsta.into(), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa));
+    let result__ = CreateWindowStationA(lpwinsta.into(), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_Security\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_Security"))]
 #[inline]
-pub unsafe fn CreateWindowStationW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(lpwinsta: Param0, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> ::windows::core::Result<HWINSTA> {
+pub unsafe fn CreateWindowStationW<'a, P0>(lpwinsta: P0, dwflags: u32, dwdesiredaccess: u32, lpsa: ::core::option::Option<&super::super::Security::SECURITY_ATTRIBUTES>) -> ::windows::core::Result<HWINSTA>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateWindowStationW(lpwinsta: ::windows::core::PCWSTR, dwflags: u32, dwdesiredaccess: u32, lpsa: *const super::super::Security::SECURITY_ATTRIBUTES) -> HWINSTA;
     }
-    let result__ = CreateWindowStationW(lpwinsta.into(), ::core::mem::transmute(dwflags), ::core::mem::transmute(dwdesiredaccess), ::core::mem::transmute(lpsa));
+    let result__ = CreateWindowStationW(lpwinsta.into(), dwflags, dwdesiredaccess, ::core::mem::transmute(lpsa));
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
@@ -304,52 +348,70 @@ pub type DESKTOPENUMPROCW = ::core::option::Option<unsafe extern "system" fn(par
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`, `\"Win32_UI_WindowsAndMessaging\"`*"]
 #[cfg(all(feature = "Win32_Foundation", feature = "Win32_UI_WindowsAndMessaging"))]
 #[inline]
-pub unsafe fn EnumDesktopWindows<'a, Param0: ::std::convert::Into<HDESK>, Param2: ::std::convert::Into<super::super::Foundation::LPARAM>>(hdesktop: Param0, lpfn: super::super::UI::WindowsAndMessaging::WNDENUMPROC, lparam: Param2) -> super::super::Foundation::BOOL {
+pub unsafe fn EnumDesktopWindows<'a, P0, P1>(hdesktop: P0, lpfn: super::super::UI::WindowsAndMessaging::WNDENUMPROC, lparam: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HDESK>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumDesktopWindows(hdesktop: HDESK, lpfn: *mut ::core::ffi::c_void, lparam: super::super::Foundation::LPARAM) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(EnumDesktopWindows(hdesktop.into(), ::core::mem::transmute(lpfn), lparam.into()))
+    EnumDesktopWindows(hdesktop.into(), ::core::mem::transmute(lpfn), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn EnumDesktopsA<'a, Param0: ::std::convert::Into<HWINSTA>, Param2: ::std::convert::Into<super::super::Foundation::LPARAM>>(hwinsta: Param0, lpenumfunc: DESKTOPENUMPROCA, lparam: Param2) -> super::super::Foundation::BOOL {
+pub unsafe fn EnumDesktopsA<'a, P0, P1>(hwinsta: P0, lpenumfunc: DESKTOPENUMPROCA, lparam: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HWINSTA>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumDesktopsA(hwinsta: HWINSTA, lpenumfunc: *mut ::core::ffi::c_void, lparam: super::super::Foundation::LPARAM) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(EnumDesktopsA(hwinsta.into(), ::core::mem::transmute(lpenumfunc), lparam.into()))
+    EnumDesktopsA(hwinsta.into(), ::core::mem::transmute(lpenumfunc), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn EnumDesktopsW<'a, Param0: ::std::convert::Into<HWINSTA>, Param2: ::std::convert::Into<super::super::Foundation::LPARAM>>(hwinsta: Param0, lpenumfunc: DESKTOPENUMPROCW, lparam: Param2) -> super::super::Foundation::BOOL {
+pub unsafe fn EnumDesktopsW<'a, P0, P1>(hwinsta: P0, lpenumfunc: DESKTOPENUMPROCW, lparam: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HWINSTA>,
+    P1: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumDesktopsW(hwinsta: HWINSTA, lpenumfunc: *mut ::core::ffi::c_void, lparam: super::super::Foundation::LPARAM) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(EnumDesktopsW(hwinsta.into(), ::core::mem::transmute(lpenumfunc), lparam.into()))
+    EnumDesktopsW(hwinsta.into(), ::core::mem::transmute(lpenumfunc), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn EnumWindowStationsA<'a, Param1: ::std::convert::Into<super::super::Foundation::LPARAM>>(lpenumfunc: WINSTAENUMPROCA, lparam: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn EnumWindowStationsA<'a, P0>(lpenumfunc: WINSTAENUMPROCA, lparam: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumWindowStationsA(lpenumfunc: *mut ::core::ffi::c_void, lparam: super::super::Foundation::LPARAM) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(EnumWindowStationsA(::core::mem::transmute(lpenumfunc), lparam.into()))
+    EnumWindowStationsA(::core::mem::transmute(lpenumfunc), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn EnumWindowStationsW<'a, Param1: ::std::convert::Into<super::super::Foundation::LPARAM>>(lpenumfunc: WINSTAENUMPROCW, lparam: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn EnumWindowStationsW<'a, P0>(lpenumfunc: WINSTAENUMPROCW, lparam: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::LPARAM>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnumWindowStationsW(lpenumfunc: *mut ::core::ffi::c_void, lparam: super::super::Foundation::LPARAM) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(EnumWindowStationsW(::core::mem::transmute(lpenumfunc), lparam.into()))
+    EnumWindowStationsW(::core::mem::transmute(lpenumfunc), lparam.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`*"]
 #[inline]
@@ -368,28 +430,34 @@ pub unsafe fn GetThreadDesktop(dwthreadid: u32) -> ::windows::core::Result<HDESK
     extern "system" {
         fn GetThreadDesktop(dwthreadid: u32) -> HDESK;
     }
-    let result__ = GetThreadDesktop(::core::mem::transmute(dwthreadid));
+    let result__ = GetThreadDesktop(dwthreadid);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetUserObjectInformationA<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>, Param1: ::std::convert::Into<USER_OBJECT_INFORMATION_INDEX>>(hobj: Param0, nindex: Param1, pvinfo: *mut ::core::ffi::c_void, nlength: u32, lpnlengthneeded: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn GetUserObjectInformationA<'a, P0>(hobj: P0, nindex: USER_OBJECT_INFORMATION_INDEX, pvinfo: ::core::option::Option<&mut [u8]>, lpnlengthneeded: ::core::option::Option<&mut u32>) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetUserObjectInformationA(hobj: super::super::Foundation::HANDLE, nindex: USER_OBJECT_INFORMATION_INDEX, pvinfo: *mut ::core::ffi::c_void, nlength: u32, lpnlengthneeded: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(GetUserObjectInformationA(hobj.into(), nindex.into(), ::core::mem::transmute(pvinfo), ::core::mem::transmute(nlength), ::core::mem::transmute(lpnlengthneeded)))
+    GetUserObjectInformationA(hobj.into(), nindex, ::core::mem::transmute(pvinfo.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvinfo.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpnlengthneeded))
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn GetUserObjectInformationW<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>, Param1: ::std::convert::Into<USER_OBJECT_INFORMATION_INDEX>>(hobj: Param0, nindex: Param1, pvinfo: *mut ::core::ffi::c_void, nlength: u32, lpnlengthneeded: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn GetUserObjectInformationW<'a, P0>(hobj: P0, nindex: USER_OBJECT_INFORMATION_INDEX, pvinfo: ::core::option::Option<&mut [u8]>, lpnlengthneeded: ::core::option::Option<&mut u32>) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetUserObjectInformationW(hobj: super::super::Foundation::HANDLE, nindex: USER_OBJECT_INFORMATION_INDEX, pvinfo: *mut ::core::ffi::c_void, nlength: u32, lpnlengthneeded: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(GetUserObjectInformationW(hobj.into(), nindex.into(), ::core::mem::transmute(pvinfo), ::core::mem::transmute(nlength), ::core::mem::transmute(lpnlengthneeded)))
+    GetUserObjectInformationW(hobj.into(), nindex, ::core::mem::transmute(pvinfo.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvinfo.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpnlengthneeded))
 }
 #[repr(transparent)]
 #[derive(::core::cmp::PartialEq, ::core::cmp::Eq)]
@@ -458,107 +526,141 @@ unsafe impl ::windows::core::Abi for HWINSTA {
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn OpenDesktopA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param2: ::std::convert::Into<super::super::Foundation::BOOL>>(lpszdesktop: Param0, dwflags: u32, finherit: Param2, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK> {
+pub unsafe fn OpenDesktopA<'a, P0, P1>(lpszdesktop: P0, dwflags: u32, finherit: P1, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn OpenDesktopA(lpszdesktop: ::windows::core::PCSTR, dwflags: u32, finherit: super::super::Foundation::BOOL, dwdesiredaccess: u32) -> HDESK;
     }
-    let result__ = OpenDesktopA(lpszdesktop.into(), ::core::mem::transmute(dwflags), finherit.into(), ::core::mem::transmute(dwdesiredaccess));
+    let result__ = OpenDesktopA(lpszdesktop.into(), dwflags, finherit.into(), dwdesiredaccess);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn OpenDesktopW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<super::super::Foundation::BOOL>>(lpszdesktop: Param0, dwflags: u32, finherit: Param2, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK> {
+pub unsafe fn OpenDesktopW<'a, P0, P1>(lpszdesktop: P0, dwflags: u32, finherit: P1, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn OpenDesktopW(lpszdesktop: ::windows::core::PCWSTR, dwflags: u32, finherit: super::super::Foundation::BOOL, dwdesiredaccess: u32) -> HDESK;
     }
-    let result__ = OpenDesktopW(lpszdesktop.into(), ::core::mem::transmute(dwflags), finherit.into(), ::core::mem::transmute(dwdesiredaccess));
+    let result__ = OpenDesktopW(lpszdesktop.into(), dwflags, finherit.into(), dwdesiredaccess);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn OpenInputDesktop<'a, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(dwflags: u32, finherit: Param1, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK> {
+pub unsafe fn OpenInputDesktop<'a, P0>(dwflags: u32, finherit: P0, dwdesiredaccess: u32) -> ::windows::core::Result<HDESK>
+where
+    P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn OpenInputDesktop(dwflags: u32, finherit: super::super::Foundation::BOOL, dwdesiredaccess: u32) -> HDESK;
     }
-    let result__ = OpenInputDesktop(::core::mem::transmute(dwflags), finherit.into(), ::core::mem::transmute(dwdesiredaccess));
+    let result__ = OpenInputDesktop(dwflags, finherit.into(), dwdesiredaccess);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn OpenWindowStationA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(lpszwinsta: Param0, finherit: Param1, dwdesiredaccess: u32) -> ::windows::core::Result<HWINSTA> {
+pub unsafe fn OpenWindowStationA<'a, P0, P1>(lpszwinsta: P0, finherit: P1, dwdesiredaccess: u32) -> ::windows::core::Result<HWINSTA>
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn OpenWindowStationA(lpszwinsta: ::windows::core::PCSTR, finherit: super::super::Foundation::BOOL, dwdesiredaccess: u32) -> HWINSTA;
     }
-    let result__ = OpenWindowStationA(lpszwinsta.into(), finherit.into(), ::core::mem::transmute(dwdesiredaccess));
+    let result__ = OpenWindowStationA(lpszwinsta.into(), finherit.into(), dwdesiredaccess);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn OpenWindowStationW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(lpszwinsta: Param0, finherit: Param1, dwdesiredaccess: u32) -> ::windows::core::Result<HWINSTA> {
+pub unsafe fn OpenWindowStationW<'a, P0, P1>(lpszwinsta: P0, finherit: P1, dwdesiredaccess: u32) -> ::windows::core::Result<HWINSTA>
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn OpenWindowStationW(lpszwinsta: ::windows::core::PCWSTR, finherit: super::super::Foundation::BOOL, dwdesiredaccess: u32) -> HWINSTA;
     }
-    let result__ = OpenWindowStationW(lpszwinsta.into(), finherit.into(), ::core::mem::transmute(dwdesiredaccess));
+    let result__ = OpenWindowStationW(lpszwinsta.into(), finherit.into(), dwdesiredaccess);
     (!result__.is_invalid()).then(|| result__).ok_or_else(::windows::core::Error::from_win32)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetProcessWindowStation<'a, Param0: ::std::convert::Into<HWINSTA>>(hwinsta: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SetProcessWindowStation<'a, P0>(hwinsta: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HWINSTA>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetProcessWindowStation(hwinsta: HWINSTA) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetProcessWindowStation(hwinsta.into()))
+    SetProcessWindowStation(hwinsta.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetThreadDesktop<'a, Param0: ::std::convert::Into<HDESK>>(hdesktop: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SetThreadDesktop<'a, P0>(hdesktop: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HDESK>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetThreadDesktop(hdesktop: HDESK) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetThreadDesktop(hdesktop.into()))
+    SetThreadDesktop(hdesktop.into())
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetUserObjectInformationA<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(hobj: Param0, nindex: i32, pvinfo: *const ::core::ffi::c_void, nlength: u32) -> super::super::Foundation::BOOL {
+pub unsafe fn SetUserObjectInformationA<'a, P0>(hobj: P0, nindex: i32, pvinfo: &[u8]) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetUserObjectInformationA(hobj: super::super::Foundation::HANDLE, nindex: i32, pvinfo: *const ::core::ffi::c_void, nlength: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetUserObjectInformationA(hobj.into(), ::core::mem::transmute(nindex), ::core::mem::transmute(pvinfo), ::core::mem::transmute(nlength)))
+    SetUserObjectInformationA(hobj.into(), nindex, ::core::mem::transmute(pvinfo.as_ptr()), pvinfo.len() as _)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetUserObjectInformationW<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(hobj: Param0, nindex: i32, pvinfo: *const ::core::ffi::c_void, nlength: u32) -> super::super::Foundation::BOOL {
+pub unsafe fn SetUserObjectInformationW<'a, P0>(hobj: P0, nindex: i32, pvinfo: &[u8]) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetUserObjectInformationW(hobj: super::super::Foundation::HANDLE, nindex: i32, pvinfo: *const ::core::ffi::c_void, nlength: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetUserObjectInformationW(hobj.into(), ::core::mem::transmute(nindex), ::core::mem::transmute(pvinfo), ::core::mem::transmute(nlength)))
+    SetUserObjectInformationW(hobj.into(), nindex, ::core::mem::transmute(pvinfo.as_ptr()), pvinfo.len() as _)
 }
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SwitchDesktop<'a, Param0: ::std::convert::Into<HDESK>>(hdesktop: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SwitchDesktop<'a, P0>(hdesktop: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<HDESK>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SwitchDesktop(hdesktop: HDESK) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SwitchDesktop(hdesktop.into()))
+    SwitchDesktop(hdesktop.into())
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_System_StationsAndDesktops\"`, `\"Win32_Foundation\"`*"]

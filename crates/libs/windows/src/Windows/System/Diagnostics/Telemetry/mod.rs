@@ -44,18 +44,19 @@ pub struct IPlatformTelemetryRegistrationSettings_Vtbl {
 #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
 pub struct PlatformTelemetryClient;
 impl PlatformTelemetryClient {
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
-    pub fn Register<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(id: Param0) -> ::windows::core::Result<PlatformTelemetryRegistrationResult> {
+    pub fn Register(id: &::windows::core::HSTRING) -> ::windows::core::Result<PlatformTelemetryRegistrationResult> {
         Self::IPlatformTelemetryClientStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).Register)(::windows::core::Interface::as_raw(this), id.into().abi(), result__.as_mut_ptr()).from_abi::<PlatformTelemetryRegistrationResult>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).Register)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(id), result__.as_mut_ptr()).from_abi::<PlatformTelemetryRegistrationResult>(result__)
         })
     }
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
-    pub fn RegisterWithSettings<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, PlatformTelemetryRegistrationSettings>>>(id: Param0, settings: Param1) -> ::windows::core::Result<PlatformTelemetryRegistrationResult> {
+    pub fn RegisterWithSettings<'a, P0>(id: &::windows::core::HSTRING, settings: P0) -> ::windows::core::Result<PlatformTelemetryRegistrationResult>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, PlatformTelemetryRegistrationSettings>>,
+    {
         Self::IPlatformTelemetryClientStatics(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).RegisterWithSettings)(::windows::core::Interface::as_raw(this), id.into().abi(), settings.into().abi(), result__.as_mut_ptr()).from_abi::<PlatformTelemetryRegistrationResult>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).RegisterWithSettings)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(id), settings.into().abi(), result__.as_mut_ptr()).from_abi::<PlatformTelemetryRegistrationResult>(result__)
         })
     }
     #[doc(hidden)]
@@ -71,11 +72,10 @@ impl ::windows::core::RuntimeName for PlatformTelemetryClient {
 #[repr(transparent)]
 pub struct PlatformTelemetryRegistrationResult(::windows::core::IUnknown);
 impl PlatformTelemetryRegistrationResult {
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
     pub fn Status(&self) -> ::windows::core::Result<PlatformTelemetryRegistrationStatus> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<PlatformTelemetryRegistrationStatus>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Status)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PlatformTelemetryRegistrationStatus>(result__)
         }
     }
@@ -153,28 +153,24 @@ impl PlatformTelemetryRegistrationSettings {
         static SHARED: ::windows::core::FactoryCache<PlatformTelemetryRegistrationSettings, ::windows::core::IGenericFactory> = ::windows::core::FactoryCache::new();
         SHARED.call(callback)
     }
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
     pub fn StorageSize(&self) -> ::windows::core::Result<u32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).StorageSize)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<u32>(result__)
         }
     }
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
     pub fn SetStorageSize(&self, value: u32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetStorageSize)(::windows::core::Interface::as_raw(this), value).ok() }
     }
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
     pub fn UploadQuotaSize(&self) -> ::windows::core::Result<u32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<u32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).UploadQuotaSize)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<u32>(result__)
         }
     }
-    #[doc = "*Required features: `\"System_Diagnostics_Telemetry\"`*"]
     pub fn SetUploadQuotaSize(&self, value: u32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetUploadQuotaSize)(::windows::core::Interface::as_raw(this), value).ok() }

@@ -37,27 +37,27 @@ pub unsafe fn RtlDrainNonVolatileFlush(nvtoken: *const ::core::ffi::c_void) -> u
     extern "system" {
         fn RtlDrainNonVolatileFlush(nvtoken: *const ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(RtlDrainNonVolatileFlush(::core::mem::transmute(nvtoken)))
+    RtlDrainNonVolatileFlush(::core::mem::transmute(nvtoken))
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
 #[inline]
-pub unsafe fn RtlFillNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvdestination: *mut ::core::ffi::c_void, size: usize, value: u8, flags: u32) -> u32 {
+pub unsafe fn RtlFillNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvdestination: &mut [u8], value: u8, flags: u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RtlFillNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvdestination: *mut ::core::ffi::c_void, size: usize, value: u8, flags: u32) -> u32;
     }
-    ::core::mem::transmute(RtlFillNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvdestination), ::core::mem::transmute(size), ::core::mem::transmute(value), ::core::mem::transmute(flags)))
+    RtlFillNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvdestination.as_ptr()), nvdestination.len() as _, value, flags)
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
 #[inline]
-pub unsafe fn RtlFlushNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvbuffer: *const ::core::ffi::c_void, size: usize, flags: u32) -> u32 {
+pub unsafe fn RtlFlushNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvbuffer: &[u8], flags: u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RtlFlushNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvbuffer: *const ::core::ffi::c_void, size: usize, flags: u32) -> u32;
     }
-    ::core::mem::transmute(RtlFlushNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvbuffer), ::core::mem::transmute(size), ::core::mem::transmute(flags)))
+    RtlFlushNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvbuffer.as_ptr()), nvbuffer.len() as _, flags)
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
@@ -67,7 +67,7 @@ pub unsafe fn RtlFlushNonVolatileMemoryRanges(nvtoken: *const ::core::ffi::c_voi
     extern "system" {
         fn RtlFlushNonVolatileMemoryRanges(nvtoken: *const ::core::ffi::c_void, nvranges: *const NV_MEMORY_RANGE, numranges: usize, flags: u32) -> u32;
     }
-    ::core::mem::transmute(RtlFlushNonVolatileMemoryRanges(::core::mem::transmute(nvtoken), ::core::mem::transmute(::windows::core::as_ptr_or_null(nvranges)), nvranges.len() as _, ::core::mem::transmute(flags)))
+    RtlFlushNonVolatileMemoryRanges(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvranges.as_ptr()), nvranges.len() as _, flags)
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
@@ -77,17 +77,17 @@ pub unsafe fn RtlFreeNonVolatileToken(nvtoken: *const ::core::ffi::c_void) -> u3
     extern "system" {
         fn RtlFreeNonVolatileToken(nvtoken: *const ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(RtlFreeNonVolatileToken(::core::mem::transmute(nvtoken)))
+    RtlFreeNonVolatileToken(::core::mem::transmute(nvtoken))
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
 #[inline]
-pub unsafe fn RtlGetNonVolatileToken(nvbuffer: *const ::core::ffi::c_void, size: usize, nvtoken: *mut *mut ::core::ffi::c_void) -> u32 {
+pub unsafe fn RtlGetNonVolatileToken(nvbuffer: &[u8], nvtoken: *mut *mut ::core::ffi::c_void) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn RtlGetNonVolatileToken(nvbuffer: *const ::core::ffi::c_void, size: usize, nvtoken: *mut *mut ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(RtlGetNonVolatileToken(::core::mem::transmute(nvbuffer), ::core::mem::transmute(size), ::core::mem::transmute(nvtoken)))
+    RtlGetNonVolatileToken(::core::mem::transmute(nvbuffer.as_ptr()), nvbuffer.len() as _, ::core::mem::transmute(nvtoken))
 }
 #[doc = "*Required features: `\"Win32_System_Memory_NonVolatile\"`*"]
 #[cfg(any(target_arch = "aarch64", target_arch = "x86_64"))]
@@ -97,7 +97,7 @@ pub unsafe fn RtlWriteNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvd
     extern "system" {
         fn RtlWriteNonVolatileMemory(nvtoken: *const ::core::ffi::c_void, nvdestination: *mut ::core::ffi::c_void, source: *const ::core::ffi::c_void, size: usize, flags: u32) -> u32;
     }
-    ::core::mem::transmute(RtlWriteNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvdestination), ::core::mem::transmute(source), ::core::mem::transmute(size), ::core::mem::transmute(flags)))
+    RtlWriteNonVolatileMemory(::core::mem::transmute(nvtoken), ::core::mem::transmute(nvdestination), ::core::mem::transmute(source), ::core::mem::transmute(size), flags)
 }
 #[cfg(feature = "implement")]
 ::core::include!("impl.rs");

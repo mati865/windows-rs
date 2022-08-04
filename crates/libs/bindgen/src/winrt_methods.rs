@@ -1,8 +1,8 @@
 use super::*;
 
 // TODO take Signature instead of MethodDef (wherever MethodDef is found)
-pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, method: MethodDef, method_names: &mut MethodNames, virtual_names: &mut MethodNames) -> TokenStream {
-    let signature = gen.reader.method_def_signature(method, generics);
+pub fn gen(gen: &Gen, def: TypeDef, generic_types: &[Type], kind: InterfaceKind, method: MethodDef, method_names: &mut MethodNames, virtual_names: &mut MethodNames) -> TokenStream {
+    let signature = gen.reader.method_def_signature(method, generic_types);
     let params = if kind == InterfaceKind::Composable { &signature.params[..signature.params.len() - 2] } else { &signature.params };
 
     let (name, name_compose) = if kind == InterfaceKind::Composable && signature.params.len() == 2 {
@@ -13,12 +13,13 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
         (name, name_compose)
     };
 
-    let interface_name = gen.type_def_name(def, generics);
+    let interface_name = gen.type_def_name(def, generic_types);
     let vname = virtual_names.add(gen, method);
-    let constraints = gen.param_constraints(params);
+    let generics = gen.constraint_generics(params);
+    let where_clause = gen.where_clause(params);
     let mut cfg = gen.reader.signature_cfg(&signature);
-    gen.reader.type_def_cfg_combine(def, generics, &mut cfg);
-    let doc = gen.cfg_doc(&cfg);
+    gen.reader.type_def_cfg_combine(def, generic_types, &mut cfg);
+    let doc = gen.cfg_method_doc(&cfg);
     let features = gen.cfg_features(&cfg);
     let args = gen_winrt_abi_args(gen, params);
     let params = gen_winrt_params(gen, params);
@@ -56,23 +57,21 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
         if return_type.is_winrt_array() {
             (
                 quote! {
-                    let mut result__ = ::core::mem::MaybeUninit::<#return_type_tokens>::zeroed();
+                    let mut result__ = ::core::mem::MaybeUninit::zeroed();
                     (::windows::core::Interface::vtable(this).#vname)(::windows::core::Interface::as_raw(this), #args #composable_args #return_arg)
                         .and_then(|| result__.assume_init())
                 },
                 quote! {},
             )
         } else {
-            let abi_type_name = gen.type_abi_name(return_type);
-
             (
                 quote! {
-                    let mut result__ = ::core::mem::MaybeUninit::<#abi_type_name>::zeroed();
+                    let mut result__ = ::core::mem::MaybeUninit::zeroed();
                         (::windows::core::Interface::vtable(this).#vname)(::windows::core::Interface::as_raw(this), #args #composable_args #return_arg)
                             .from_abi::<#return_type_tokens>(result__ )
                 },
                 quote! {
-                    let mut result__ = ::core::mem::MaybeUninit::<#abi_type_name>::zeroed();
+                    let mut result__ = ::core::mem::MaybeUninit::zeroed();
                         (::windows::core::Interface::vtable(this).#vname)(::windows::core::Interface::as_raw(this), #args ::core::ptr::null_mut(), &mut ::core::option::Option::<::windows::core::IInspectable>::None as *mut _ as _, #return_arg)
                             .from_abi::<#return_type_tokens>(result__ )
                 },
@@ -91,7 +90,7 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
         InterfaceKind::Default => quote! {
             #doc
             #features
-            pub fn #name<#constraints>(&self, #params) -> ::windows::core::Result<#return_type_tokens> {
+            pub fn #name<#generics>(&self, #params) -> ::windows::core::Result<#return_type_tokens> #where_clause {
                 let this = self;
                 unsafe {
                     #vcall
@@ -102,7 +101,7 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
             quote! {
                 #doc
                 #features
-                pub fn #name<#constraints>(&self, #params) -> ::windows::core::Result<#return_type_tokens> {
+                pub fn #name<#generics>(&self, #params) -> ::windows::core::Result<#return_type_tokens> #where_clause {
                     let this = &::windows::core::Interface::cast::<#interface_name>(self)?;
                     unsafe {
                         #vcall
@@ -114,21 +113,23 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
             quote! {
                 #doc
                 #features
-                pub fn #name<#constraints>(#params) -> ::windows::core::Result<#return_type_tokens> {
+                pub fn #name<#generics>(#params) -> ::windows::core::Result<#return_type_tokens> #where_clause {
                     Self::#interface_name(|this| unsafe { #vcall })
                 }
             }
         }
         InterfaceKind::Composable => {
+            let generics = expand_generics(generics, quote!(T));
+            let where_clause = expand_where_clause(where_clause, quote!(T: ::windows::core::Compose));
             quote! {
                 #doc
                 #features
-                pub fn #name<#constraints>(#params) -> ::windows::core::Result<#return_type_tokens> {
+                pub fn #name<#generics>(#params) -> ::windows::core::Result<#return_type_tokens> #where_clause {
                     Self::#interface_name(|this| unsafe { #vcall_none })
                 }
                 #doc
                 #features
-                pub fn #name_compose<#constraints T: ::windows::core::Compose>(#params  compose: T) -> ::windows::core::Result<#return_type_tokens> {
+                pub fn #name_compose<#generics, T>(#params  compose: T) -> ::windows::core::Result<#return_type_tokens> #where_clause {
                     Self::#interface_name(|this| unsafe {
                         let (derived__, base__) = ::windows::core::Compose::compose(compose);
                         #vcall
@@ -142,7 +143,8 @@ pub fn gen(gen: &Gen, def: TypeDef, generics: &[Type], kind: InterfaceKind, meth
 fn gen_winrt_params(gen: &Gen, params: &[SignatureParam]) -> TokenStream {
     let mut result = quote! {};
 
-    for (position, param) in params.iter().enumerate() {
+    let mut generic_params = gen.generic_params(params);
+    for param in params.iter() {
         let name = gen.param_name(param.def);
         let kind = gen.type_name(&param.ty);
         let default_type = gen.type_default_name(&param.ty);
@@ -150,11 +152,14 @@ fn gen_winrt_params(gen: &Gen, params: &[SignatureParam]) -> TokenStream {
         if gen.reader.param_flags(param.def).input() {
             if param.ty.is_winrt_array() {
                 result.combine(&quote! { #name: &[#default_type], });
-            } else if gen.reader.signature_param_is_borrowed(param) || gen.reader.signature_param_is_convertible(param) {
-                let kind: TokenStream = format!("Param{}", position).into();
+            } else if gen.reader.signature_param_is_convertible(param) {
+                let (position, _) = generic_params.next().unwrap();
+                let kind: TokenStream = format!("P{}", position).into();
+                result.combine(&quote! { #name: #kind, });
+            } else if gen.reader.type_is_blittable(&param.ty) {
                 result.combine(&quote! { #name: #kind, });
             } else {
-                result.combine(&quote! { #name: #kind, });
+                result.combine(&quote! { #name: &#kind, });
             }
         } else if param.ty.is_winrt_array() {
             result.combine(&quote! { #name: &mut [#default_type], });
@@ -175,21 +180,15 @@ fn gen_winrt_abi_args(gen: &Gen, params: &[SignatureParam]) -> TokenStream {
 
         let param = if gen.reader.param_flags(param.def).input() {
             if param.ty.is_winrt_array() {
-                quote! { #name.len() as u32, ::core::mem::transmute(#name.as_ptr()), }
+                if gen.reader.type_is_blittable(&param.ty) {
+                    quote! { #name.len() as u32, #name.as_ptr(), }
+                } else {
+                    quote! { #name.len() as u32, ::core::mem::transmute(#name.as_ptr()), }
+                }
             } else if gen.reader.signature_param_is_failible_param(param) {
-                if param.ty.is_winrt_const_ref() {
-                    quote! { &#name.try_into().map_err(|e| e.into())?.abi(), }
-                } else {
-                    quote! { #name.try_into().map_err(|e| e.into())?.abi(), }
-                }
+                quote! { #name.try_into().map_err(|e| e.into())?.abi(), }
             } else if gen.reader.signature_param_is_borrowed(param) {
-                if param.ty.is_winrt_const_ref() {
-                    quote! { &#name.into().abi(), }
-                } else {
-                    quote! { #name.into().abi(), }
-                }
-            } else if gen.reader.signature_param_is_convertible(param) {
-                quote! { #name.into(), }
+                quote! { #name.into().abi(), }
             } else if gen.reader.type_is_blittable(&param.ty) {
                 if param.ty.is_winrt_const_ref() {
                     quote! { &#name, }
@@ -200,7 +199,11 @@ fn gen_winrt_abi_args(gen: &Gen, params: &[SignatureParam]) -> TokenStream {
                 quote! { ::core::mem::transmute_copy(#name), }
             }
         } else if param.ty.is_winrt_array() {
-            quote! { #name.len() as u32, ::core::mem::transmute_copy(&#name), }
+            if gen.reader.type_is_blittable(&param.ty) {
+                quote! { #name.len() as u32, #name.as_mut_ptr(), }
+            } else {
+                quote! { #name.len() as u32, ::core::mem::transmute_copy(&#name), }
+            }
         } else if param.ty.is_winrt_array_ref() {
             quote! { #name.set_abi_len(), #name as *mut _ as _, }
         } else if gen.reader.type_is_blittable(&param.ty) {

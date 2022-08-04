@@ -211,165 +211,146 @@ pub struct IWorkflowPrintTicketValidationResult_Vtbl {
 #[repr(transparent)]
 pub struct PrintTicketCapabilities(::windows::core::IUnknown);
 impl PrintTicketCapabilities {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentBindingFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentBindingFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentCollateFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentCollateFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentDuplexFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentDuplexFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentHolePunchFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentHolePunchFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentInputBinFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentInputBinFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentNUpFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentNUpFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentStapleFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentStapleFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn JobPasscodeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).JobPasscodeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageBorderlessFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageBorderlessFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageMediaSizeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageMediaSizeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageMediaTypeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageMediaTypeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOrientationFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOrientationFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOutputColorFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOutputColorFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOutputQualityFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOutputQualityFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageResolutionFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageResolutionFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetFeature<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketFeature> {
+    pub fn GetFeature(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetFeature)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetFeature)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetParameterDefinition<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketParameterDefinition> {
+    pub fn GetParameterDefinition(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketParameterDefinition> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetParameterDefinition)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketParameterDefinition>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetParameterDefinition)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketParameterDefinition>(result__)
         }
     }
 }
@@ -439,74 +420,70 @@ unsafe impl ::core::marker::Sync for PrintTicketCapabilities {}
 #[repr(transparent)]
 pub struct PrintTicketFeature(::windows::core::IUnknown);
 impl PrintTicketFeature {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DisplayName(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DisplayName)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetOption<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketOption> {
+    pub fn GetOption(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketOption> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetOption)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketOption>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetOption)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketOption>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Foundation_Collections\"`*"]
+    #[doc = "*Required features: `\"Foundation_Collections\"`*"]
     #[cfg(feature = "Foundation_Collections")]
     pub fn Options(&self) -> ::windows::core::Result<super::super::super::Foundation::Collections::IVectorView<PrintTicketOption>> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Options)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::Collections::IVectorView<PrintTicketOption>>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn GetSelectedOption(&self) -> ::windows::core::Result<PrintTicketOption> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetSelectedOption)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketOption>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn SetSelectedOption<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, PrintTicketOption>>>(&self, value: Param0) -> ::windows::core::Result<()> {
+    pub fn SetSelectedOption<'a, P0>(&self, value: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, PrintTicketOption>>,
+    {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetSelectedOption)(::windows::core::Interface::as_raw(this), value.into().abi()).ok() }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn SelectionType(&self) -> ::windows::core::Result<PrintTicketFeatureSelectionType> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<PrintTicketFeatureSelectionType>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).SelectionType)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeatureSelectionType>(result__)
         }
     }
@@ -611,71 +588,66 @@ unsafe impl ::windows::core::RuntimeType for PrintTicketFeatureSelectionType {
 #[repr(transparent)]
 pub struct PrintTicketOption(::windows::core::IUnknown);
 impl PrintTicketOption {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DisplayName(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DisplayName)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
-    pub fn GetPropertyNode<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
+    pub fn GetPropertyNode(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetPropertyNode)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetPropertyNode)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
-    pub fn GetScoredPropertyNode<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
+    pub fn GetScoredPropertyNode(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetScoredPropertyNode)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetScoredPropertyNode)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetPropertyValue<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketValue> {
+    pub fn GetPropertyValue(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketValue> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetPropertyValue)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketValue>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetPropertyValue)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketValue>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetScoredPropertyValue<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketValue> {
+    pub fn GetScoredPropertyValue(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketValue> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetScoredPropertyValue)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketValue>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetScoredPropertyValue)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketValue>(result__)
         }
     }
 }
@@ -780,60 +752,54 @@ unsafe impl ::windows::core::RuntimeType for PrintTicketParameterDataType {
 #[repr(transparent)]
 pub struct PrintTicketParameterDefinition(::windows::core::IUnknown);
 impl PrintTicketParameterDefinition {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DataType(&self) -> ::windows::core::Result<PrintTicketParameterDataType> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<PrintTicketParameterDataType>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DataType)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketParameterDataType>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn UnitType(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).UnitType)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn RangeMin(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).RangeMin)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn RangeMax(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).RangeMax)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
@@ -904,41 +870,40 @@ unsafe impl ::core::marker::Sync for PrintTicketParameterDefinition {}
 #[repr(transparent)]
 pub struct PrintTicketParameterInitializer(::windows::core::IUnknown);
 impl PrintTicketParameterInitializer {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn SetValue<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, PrintTicketValue>>>(&self, value: Param0) -> ::windows::core::Result<()> {
+    pub fn SetValue<'a, P0>(&self, value: P0) -> ::windows::core::Result<()>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, PrintTicketValue>>,
+    {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetValue)(::windows::core::Interface::as_raw(this), value.into().abi()).ok() }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Value(&self) -> ::windows::core::Result<PrintTicketValue> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Value)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketValue>(result__)
         }
     }
@@ -1009,27 +974,24 @@ unsafe impl ::core::marker::Sync for PrintTicketParameterInitializer {}
 #[repr(transparent)]
 pub struct PrintTicketValue(::windows::core::IUnknown);
 impl PrintTicketValue {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Type(&self) -> ::windows::core::Result<PrintTicketValueType> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<PrintTicketValueType>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Type)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketValueType>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn GetValueAsInteger(&self) -> ::windows::core::Result<i32> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<i32>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetValueAsInteger)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<i32>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn GetValueAsString(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetValueAsString)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
@@ -1135,214 +1097,194 @@ unsafe impl ::windows::core::RuntimeType for PrintTicketValueType {
 #[repr(transparent)]
 pub struct WorkflowPrintTicket(::windows::core::IUnknown);
 impl WorkflowPrintTicket {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Name(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Name)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn XmlNamespace(&self) -> ::windows::core::Result<::windows::core::HSTRING> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::core::mem::ManuallyDrop<::windows::core::HSTRING>>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNamespace)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HSTRING>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Data_Xml_Dom\"`*"]
+    #[doc = "*Required features: `\"Data_Xml_Dom\"`*"]
     #[cfg(feature = "Data_Xml_Dom")]
     pub fn XmlNode(&self) -> ::windows::core::Result<super::super::super::Data::Xml::Dom::IXmlNode> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).XmlNode)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Data::Xml::Dom::IXmlNode>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn GetCapabilities(&self) -> ::windows::core::Result<PrintTicketCapabilities> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).GetCapabilities)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketCapabilities>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentBindingFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentBindingFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentCollateFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentCollateFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentDuplexFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentDuplexFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentHolePunchFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentHolePunchFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentInputBinFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentInputBinFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentNUpFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentNUpFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn DocumentStapleFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).DocumentStapleFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn JobPasscodeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).JobPasscodeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageBorderlessFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageBorderlessFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageMediaSizeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageMediaSizeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageMediaTypeFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageMediaTypeFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOrientationFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOrientationFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOutputColorFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOutputColorFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageOutputQualityFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageOutputQualityFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn PageResolutionFeature(&self) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).PageResolutionFeature)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetFeature<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketFeature> {
+    pub fn GetFeature(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketFeature> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetFeature)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetFeature)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketFeature>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn NotifyXmlChangedAsync(&self) -> ::windows::core::Result<super::super::super::Foundation::IAsyncAction> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).NotifyXmlChangedAsync)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::IAsyncAction>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn ValidateAsync(&self) -> ::windows::core::Result<super::super::super::Foundation::IAsyncOperation<WorkflowPrintTicketValidationResult>> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).ValidateAsync)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<super::super::super::Foundation::IAsyncOperation<WorkflowPrintTicketValidationResult>>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn GetParameterInitializer<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1) -> ::windows::core::Result<PrintTicketParameterInitializer> {
+    pub fn GetParameterInitializer(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketParameterInitializer> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).GetParameterInitializer)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).GetParameterInitializer)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn SetParameterInitializerAsInteger<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1, integervalue: i32) -> ::windows::core::Result<PrintTicketParameterInitializer> {
+    pub fn SetParameterInitializerAsInteger(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING, integervalue: i32) -> ::windows::core::Result<PrintTicketParameterInitializer> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).SetParameterInitializerAsInteger)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), integervalue, result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).SetParameterInitializerAsInteger)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), integervalue, result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn SetParameterInitializerAsString<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param1: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>, Param2: ::std::convert::Into<::windows::core::InParam<'a, ::windows::core::HSTRING>>>(&self, name: Param0, xmlnamespace: Param1, stringvalue: Param2) -> ::windows::core::Result<PrintTicketParameterInitializer> {
+    pub fn SetParameterInitializerAsString(&self, name: &::windows::core::HSTRING, xmlnamespace: &::windows::core::HSTRING, stringvalue: &::windows::core::HSTRING) -> ::windows::core::Result<PrintTicketParameterInitializer> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
-            (::windows::core::Interface::vtable(this).SetParameterInitializerAsString)(::windows::core::Interface::as_raw(this), name.into().abi(), xmlnamespace.into().abi(), stringvalue.into().abi(), result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).SetParameterInitializerAsString)(::windows::core::Interface::as_raw(this), ::core::mem::transmute_copy(name), ::core::mem::transmute_copy(xmlnamespace), ::core::mem::transmute_copy(stringvalue), result__.as_mut_ptr()).from_abi::<PrintTicketParameterInitializer>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
-    pub fn MergeAndValidateTicket<'a, Param0: ::std::convert::Into<::windows::core::InParam<'a, WorkflowPrintTicket>>>(&self, deltashematicket: Param0) -> ::windows::core::Result<WorkflowPrintTicket> {
+    pub fn MergeAndValidateTicket<'a, P0>(&self, deltashematicket: P0) -> ::windows::core::Result<WorkflowPrintTicket>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, WorkflowPrintTicket>>,
+    {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).MergeAndValidateTicket)(::windows::core::Interface::as_raw(this), deltashematicket.into().abi(), result__.as_mut_ptr()).from_abi::<WorkflowPrintTicket>(result__)
         }
     }
@@ -1413,19 +1355,17 @@ unsafe impl ::core::marker::Sync for WorkflowPrintTicket {}
 #[repr(transparent)]
 pub struct WorkflowPrintTicketValidationResult(::windows::core::IUnknown);
 impl WorkflowPrintTicketValidationResult {
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn Validated(&self) -> ::windows::core::Result<bool> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).Validated)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<bool>(result__)
         }
     }
-    #[doc = "*Required features: `\"Graphics_Printing_PrintTicket\"`*"]
     pub fn ExtendedError(&self) -> ::windows::core::Result<::windows::core::HRESULT> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<::windows::core::HRESULT>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).ExtendedError)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<::windows::core::HRESULT>(result__)
         }
     }

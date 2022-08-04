@@ -1,32 +1,42 @@
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CallEnclave<'a, Param2: ::std::convert::Into<super::super::Foundation::BOOL>>(lproutine: isize, lpparameter: *const ::core::ffi::c_void, fwaitforthread: Param2, lpreturnvalue: *mut *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL {
+pub unsafe fn CallEnclave<'a, P0>(lproutine: isize, lpparameter: *const ::core::ffi::c_void, fwaitforthread: P0, lpreturnvalue: *mut *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CallEnclave(lproutine: isize, lpparameter: *const ::core::ffi::c_void, fwaitforthread: super::super::Foundation::BOOL, lpreturnvalue: *mut *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(CallEnclave(::core::mem::transmute(lproutine), ::core::mem::transmute(lpparameter), fwaitforthread.into(), ::core::mem::transmute(lpreturnvalue)))
+    CallEnclave(lproutine, ::core::mem::transmute(lpparameter), fwaitforthread.into(), ::core::mem::transmute(lpreturnvalue))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CreateEnclave<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(hprocess: Param0, lpaddress: *const ::core::ffi::c_void, dwsize: usize, dwinitialcommitment: usize, flenclavetype: u32, lpenclaveinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpenclaveerror: *mut u32) -> *mut ::core::ffi::c_void {
+pub unsafe fn CreateEnclave<'a, P0>(hprocess: P0, lpaddress: *const ::core::ffi::c_void, dwsize: usize, dwinitialcommitment: usize, flenclavetype: u32, lpenclaveinformation: &[u8], lpenclaveerror: ::core::option::Option<&mut u32>) -> *mut ::core::ffi::c_void
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateEnclave(hprocess: super::super::Foundation::HANDLE, lpaddress: *const ::core::ffi::c_void, dwsize: usize, dwinitialcommitment: usize, flenclavetype: u32, lpenclaveinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpenclaveerror: *mut u32) -> *mut ::core::ffi::c_void;
     }
-    ::core::mem::transmute(CreateEnclave(hprocess.into(), ::core::mem::transmute(lpaddress), ::core::mem::transmute(dwsize), ::core::mem::transmute(dwinitialcommitment), ::core::mem::transmute(flenclavetype), ::core::mem::transmute(lpenclaveinformation), ::core::mem::transmute(dwinfolength), ::core::mem::transmute(lpenclaveerror)))
+    CreateEnclave(hprocess.into(), ::core::mem::transmute(lpaddress), dwsize, dwinitialcommitment, flenclavetype, ::core::mem::transmute(lpenclaveinformation.as_ptr()), lpenclaveinformation.len() as _, ::core::mem::transmute(lpenclaveerror))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn CreateEnvironmentBlock<'a, Param1: ::std::convert::Into<super::super::Foundation::HANDLE>, Param2: ::std::convert::Into<super::super::Foundation::BOOL>>(lpenvironment: *mut *mut ::core::ffi::c_void, htoken: Param1, binherit: Param2) -> super::super::Foundation::BOOL {
+pub unsafe fn CreateEnvironmentBlock<'a, P0, P1>(lpenvironment: *mut *mut ::core::ffi::c_void, htoken: P0, binherit: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn CreateEnvironmentBlock(lpenvironment: *mut *mut ::core::ffi::c_void, htoken: super::super::Foundation::HANDLE, binherit: super::super::Foundation::BOOL) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(CreateEnvironmentBlock(::core::mem::transmute(lpenvironment), htoken.into(), binherit.into()))
+    CreateEnvironmentBlock(::core::mem::transmute(lpenvironment), htoken.into(), binherit.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -36,7 +46,7 @@ pub unsafe fn DeleteEnclave(lpaddress: *const ::core::ffi::c_void) -> super::sup
     extern "system" {
         fn DeleteEnclave(lpaddress: *const ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(DeleteEnclave(::core::mem::transmute(lpaddress)))
+    DeleteEnclave(::core::mem::transmute(lpaddress))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -46,7 +56,7 @@ pub unsafe fn DestroyEnvironmentBlock(lpenvironment: *const ::core::ffi::c_void)
     extern "system" {
         fn DestroyEnvironmentBlock(lpenvironment: *const ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(DestroyEnvironmentBlock(::core::mem::transmute(lpenvironment)))
+    DestroyEnvironmentBlock(::core::mem::transmute(lpenvironment))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 pub const ENCLAVE_FLAG_DYNAMIC_DEBUG_ACTIVE: u32 = 4u32;
@@ -205,107 +215,126 @@ impl ::core::default::Default for ENCLAVE_VBS_BASIC_KEY_REQUEST {
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn EnclaveGetAttestationReport(enclavedata: *const u8, report: *mut ::core::ffi::c_void, buffersize: u32, outputsize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn EnclaveGetAttestationReport(enclavedata: ::core::option::Option<&u8>, report: ::core::option::Option<&mut [u8]>, outputsize: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnclaveGetAttestationReport(enclavedata: *const u8, report: *mut ::core::ffi::c_void, buffersize: u32, outputsize: *mut u32) -> ::windows::core::HRESULT;
     }
-    EnclaveGetAttestationReport(::core::mem::transmute(enclavedata), ::core::mem::transmute(report), ::core::mem::transmute(buffersize), ::core::mem::transmute(outputsize)).ok()
+    EnclaveGetAttestationReport(::core::mem::transmute(enclavedata), ::core::mem::transmute(report.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), report.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(outputsize)).ok()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn EnclaveGetEnclaveInformation(informationsize: u32) -> ::windows::core::Result<ENCLAVE_INFORMATION> {
+pub unsafe fn EnclaveGetEnclaveInformation(enclaveinformation: &mut [u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnclaveGetEnclaveInformation(informationsize: u32, enclaveinformation: *mut ENCLAVE_INFORMATION) -> ::windows::core::HRESULT;
     }
-    let mut result__ = ::core::mem::MaybeUninit::<ENCLAVE_INFORMATION>::zeroed();
-    EnclaveGetEnclaveInformation(::core::mem::transmute(informationsize), ::core::mem::transmute(result__.as_mut_ptr())).from_abi::<ENCLAVE_INFORMATION>(result__)
+    EnclaveGetEnclaveInformation(enclaveinformation.len() as _, ::core::mem::transmute(enclaveinformation.as_ptr())).ok()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn EnclaveSealData<'a, Param2: ::std::convert::Into<ENCLAVE_SEALING_IDENTITY_POLICY>>(datatoencrypt: *const ::core::ffi::c_void, datatoencryptsize: u32, identitypolicy: Param2, runtimepolicy: u32, protectedblob: *mut ::core::ffi::c_void, buffersize: u32, protectedblobsize: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn EnclaveSealData(datatoencrypt: &[u8], identitypolicy: ENCLAVE_SEALING_IDENTITY_POLICY, runtimepolicy: u32, protectedblob: ::core::option::Option<&mut [u8]>, protectedblobsize: &mut u32) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnclaveSealData(datatoencrypt: *const ::core::ffi::c_void, datatoencryptsize: u32, identitypolicy: ENCLAVE_SEALING_IDENTITY_POLICY, runtimepolicy: u32, protectedblob: *mut ::core::ffi::c_void, buffersize: u32, protectedblobsize: *mut u32) -> ::windows::core::HRESULT;
     }
-    EnclaveSealData(::core::mem::transmute(datatoencrypt), ::core::mem::transmute(datatoencryptsize), identitypolicy.into(), ::core::mem::transmute(runtimepolicy), ::core::mem::transmute(protectedblob), ::core::mem::transmute(buffersize), ::core::mem::transmute(protectedblobsize)).ok()
+    EnclaveSealData(::core::mem::transmute(datatoencrypt.as_ptr()), datatoencrypt.len() as _, identitypolicy, runtimepolicy, ::core::mem::transmute(protectedblob.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), protectedblob.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(protectedblobsize)).ok()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn EnclaveUnsealData(protectedblob: *const ::core::ffi::c_void, protectedblobsize: u32, decrypteddata: *mut ::core::ffi::c_void, buffersize: u32, decrypteddatasize: *mut u32, sealingidentity: *mut ENCLAVE_IDENTITY, unsealingflags: *mut u32) -> ::windows::core::Result<()> {
+pub unsafe fn EnclaveUnsealData(protectedblob: &[u8], decrypteddata: ::core::option::Option<&mut [u8]>, decrypteddatasize: &mut u32, sealingidentity: ::core::option::Option<&mut ENCLAVE_IDENTITY>, unsealingflags: ::core::option::Option<&mut u32>) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnclaveUnsealData(protectedblob: *const ::core::ffi::c_void, protectedblobsize: u32, decrypteddata: *mut ::core::ffi::c_void, buffersize: u32, decrypteddatasize: *mut u32, sealingidentity: *mut ENCLAVE_IDENTITY, unsealingflags: *mut u32) -> ::windows::core::HRESULT;
     }
-    EnclaveUnsealData(::core::mem::transmute(protectedblob), ::core::mem::transmute(protectedblobsize), ::core::mem::transmute(decrypteddata), ::core::mem::transmute(buffersize), ::core::mem::transmute(decrypteddatasize), ::core::mem::transmute(sealingidentity), ::core::mem::transmute(unsealingflags)).ok()
+    EnclaveUnsealData(::core::mem::transmute(protectedblob.as_ptr()), protectedblob.len() as _, ::core::mem::transmute(decrypteddata.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), decrypteddata.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(decrypteddatasize), ::core::mem::transmute(sealingidentity), ::core::mem::transmute(unsealingflags)).ok()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn EnclaveVerifyAttestationReport(enclavetype: u32, report: *const ::core::ffi::c_void, reportsize: u32) -> ::windows::core::Result<()> {
+pub unsafe fn EnclaveVerifyAttestationReport(enclavetype: u32, report: &[u8]) -> ::windows::core::Result<()> {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn EnclaveVerifyAttestationReport(enclavetype: u32, report: *const ::core::ffi::c_void, reportsize: u32) -> ::windows::core::HRESULT;
     }
-    EnclaveVerifyAttestationReport(::core::mem::transmute(enclavetype), ::core::mem::transmute(report), ::core::mem::transmute(reportsize)).ok()
+    EnclaveVerifyAttestationReport(enclavetype, ::core::mem::transmute(report.as_ptr()), report.len() as _).ok()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn ExpandEnvironmentStringsA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(lpsrc: Param0, lpdst: &mut [u8]) -> u32 {
+pub unsafe fn ExpandEnvironmentStringsA<'a, P0>(lpsrc: P0, lpdst: ::core::option::Option<&mut [u8]>) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ExpandEnvironmentStringsA(lpsrc: ::windows::core::PCSTR, lpdst: ::windows::core::PSTR, nsize: u32) -> u32;
     }
-    ::core::mem::transmute(ExpandEnvironmentStringsA(lpsrc.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpdst)), lpdst.len() as _))
+    ExpandEnvironmentStringsA(lpsrc.into(), ::core::mem::transmute(lpdst.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpdst.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn ExpandEnvironmentStringsForUserA<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>, Param1: ::std::convert::Into<::windows::core::PCSTR>>(htoken: Param0, lpsrc: Param1, lpdest: &mut [u8]) -> super::super::Foundation::BOOL {
+pub unsafe fn ExpandEnvironmentStringsForUserA<'a, P0, P1>(htoken: P0, lpsrc: P1, lpdest: &mut [u8]) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ExpandEnvironmentStringsForUserA(htoken: super::super::Foundation::HANDLE, lpsrc: ::windows::core::PCSTR, lpdest: ::windows::core::PSTR, dwsize: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(ExpandEnvironmentStringsForUserA(htoken.into(), lpsrc.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpdest)), lpdest.len() as _))
+    ExpandEnvironmentStringsForUserA(htoken.into(), lpsrc.into(), ::core::mem::transmute(lpdest.as_ptr()), lpdest.len() as _)
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn ExpandEnvironmentStringsForUserW<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(htoken: Param0, lpsrc: Param1, lpdest: &mut [u16]) -> super::super::Foundation::BOOL {
+pub unsafe fn ExpandEnvironmentStringsForUserW<'a, P0, P1>(htoken: P0, lpsrc: P1, lpdest: &mut [u16]) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ExpandEnvironmentStringsForUserW(htoken: super::super::Foundation::HANDLE, lpsrc: ::windows::core::PCWSTR, lpdest: ::windows::core::PWSTR, dwsize: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(ExpandEnvironmentStringsForUserW(htoken.into(), lpsrc.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpdest)), lpdest.len() as _))
+    ExpandEnvironmentStringsForUserW(htoken.into(), lpsrc.into(), ::core::mem::transmute(lpdest.as_ptr()), lpdest.len() as _)
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn ExpandEnvironmentStringsW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(lpsrc: Param0, lpdst: &mut [u16]) -> u32 {
+pub unsafe fn ExpandEnvironmentStringsW<'a, P0>(lpsrc: P0, lpdst: ::core::option::Option<&mut [u16]>) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn ExpandEnvironmentStringsW(lpsrc: ::windows::core::PCWSTR, lpdst: ::windows::core::PWSTR, nsize: u32) -> u32;
     }
-    ::core::mem::transmute(ExpandEnvironmentStringsW(lpsrc.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpdst)), lpdst.len() as _))
+    ExpandEnvironmentStringsW(lpsrc.into(), ::core::mem::transmute(lpdst.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpdst.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn FreeEnvironmentStringsA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(penv: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn FreeEnvironmentStringsA<'a, P0>(penv: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn FreeEnvironmentStringsA(penv: ::windows::core::PCSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(FreeEnvironmentStringsA(penv.into()))
+    FreeEnvironmentStringsA(penv.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn FreeEnvironmentStringsW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(penv: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn FreeEnvironmentStringsW<'a, P0>(penv: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn FreeEnvironmentStringsW(penv: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(FreeEnvironmentStringsW(penv.into()))
+    FreeEnvironmentStringsW(penv.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
@@ -314,7 +343,7 @@ pub unsafe fn GetCommandLineA() -> ::windows::core::PSTR {
     extern "system" {
         fn GetCommandLineA() -> ::windows::core::PSTR;
     }
-    ::core::mem::transmute(GetCommandLineA())
+    GetCommandLineA()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
@@ -323,25 +352,25 @@ pub unsafe fn GetCommandLineW() -> ::windows::core::PWSTR {
     extern "system" {
         fn GetCommandLineW() -> ::windows::core::PWSTR;
     }
-    ::core::mem::transmute(GetCommandLineW())
+    GetCommandLineW()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn GetCurrentDirectoryA(lpbuffer: &mut [u8]) -> u32 {
+pub unsafe fn GetCurrentDirectoryA(lpbuffer: ::core::option::Option<&mut [u8]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetCurrentDirectoryA(nbufferlength: u32, lpbuffer: ::windows::core::PSTR) -> u32;
     }
-    ::core::mem::transmute(GetCurrentDirectoryA(lpbuffer.len() as _, ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpbuffer))))
+    GetCurrentDirectoryA(lpbuffer.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn GetCurrentDirectoryW(lpbuffer: &mut [u16]) -> u32 {
+pub unsafe fn GetCurrentDirectoryW(lpbuffer: ::core::option::Option<&mut [u16]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetCurrentDirectoryW(nbufferlength: u32, lpbuffer: ::windows::core::PWSTR) -> u32;
     }
-    ::core::mem::transmute(GetCurrentDirectoryW(lpbuffer.len() as _, ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpbuffer))))
+    GetCurrentDirectoryW(lpbuffer.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
@@ -350,7 +379,7 @@ pub unsafe fn GetEnvironmentStrings() -> ::windows::core::PSTR {
     extern "system" {
         fn GetEnvironmentStrings() -> ::windows::core::PSTR;
     }
-    ::core::mem::transmute(GetEnvironmentStrings())
+    GetEnvironmentStrings()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
@@ -359,35 +388,44 @@ pub unsafe fn GetEnvironmentStringsW() -> ::windows::core::PWSTR {
     extern "system" {
         fn GetEnvironmentStringsW() -> ::windows::core::PWSTR;
     }
-    ::core::mem::transmute(GetEnvironmentStringsW())
+    GetEnvironmentStringsW()
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn GetEnvironmentVariableA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(lpname: Param0, lpbuffer: &mut [u8]) -> u32 {
+pub unsafe fn GetEnvironmentVariableA<'a, P0>(lpname: P0, lpbuffer: ::core::option::Option<&mut [u8]>) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetEnvironmentVariableA(lpname: ::windows::core::PCSTR, lpbuffer: ::windows::core::PSTR, nsize: u32) -> u32;
     }
-    ::core::mem::transmute(GetEnvironmentVariableA(lpname.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpbuffer)), lpbuffer.len() as _))
+    GetEnvironmentVariableA(lpname.into(), ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpbuffer.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 #[inline]
-pub unsafe fn GetEnvironmentVariableW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(lpname: Param0, lpbuffer: &mut [u16]) -> u32 {
+pub unsafe fn GetEnvironmentVariableW<'a, P0>(lpname: P0, lpbuffer: ::core::option::Option<&mut [u16]>) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn GetEnvironmentVariableW(lpname: ::windows::core::PCWSTR, lpbuffer: ::windows::core::PWSTR, nsize: u32) -> u32;
     }
-    ::core::mem::transmute(GetEnvironmentVariableW(lpname.into(), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(lpbuffer)), lpbuffer.len() as _))
+    GetEnvironmentVariableW(lpname.into(), ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpbuffer.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn InitializeEnclave<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(hprocess: Param0, lpaddress: *const ::core::ffi::c_void, lpenclaveinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpenclaveerror: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn InitializeEnclave<'a, P0>(hprocess: P0, lpaddress: *const ::core::ffi::c_void, lpenclaveinformation: &[u8], lpenclaveerror: ::core::option::Option<&mut u32>) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn InitializeEnclave(hprocess: super::super::Foundation::HANDLE, lpaddress: *const ::core::ffi::c_void, lpenclaveinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpenclaveerror: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(InitializeEnclave(hprocess.into(), ::core::mem::transmute(lpaddress), ::core::mem::transmute(lpenclaveinformation), ::core::mem::transmute(dwinfolength), ::core::mem::transmute(lpenclaveerror)))
+    InitializeEnclave(hprocess.into(), ::core::mem::transmute(lpaddress), ::core::mem::transmute(lpenclaveinformation.as_ptr()), lpenclaveinformation.len() as _, ::core::mem::transmute(lpenclaveerror))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -397,117 +435,152 @@ pub unsafe fn IsEnclaveTypeSupported(flenclavetype: u32) -> super::super::Founda
     extern "system" {
         fn IsEnclaveTypeSupported(flenclavetype: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(IsEnclaveTypeSupported(::core::mem::transmute(flenclavetype)))
+    IsEnclaveTypeSupported(flenclavetype)
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LoadEnclaveData<'a, Param0: ::std::convert::Into<super::super::Foundation::HANDLE>>(hprocess: Param0, lpaddress: *const ::core::ffi::c_void, lpbuffer: *const ::core::ffi::c_void, nsize: usize, flprotect: u32, lppageinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpnumberofbyteswritten: *mut usize, lpenclaveerror: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn LoadEnclaveData<'a, P0>(hprocess: P0, lpaddress: *const ::core::ffi::c_void, lpbuffer: &[u8], flprotect: u32, lppageinformation: &[u8], lpnumberofbyteswritten: &mut usize, lpenclaveerror: ::core::option::Option<&mut u32>) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::HANDLE>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LoadEnclaveData(hprocess: super::super::Foundation::HANDLE, lpaddress: *const ::core::ffi::c_void, lpbuffer: *const ::core::ffi::c_void, nsize: usize, flprotect: u32, lppageinformation: *const ::core::ffi::c_void, dwinfolength: u32, lpnumberofbyteswritten: *mut usize, lpenclaveerror: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(LoadEnclaveData(hprocess.into(), ::core::mem::transmute(lpaddress), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(nsize), ::core::mem::transmute(flprotect), ::core::mem::transmute(lppageinformation), ::core::mem::transmute(dwinfolength), ::core::mem::transmute(lpnumberofbyteswritten), ::core::mem::transmute(lpenclaveerror)))
+    LoadEnclaveData(hprocess.into(), ::core::mem::transmute(lpaddress), ::core::mem::transmute(lpbuffer.as_ptr()), lpbuffer.len() as _, flprotect, ::core::mem::transmute(lppageinformation.as_ptr()), lppageinformation.len() as _, ::core::mem::transmute(lpnumberofbyteswritten), ::core::mem::transmute(lpenclaveerror))
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LoadEnclaveImageA<'a, Param1: ::std::convert::Into<::windows::core::PCSTR>>(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn LoadEnclaveImageA<'a, P0>(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LoadEnclaveImageA(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: ::windows::core::PCSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(LoadEnclaveImageA(::core::mem::transmute(lpenclaveaddress), lpimagename.into()))
+    LoadEnclaveImageA(::core::mem::transmute(lpenclaveaddress), lpimagename.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn LoadEnclaveImageW<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn LoadEnclaveImageW<'a, P0>(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn LoadEnclaveImageW(lpenclaveaddress: *const ::core::ffi::c_void, lpimagename: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(LoadEnclaveImageW(::core::mem::transmute(lpenclaveaddress), lpimagename.into()))
+    LoadEnclaveImageW(::core::mem::transmute(lpenclaveaddress), lpimagename.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn NeedCurrentDirectoryForExePathA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(exename: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn NeedCurrentDirectoryForExePathA<'a, P0>(exename: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NeedCurrentDirectoryForExePathA(exename: ::windows::core::PCSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(NeedCurrentDirectoryForExePathA(exename.into()))
+    NeedCurrentDirectoryForExePathA(exename.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn NeedCurrentDirectoryForExePathW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(exename: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn NeedCurrentDirectoryForExePathW<'a, P0>(exename: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn NeedCurrentDirectoryForExePathW(exename: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(NeedCurrentDirectoryForExePathW(exename.into()))
+    NeedCurrentDirectoryForExePathW(exename.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetCurrentDirectoryA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>>(lppathname: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SetCurrentDirectoryA<'a, P0>(lppathname: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetCurrentDirectoryA(lppathname: ::windows::core::PCSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetCurrentDirectoryA(lppathname.into()))
+    SetCurrentDirectoryA(lppathname.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetCurrentDirectoryW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(lppathname: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SetCurrentDirectoryW<'a, P0>(lppathname: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetCurrentDirectoryW(lppathname: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetCurrentDirectoryW(lppathname.into()))
+    SetCurrentDirectoryW(lppathname.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetEnvironmentStringsW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(newenvironment: Param0) -> super::super::Foundation::BOOL {
+pub unsafe fn SetEnvironmentStringsW<'a, P0>(newenvironment: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetEnvironmentStringsW(newenvironment: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetEnvironmentStringsW(newenvironment.into()))
+    SetEnvironmentStringsW(newenvironment.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetEnvironmentVariableA<'a, Param0: ::std::convert::Into<::windows::core::PCSTR>, Param1: ::std::convert::Into<::windows::core::PCSTR>>(lpname: Param0, lpvalue: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn SetEnvironmentVariableA<'a, P0, P1>(lpname: P0, lpvalue: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCSTR>,
+    P1: ::std::convert::Into<::windows::core::PCSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetEnvironmentVariableA(lpname: ::windows::core::PCSTR, lpvalue: ::windows::core::PCSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetEnvironmentVariableA(lpname.into(), lpvalue.into()))
+    SetEnvironmentVariableA(lpname.into(), lpvalue.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn SetEnvironmentVariableW<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(lpname: Param0, lpvalue: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn SetEnvironmentVariableW<'a, P0, P1>(lpname: P0, lpvalue: P1) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn SetEnvironmentVariableW(lpname: ::windows::core::PCWSTR, lpvalue: ::windows::core::PCWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(SetEnvironmentVariableW(lpname.into(), lpvalue.into()))
+    SetEnvironmentVariableW(lpname.into(), lpvalue.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn TerminateEnclave<'a, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(lpaddress: *const ::core::ffi::c_void, fwait: Param1) -> super::super::Foundation::BOOL {
+pub unsafe fn TerminateEnclave<'a, P0>(lpaddress: *const ::core::ffi::c_void, fwait: P0) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn TerminateEnclave(lpaddress: *const ::core::ffi::c_void, fwait: super::super::Foundation::BOOL) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(TerminateEnclave(::core::mem::transmute(lpaddress), fwait.into()))
+    TerminateEnclave(::core::mem::transmute(lpaddress), fwait.into())
 }
 #[doc = "*Required features: `\"Win32_System_Environment\"`*"]
 pub type VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES = ::core::option::Option<unsafe extern "system" fn(enclaveaddress: *const ::core::ffi::c_void, numberofbytes: usize, sourceaddress: *const ::core::ffi::c_void, pageprotection: u32) -> i32>;

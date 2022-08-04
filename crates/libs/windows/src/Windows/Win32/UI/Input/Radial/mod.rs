@@ -2,9 +2,13 @@
 #[repr(transparent)]
 pub struct IRadialControllerConfigurationInterop(::windows::core::IUnknown);
 impl IRadialControllerConfigurationInterop {
-    #[doc = "*Required features: `\"Win32_UI_Input_Radial\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn GetForWindow<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HWND>, T: ::windows::core::Interface>(&self, hwnd: Param0) -> ::windows::core::Result<T> {
+    pub unsafe fn GetForWindow<'a, P0, T>(&self, hwnd: P0) -> ::windows::core::Result<T>
+    where
+        P0: ::std::convert::Into<super::super::super::Foundation::HWND>,
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).GetForWindow)(::windows::core::Interface::as_raw(self), hwnd.into(), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
@@ -72,9 +76,13 @@ pub struct IRadialControllerConfigurationInterop_Vtbl {
 #[repr(transparent)]
 pub struct IRadialControllerIndependentInputSourceInterop(::windows::core::IUnknown);
 impl IRadialControllerIndependentInputSourceInterop {
-    #[doc = "*Required features: `\"Win32_UI_Input_Radial\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateForWindow<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HWND>, T: ::windows::core::Interface>(&self, hwnd: Param0) -> ::windows::core::Result<T> {
+    pub unsafe fn CreateForWindow<'a, P0, T>(&self, hwnd: P0) -> ::windows::core::Result<T>
+    where
+        P0: ::std::convert::Into<super::super::super::Foundation::HWND>,
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).CreateForWindow)(::windows::core::Interface::as_raw(self), hwnd.into(), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }
@@ -142,9 +150,13 @@ pub struct IRadialControllerIndependentInputSourceInterop_Vtbl {
 #[repr(transparent)]
 pub struct IRadialControllerInterop(::windows::core::IUnknown);
 impl IRadialControllerInterop {
-    #[doc = "*Required features: `\"Win32_UI_Input_Radial\"`, `\"Win32_Foundation\"`*"]
+    #[doc = "*Required features: `\"Win32_Foundation\"`*"]
     #[cfg(feature = "Win32_Foundation")]
-    pub unsafe fn CreateForWindow<'a, Param0: ::std::convert::Into<super::super::super::Foundation::HWND>, T: ::windows::core::Interface>(&self, hwnd: Param0) -> ::windows::core::Result<T> {
+    pub unsafe fn CreateForWindow<'a, P0, T>(&self, hwnd: P0) -> ::windows::core::Result<T>
+    where
+        P0: ::std::convert::Into<super::super::super::Foundation::HWND>,
+        T: ::windows::core::Interface,
+    {
         let mut result__ = ::core::option::Option::None;
         (::windows::core::Interface::vtable(self).CreateForWindow)(::windows::core::Interface::as_raw(self), hwnd.into(), &<T as ::windows::core::Interface>::IID, &mut result__ as *mut _ as *mut _).and_some(result__)
     }

@@ -45,6 +45,7 @@ tables! {
 pub enum ArrayInfo {
     Fixed(usize),
     RelativeLen(usize),
+    RelativeByteLen(usize),
     RelativePtr(usize),
     None,
     Removed,
@@ -543,13 +544,20 @@ impl<'a> Reader<'a> {
 
         for position in 0..params.len() {
             // Point len params back to the corresponding ptr params.
-            if let ArrayInfo::RelativeLen(relative) = params[position].array_info {
-                // The len params must be input only.
-                if !self.param_flags(params[relative].def).output() && position != relative {
-                    params[relative].array_info = ArrayInfo::RelativePtr(position);
-                } else {
+            match params[position].array_info {
+                ArrayInfo::RelativeLen(relative) | ArrayInfo::RelativeByteLen(relative) => {
+                    // The len params must be input only.
+                    if !self.param_flags(params[relative].def).output() && position != relative && !params[relative].ty.is_pointer() {
+                        params[relative].array_info = ArrayInfo::RelativePtr(position);
+                    } else {
+                        params[position].array_info = ArrayInfo::Removed;
+                    }
+                }
+                // TODO: workaround for https://github.com/microsoft/win32metadata/issues/1014
+                ArrayInfo::Fixed(fixed) if fixed == 0 || self.param_free_with(params[position].def).is_some() => {
                     params[position].array_info = ArrayInfo::Removed;
                 }
+                _ => {}
             }
         }
 
@@ -557,8 +565,11 @@ impl<'a> Reader<'a> {
 
         // Finds sets of ptr params pointing at the same len param.
         for (position, param) in params.iter().enumerate() {
-            if let ArrayInfo::RelativeLen(relative) = param.array_info {
-                sets.entry(relative).or_default().push(position);
+            match param.array_info {
+                ArrayInfo::RelativeLen(relative) | ArrayInfo::RelativeByteLen(relative) => {
+                    sets.entry(relative).or_default().push(position);
+                }
+                _ => {}
             }
         }
 
@@ -629,14 +640,24 @@ impl<'a> Reader<'a> {
     }
     pub fn param_array_info(&self, row: Param) -> ArrayInfo {
         for attribute in self.param_attributes(row) {
-            if self.attribute_name(attribute) == "NativeArrayInfoAttribute" {
-                for (_, value) in self.attribute_args(attribute) {
-                    match value {
-                        Value::I16(value) => return ArrayInfo::RelativeLen(value as _),
-                        Value::I32(value) => return ArrayInfo::Fixed(value as _),
-                        _ => {}
+            match self.attribute_name(attribute) {
+                "NativeArrayInfoAttribute" => {
+                    for (_, value) in self.attribute_args(attribute) {
+                        match value {
+                            Value::I16(value) => return ArrayInfo::RelativeLen(value as _),
+                            Value::I32(value) => return ArrayInfo::Fixed(value as _),
+                            _ => {}
+                        }
                     }
                 }
+                "MemorySizeAttribute" => {
+                    for (_, value) in self.attribute_args(attribute) {
+                        if let Value::I16(value) = value {
+                            return ArrayInfo::RelativeByteLen(value as _);
+                        }
+                    }
+                }
+                _ => {}
             }
         }
         ArrayInfo::None
@@ -790,13 +811,17 @@ impl<'a> Reader<'a> {
         // TODO: should this just check whether the struct has > 1 fields rather than type_def_is_handle?
         self.type_def_kind(row) == TypeKind::Struct && !self.type_def_is_handle(row)
     }
-    pub fn type_def_is_in_class_hierarchy(&self, row: TypeDef) -> bool {
-        matches!(self.type_def_kind(row), TypeKind::Class)
-    }
     pub fn type_def_is_borrowed(&self, row: TypeDef) -> bool {
         match self.type_def_kind(row) {
+            TypeKind::Class => true,
             TypeKind::Delegate => self.type_def_flags(row).winrt(),
             _ => !self.type_def_is_blittable(row),
+        }
+    }
+    pub fn type_def_is_trivially_convertible(&self, row: TypeDef) -> bool {
+        match self.type_def_kind(row) {
+            TypeKind::Struct => self.type_def_is_handle(row) && self.type_def_type_name(row) != TypeName::BSTR,
+            _ => false,
         }
     }
     pub fn type_def_is_primitive(&self, row: TypeDef) -> bool {
@@ -1141,16 +1166,19 @@ impl<'a> Reader<'a> {
         signature.params.iter().for_each(|param| self.type_cfg_combine(&param.ty, cfg));
     }
     pub fn signature_param_is_borrowed(&self, param: &SignatureParam) -> bool {
-        self.param_flags(param.def).input() && !param.ty.is_winrt_array() && !param.ty.is_pointer() && self.type_is_borrowed(&param.ty) && param.array_info == ArrayInfo::None
-    }
-    pub fn signature_param_is_param(&self, param: &SignatureParam) -> bool {
-        self.param_flags(param.def).input() && !param.ty.is_winrt_array() && !param.ty.is_pointer() && self.type_is_in_class_hierarchy(&param.ty) && param.array_info == ArrayInfo::None
+        self.type_is_borrowed(&param.ty)
     }
     pub fn signature_param_is_failible_param(&self, param: &SignatureParam) -> bool {
-        self.param_flags(param.def).input() && !param.ty.is_winrt_array() && !param.ty.is_pointer() && self.type_is_non_exclusive_winrt_interface(&param.ty) && param.array_info == ArrayInfo::None
+        self.type_is_non_exclusive_winrt_interface(&param.ty)
+    }
+    pub fn signature_param_is_trivially_convertible(&self, param: &SignatureParam) -> bool {
+        self.type_is_trivially_convertible(&param.ty)
     }
     pub fn signature_param_is_convertible(&self, param: &SignatureParam) -> bool {
-        self.param_flags(param.def).input() && !param.ty.is_winrt_array() && !param.ty.is_pointer() && self.type_is_convertible(&param.ty) && param.array_info == ArrayInfo::None
+        self.signature_param_input_value(param) && (self.type_is_borrowed(&param.ty) || self.type_is_non_exclusive_winrt_interface(&param.ty) || self.type_is_trivially_convertible(&param.ty))
+    }
+    pub fn signature_param_input_value(&self, param: &SignatureParam) -> bool {
+        self.param_flags(param.def).input() && !param.ty.is_winrt_array() && !param.ty.is_pointer() && param.array_info == ArrayInfo::None
     }
     pub fn signature_param_is_retval(&self, param: &SignatureParam) -> bool {
         // The Win32 metadata uses `RetValAttribute` to call out retval methods but it is employed
@@ -1363,6 +1391,7 @@ impl<'a> Reader<'a> {
             Type::TypeDef((row, _)) => self.type_def_is_blittable(*row),
             Type::String | Type::IInspectable | Type::IUnknown | Type::GenericParam(_) => false,
             Type::Win32Array((kind, _)) => self.type_is_blittable(kind),
+            Type::WinrtArray(kind) => self.type_is_blittable(kind),
             _ => true,
         }
     }
@@ -1509,36 +1538,26 @@ impl<'a> Reader<'a> {
             _ => false,
         }
     }
-    pub fn type_is_borrowed(&self, ty: &Type) -> bool {
+    fn type_is_borrowed(&self, ty: &Type) -> bool {
         match ty {
             Type::TypeDef((row, _)) => self.type_def_is_borrowed(*row),
-            Type::String | Type::IInspectable | Type::IUnknown | Type::GenericParam(_) => true,
-            Type::WinrtConstRef(ty) => self.type_is_borrowed(ty),
+            Type::IInspectable | Type::IUnknown | Type::GenericParam(_) => true,
             _ => false,
         }
     }
     pub fn type_is_non_exclusive_winrt_interface(&self, ty: &Type) -> bool {
         match ty {
-            Type::TypeDef((row, _)) => !self.type_def_is_exclusive(*row) && self.type_def_flags(*row).winrt() && self.type_def_flags(*row).interface(),
+            Type::TypeDef((row, _)) => {
+                let flags = self.type_def_flags(*row);
+                flags.winrt() && flags.interface() && !self.type_def_is_exclusive(*row)
+            }
             _ => false,
         }
     }
-    pub fn type_is_in_class_hierarchy(&self, ty: &Type) -> bool {
+    pub fn type_is_trivially_convertible(&self, ty: &Type) -> bool {
         match ty {
-            Type::TypeDef((row, _)) => self.type_def_is_in_class_hierarchy(*row),
-            _ => false,
-        }
-    }
-    pub fn type_is_convertible(&self, ty: &Type) -> bool {
-        match ty {
-            Type::TypeDef((row, _)) => self.type_def_is_primitive(*row),
+            Type::TypeDef((row, _)) => self.type_def_is_trivially_convertible(*row),
             Type::PCSTR | Type::PCWSTR => true,
-            _ => false,
-        }
-    }
-    pub fn type_is_primitive_type_def(&self, ty: &Type) -> bool {
-        match ty {
-            Type::TypeDef((row, _)) => self.type_def_is_primitive(*row),
             _ => false,
         }
     }
@@ -1567,12 +1586,6 @@ impl<'a> Reader<'a> {
         match ty {
             Type::TypeDef((row, _)) => self.type_def_is_udt(*row),
             Type::GUID => true,
-            _ => false,
-        }
-    }
-    pub fn type_is_handle(&self, ty: &Type) -> bool {
-        match ty {
-            Type::TypeDef((row, _)) => self.type_def_is_handle(*row),
             _ => false,
         }
     }

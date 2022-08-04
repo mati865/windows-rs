@@ -37,6 +37,13 @@ fn display_format() {
 }
 
 #[test]
+fn display_invalid_format() {
+    let s = HSTRING::from_wide(&[0xD834, 0xDD1E, 0x006d, 0x0075, 0x0073, 0xDD1E, 0x0069, 0x0063, 0xD834]);
+    let d = format!("{}", s);
+    assert_eq!(d, "𝄞mus�ic�");
+}
+
+#[test]
 fn debug_format() {
     let value = HSTRING::from("Hello world");
     assert!(format!("{:?}", value) == "Hello world");
@@ -159,7 +166,7 @@ fn hstring_compat() -> Result<()> {
 
         assert_eq!(WindowsConcatString(&hey, &world)?, "HeyWorld");
 
-        assert_eq!(WindowsCreateString(&hey.as_wide())?, "Hey");
+        assert_eq!(WindowsCreateString(Some(&hey.as_wide()))?, "Hey");
 
         assert_eq!(WindowsDuplicateString(&hey)?, "Hey");
 
@@ -171,7 +178,7 @@ fn hstring_compat() -> Result<()> {
         assert_eq!(WindowsIsStringEmpty(&world), false);
 
         let mut len = 0;
-        let buffer = WindowsGetStringRawBuffer(&world, &mut len);
+        let buffer = WindowsGetStringRawBuffer(&world, Some(&mut len));
         assert_eq!(len, 5);
         // Adding +1 to the length of the slice to validate that it is null terminated.
         assert_eq!(std::slice::from_raw_parts(buffer.0, 6), [87, 111, 114, 108, 100, 0]);
@@ -196,7 +203,7 @@ fn hstring_compat() -> Result<()> {
         assert_eq!(duplicate, "World");
 
         let mut len = 0;
-        let buffer = WindowsGetStringRawBuffer(&duplicate, &mut len);
+        let buffer = WindowsGetStringRawBuffer(&duplicate, Some(&mut len));
         assert_eq!(len, 5);
         // Adding +1 to the length of the slice to validate that it is null terminated.
         assert_eq!(std::slice::from_raw_parts(buffer.0, 6), [87, 111, 114, 108, 100, 0]);

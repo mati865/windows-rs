@@ -32,44 +32,41 @@ pub struct IRemoteTextConnectionFactory_Vtbl {
 #[repr(transparent)]
 pub struct RemoteTextConnection(::windows::core::IUnknown);
 impl RemoteTextConnection {
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`, `\"Foundation\"`*"]
+    #[doc = "*Required features: `\"Foundation\"`*"]
     #[cfg(feature = "Foundation")]
     pub fn Close(&self) -> ::windows::core::Result<()> {
         let this = &::windows::core::Interface::cast::<super::super::super::Foundation::IClosable>(self)?;
         unsafe { (::windows::core::Interface::vtable(this).Close)(::windows::core::Interface::as_raw(this)).ok() }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn IsEnabled(&self) -> ::windows::core::Result<bool> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).IsEnabled)(::windows::core::Interface::as_raw(this), result__.as_mut_ptr()).from_abi::<bool>(result__)
         }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn SetIsEnabled(&self, value: bool) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).SetIsEnabled)(::windows::core::Interface::as_raw(this), value).ok() }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn RegisterThread(&self, threadid: u32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).RegisterThread)(::windows::core::Interface::as_raw(this), threadid).ok() }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn UnregisterThread(&self, threadid: u32) -> ::windows::core::Result<()> {
         let this = self;
         unsafe { (::windows::core::Interface::vtable(this).UnregisterThread)(::windows::core::Interface::as_raw(this), threadid).ok() }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn ReportDataReceived(&self, pdudata: &[u8]) -> ::windows::core::Result<()> {
         let this = self;
-        unsafe { (::windows::core::Interface::vtable(this).ReportDataReceived)(::windows::core::Interface::as_raw(this), pdudata.len() as u32, ::core::mem::transmute(pdudata.as_ptr())).ok() }
+        unsafe { (::windows::core::Interface::vtable(this).ReportDataReceived)(::windows::core::Interface::as_raw(this), pdudata.len() as u32, pdudata.as_ptr()).ok() }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
-    pub fn CreateInstance<'a, Param1: ::std::convert::Into<::windows::core::InParam<'a, RemoteTextConnectionDataHandler>>>(connectionid: ::windows::core::GUID, pduforwarder: Param1) -> ::windows::core::Result<RemoteTextConnection> {
+    pub fn CreateInstance<'a, P0>(connectionid: ::windows::core::GUID, pduforwarder: P0) -> ::windows::core::Result<RemoteTextConnection>
+    where
+        P0: ::std::convert::Into<::windows::core::InParam<'a, RemoteTextConnectionDataHandler>>,
+    {
         Self::IRemoteTextConnectionFactory(|this| unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<*mut ::core::ffi::c_void>::zeroed();
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
             (::windows::core::Interface::vtable(this).CreateInstance)(::windows::core::Interface::as_raw(this), connectionid, pduforwarder.into().abi(), result__.as_mut_ptr()).from_abi::<RemoteTextConnection>(result__)
         })
     }
@@ -171,12 +168,11 @@ impl RemoteTextConnectionDataHandler {
         let com = RemoteTextConnectionDataHandlerBox::<F> { vtable: &RemoteTextConnectionDataHandlerBox::<F>::VTABLE, count: ::windows::core::RefCount::new(1), invoke };
         unsafe { ::core::mem::transmute(::windows::core::alloc::boxed::Box::new(com)) }
     }
-    #[doc = "*Required features: `\"System_RemoteDesktop_Input\"`*"]
     pub fn Invoke(&self, pdudata: &[u8]) -> ::windows::core::Result<bool> {
         let this = self;
         unsafe {
-            let mut result__ = ::core::mem::MaybeUninit::<bool>::zeroed();
-            (::windows::core::Interface::vtable(this).Invoke)(::windows::core::Interface::as_raw(this), pdudata.len() as u32, ::core::mem::transmute(pdudata.as_ptr()), result__.as_mut_ptr()).from_abi::<bool>(result__)
+            let mut result__ = ::core::mem::MaybeUninit::zeroed();
+            (::windows::core::Interface::vtable(this).Invoke)(::windows::core::Interface::as_raw(this), pdudata.len() as u32, pdudata.as_ptr(), result__.as_mut_ptr()).from_abi::<bool>(result__)
         }
     }
 }
@@ -209,7 +205,7 @@ impl<F: FnMut(&[u8]) -> ::windows::core::Result<bool> + ::core::marker::Send + '
         let this = this as *mut *mut ::core::ffi::c_void as *mut Self;
         let remaining = (*this).count.release();
         if remaining == 0 {
-            ::windows::core::alloc::boxed::Box::from_raw(this);
+            let _ = ::windows::core::alloc::boxed::Box::from_raw(this);
         }
         remaining
     }

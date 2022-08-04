@@ -2686,7 +2686,7 @@ pub unsafe fn WinHttpAddRequestHeaders(hrequest: *mut ::core::ffi::c_void, lpszh
     extern "system" {
         fn WinHttpAddRequestHeaders(hrequest: *mut ::core::ffi::c_void, lpszheaders: ::windows::core::PCWSTR, dwheaderslength: u32, dwmodifiers: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpAddRequestHeaders(::core::mem::transmute(hrequest), ::core::mem::transmute(::windows::core::as_ptr_or_null(lpszheaders)), lpszheaders.len() as _, ::core::mem::transmute(dwmodifiers)))
+    WinHttpAddRequestHeaders(::core::mem::transmute(hrequest), ::core::mem::transmute(lpszheaders.as_ptr()), lpszheaders.len() as _, dwmodifiers)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
@@ -2695,7 +2695,7 @@ pub unsafe fn WinHttpAddRequestHeadersEx(hrequest: *mut ::core::ffi::c_void, dwm
     extern "system" {
         fn WinHttpAddRequestHeadersEx(hrequest: *mut ::core::ffi::c_void, dwmodifiers: u32, ullflags: u64, ullextra: u64, cheaders: u32, pheaders: *const WINHTTP_EXTENDED_HEADER) -> u32;
     }
-    ::core::mem::transmute(WinHttpAddRequestHeadersEx(::core::mem::transmute(hrequest), ::core::mem::transmute(dwmodifiers), ::core::mem::transmute(ullflags), ::core::mem::transmute(ullextra), pheaders.len() as _, ::core::mem::transmute(::windows::core::as_ptr_or_null(pheaders))))
+    WinHttpAddRequestHeadersEx(::core::mem::transmute(hrequest), dwmodifiers, ullflags, ullextra, pheaders.len() as _, ::core::mem::transmute(pheaders.as_ptr()))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -2705,7 +2705,7 @@ pub unsafe fn WinHttpCheckPlatform() -> super::super::Foundation::BOOL {
     extern "system" {
         fn WinHttpCheckPlatform() -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpCheckPlatform())
+    WinHttpCheckPlatform()
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -2715,26 +2715,29 @@ pub unsafe fn WinHttpCloseHandle(hinternet: *mut ::core::ffi::c_void) -> super::
     extern "system" {
         fn WinHttpCloseHandle(hinternet: *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpCloseHandle(::core::mem::transmute(hinternet)))
+    WinHttpCloseHandle(::core::mem::transmute(hinternet))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpConnect<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<INTERNET_PORT>>(hsession: *mut ::core::ffi::c_void, pswzservername: Param1, nserverport: Param2, dwreserved: u32) -> *mut ::core::ffi::c_void {
+pub unsafe fn WinHttpConnect<'a, P0>(hsession: *mut ::core::ffi::c_void, pswzservername: P0, nserverport: INTERNET_PORT, dwreserved: u32) -> *mut ::core::ffi::c_void
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpConnect(hsession: *mut ::core::ffi::c_void, pswzservername: ::windows::core::PCWSTR, nserverport: INTERNET_PORT, dwreserved: u32) -> *mut ::core::ffi::c_void;
     }
-    ::core::mem::transmute(WinHttpConnect(::core::mem::transmute(hsession), pswzservername.into(), nserverport.into(), ::core::mem::transmute(dwreserved)))
+    WinHttpConnect(::core::mem::transmute(hsession), pswzservername.into(), nserverport, dwreserved)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpCrackUrl(pwszurl: &[u16], dwflags: u32, lpurlcomponents: *mut URL_COMPONENTS) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpCrackUrl(pwszurl: &[u16], dwflags: u32, lpurlcomponents: &mut URL_COMPONENTS) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpCrackUrl(pwszurl: ::windows::core::PCWSTR, dwurllength: u32, dwflags: u32, lpurlcomponents: *mut URL_COMPONENTS) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpCrackUrl(::core::mem::transmute(::windows::core::as_ptr_or_null(pwszurl)), pwszurl.len() as _, ::core::mem::transmute(dwflags), ::core::mem::transmute(lpurlcomponents)))
+    WinHttpCrackUrl(::core::mem::transmute(pwszurl.as_ptr()), pwszurl.len() as _, dwflags, ::core::mem::transmute(lpurlcomponents))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
@@ -2743,32 +2746,32 @@ pub unsafe fn WinHttpCreateProxyResolver(hsession: *const ::core::ffi::c_void, p
     extern "system" {
         fn WinHttpCreateProxyResolver(hsession: *const ::core::ffi::c_void, phresolver: *mut *mut ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(WinHttpCreateProxyResolver(::core::mem::transmute(hsession), ::core::mem::transmute(phresolver)))
+    WinHttpCreateProxyResolver(::core::mem::transmute(hsession), ::core::mem::transmute(phresolver))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpCreateUrl<'a, Param1: ::std::convert::Into<WIN_HTTP_CREATE_URL_FLAGS>>(lpurlcomponents: *const URL_COMPONENTS, dwflags: Param1, pwszurl: ::windows::core::PWSTR, pdwurllength: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpCreateUrl(lpurlcomponents: &URL_COMPONENTS, dwflags: WIN_HTTP_CREATE_URL_FLAGS, pwszurl: ::windows::core::PWSTR, pdwurllength: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpCreateUrl(lpurlcomponents: *const URL_COMPONENTS, dwflags: WIN_HTTP_CREATE_URL_FLAGS, pwszurl: ::windows::core::PWSTR, pdwurllength: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpCreateUrl(::core::mem::transmute(lpurlcomponents), dwflags.into(), ::core::mem::transmute(pwszurl), ::core::mem::transmute(pdwurllength)))
+    WinHttpCreateUrl(::core::mem::transmute(lpurlcomponents), dwflags, ::core::mem::transmute(pwszurl), ::core::mem::transmute(pdwurllength))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpDetectAutoProxyConfigUrl(dwautodetectflags: u32, ppwstrautoconfigurl: *mut ::windows::core::PWSTR) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpDetectAutoProxyConfigUrl(dwautodetectflags: u32, ppwstrautoconfigurl: ::core::option::Option<&mut ::windows::core::PWSTR>) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpDetectAutoProxyConfigUrl(dwautodetectflags: u32, ppwstrautoconfigurl: *mut ::windows::core::PWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpDetectAutoProxyConfigUrl(::core::mem::transmute(dwautodetectflags), ::core::mem::transmute(ppwstrautoconfigurl)))
+    WinHttpDetectAutoProxyConfigUrl(dwautodetectflags, ::core::mem::transmute(ppwstrautoconfigurl))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpFreeProxyResult(pproxyresult: *mut WINHTTP_PROXY_RESULT) {
+pub unsafe fn WinHttpFreeProxyResult(pproxyresult: &mut WINHTTP_PROXY_RESULT) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpFreeProxyResult(pproxyresult: *mut WINHTTP_PROXY_RESULT);
@@ -2778,7 +2781,7 @@ pub unsafe fn WinHttpFreeProxyResult(pproxyresult: *mut WINHTTP_PROXY_RESULT) {
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpFreeProxyResultEx(pproxyresultex: *mut WINHTTP_PROXY_RESULT_EX) {
+pub unsafe fn WinHttpFreeProxyResultEx(pproxyresultex: &mut WINHTTP_PROXY_RESULT_EX) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpFreeProxyResultEx(pproxyresultex: *mut WINHTTP_PROXY_RESULT_EX);
@@ -2788,7 +2791,7 @@ pub unsafe fn WinHttpFreeProxyResultEx(pproxyresultex: *mut WINHTTP_PROXY_RESULT
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpFreeProxySettings(pwinhttpproxysettings: *const WINHTTP_PROXY_SETTINGS) {
+pub unsafe fn WinHttpFreeProxySettings(pwinhttpproxysettings: &WINHTTP_PROXY_SETTINGS) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpFreeProxySettings(pwinhttpproxysettings: *const WINHTTP_PROXY_SETTINGS);
@@ -2797,7 +2800,7 @@ pub unsafe fn WinHttpFreeProxySettings(pwinhttpproxysettings: *const WINHTTP_PRO
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpFreeQueryConnectionGroupResult(presult: *mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT) {
+pub unsafe fn WinHttpFreeQueryConnectionGroupResult(presult: &mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT) {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpFreeQueryConnectionGroupResult(presult: *mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT);
@@ -2807,186 +2810,214 @@ pub unsafe fn WinHttpFreeQueryConnectionGroupResult(presult: *mut WINHTTP_QUERY_
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetDefaultProxyConfiguration(pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpGetDefaultProxyConfiguration(pproxyinfo: &mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetDefaultProxyConfiguration(pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpGetDefaultProxyConfiguration(::core::mem::transmute(pproxyinfo)))
+    WinHttpGetDefaultProxyConfiguration(::core::mem::transmute(pproxyinfo))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetIEProxyConfigForCurrentUser(pproxyconfig: *mut WINHTTP_CURRENT_USER_IE_PROXY_CONFIG) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpGetIEProxyConfigForCurrentUser(pproxyconfig: &mut WINHTTP_CURRENT_USER_IE_PROXY_CONFIG) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetIEProxyConfigForCurrentUser(pproxyconfig: *mut WINHTTP_CURRENT_USER_IE_PROXY_CONFIG) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpGetIEProxyConfigForCurrentUser(::core::mem::transmute(pproxyconfig)))
+    WinHttpGetIEProxyConfigForCurrentUser(::core::mem::transmute(pproxyconfig))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetProxyForUrl<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hsession: *mut ::core::ffi::c_void, lpcwszurl: Param1, pautoproxyoptions: *mut WINHTTP_AUTOPROXY_OPTIONS, pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpGetProxyForUrl<'a, P0>(hsession: *mut ::core::ffi::c_void, lpcwszurl: P0, pautoproxyoptions: &mut WINHTTP_AUTOPROXY_OPTIONS, pproxyinfo: &mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxyForUrl(hsession: *mut ::core::ffi::c_void, lpcwszurl: ::windows::core::PCWSTR, pautoproxyoptions: *mut WINHTTP_AUTOPROXY_OPTIONS, pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpGetProxyForUrl(::core::mem::transmute(hsession), lpcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), ::core::mem::transmute(pproxyinfo)))
+    WinHttpGetProxyForUrl(::core::mem::transmute(hsession), lpcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), ::core::mem::transmute(pproxyinfo))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetProxyForUrlEx<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hresolver: *const ::core::ffi::c_void, pcwszurl: Param1, pautoproxyoptions: *const WINHTTP_AUTOPROXY_OPTIONS, pcontext: usize) -> u32 {
+pub unsafe fn WinHttpGetProxyForUrlEx<'a, P0>(hresolver: *const ::core::ffi::c_void, pcwszurl: P0, pautoproxyoptions: &WINHTTP_AUTOPROXY_OPTIONS, pcontext: usize) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxyForUrlEx(hresolver: *const ::core::ffi::c_void, pcwszurl: ::windows::core::PCWSTR, pautoproxyoptions: *const WINHTTP_AUTOPROXY_OPTIONS, pcontext: usize) -> u32;
     }
-    ::core::mem::transmute(WinHttpGetProxyForUrlEx(::core::mem::transmute(hresolver), pcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), ::core::mem::transmute(pcontext)))
+    WinHttpGetProxyForUrlEx(::core::mem::transmute(hresolver), pcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), pcontext)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetProxyForUrlEx2<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>>(hresolver: *const ::core::ffi::c_void, pcwszurl: Param1, pautoproxyoptions: *const WINHTTP_AUTOPROXY_OPTIONS, cbinterfaceselectioncontext: u32, pinterfaceselectioncontext: *const u8, pcontext: usize) -> u32 {
+pub unsafe fn WinHttpGetProxyForUrlEx2<'a, P0>(hresolver: *const ::core::ffi::c_void, pcwszurl: P0, pautoproxyoptions: &WINHTTP_AUTOPROXY_OPTIONS, pinterfaceselectioncontext: ::core::option::Option<&[u8]>, pcontext: usize) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxyForUrlEx2(hresolver: *const ::core::ffi::c_void, pcwszurl: ::windows::core::PCWSTR, pautoproxyoptions: *const WINHTTP_AUTOPROXY_OPTIONS, cbinterfaceselectioncontext: u32, pinterfaceselectioncontext: *const u8, pcontext: usize) -> u32;
     }
-    ::core::mem::transmute(WinHttpGetProxyForUrlEx2(::core::mem::transmute(hresolver), pcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), ::core::mem::transmute(cbinterfaceselectioncontext), ::core::mem::transmute(pinterfaceselectioncontext), ::core::mem::transmute(pcontext)))
+    WinHttpGetProxyForUrlEx2(::core::mem::transmute(hresolver), pcwszurl.into(), ::core::mem::transmute(pautoproxyoptions), pinterfaceselectioncontext.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pinterfaceselectioncontext.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pcontext)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetProxyResult(hresolver: *const ::core::ffi::c_void, pproxyresult: *mut WINHTTP_PROXY_RESULT) -> u32 {
+pub unsafe fn WinHttpGetProxyResult(hresolver: *const ::core::ffi::c_void, pproxyresult: &mut WINHTTP_PROXY_RESULT) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxyResult(hresolver: *const ::core::ffi::c_void, pproxyresult: *mut WINHTTP_PROXY_RESULT) -> u32;
     }
-    ::core::mem::transmute(WinHttpGetProxyResult(::core::mem::transmute(hresolver), ::core::mem::transmute(pproxyresult)))
+    WinHttpGetProxyResult(::core::mem::transmute(hresolver), ::core::mem::transmute(pproxyresult))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpGetProxyResultEx(hresolver: *const ::core::ffi::c_void, pproxyresultex: *mut WINHTTP_PROXY_RESULT_EX) -> u32 {
+pub unsafe fn WinHttpGetProxyResultEx(hresolver: *const ::core::ffi::c_void, pproxyresultex: &mut WINHTTP_PROXY_RESULT_EX) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxyResultEx(hresolver: *const ::core::ffi::c_void, pproxyresultex: *mut WINHTTP_PROXY_RESULT_EX) -> u32;
     }
-    ::core::mem::transmute(WinHttpGetProxyResultEx(::core::mem::transmute(hresolver), ::core::mem::transmute(pproxyresultex)))
+    WinHttpGetProxyResultEx(::core::mem::transmute(hresolver), ::core::mem::transmute(pproxyresultex))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpGetProxySettingsVersion(hsession: *const ::core::ffi::c_void, pdwproxysettingsversion: *mut u32) -> u32 {
+pub unsafe fn WinHttpGetProxySettingsVersion(hsession: *const ::core::ffi::c_void, pdwproxysettingsversion: &mut u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpGetProxySettingsVersion(hsession: *const ::core::ffi::c_void, pdwproxysettingsversion: *mut u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpGetProxySettingsVersion(::core::mem::transmute(hsession), ::core::mem::transmute(pdwproxysettingsversion)))
+    WinHttpGetProxySettingsVersion(::core::mem::transmute(hsession), ::core::mem::transmute(pdwproxysettingsversion))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpOpen<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>, Param1: ::std::convert::Into<WINHTTP_ACCESS_TYPE>, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>>(pszagentw: Param0, dwaccesstype: Param1, pszproxyw: Param2, pszproxybypassw: Param3, dwflags: u32) -> *mut ::core::ffi::c_void {
+pub unsafe fn WinHttpOpen<'a, P0, P1, P2>(pszagentw: P0, dwaccesstype: WINHTTP_ACCESS_TYPE, pszproxyw: P1, pszproxybypassw: P2, dwflags: u32) -> *mut ::core::ffi::c_void
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpOpen(pszagentw: ::windows::core::PCWSTR, dwaccesstype: WINHTTP_ACCESS_TYPE, pszproxyw: ::windows::core::PCWSTR, pszproxybypassw: ::windows::core::PCWSTR, dwflags: u32) -> *mut ::core::ffi::c_void;
     }
-    ::core::mem::transmute(WinHttpOpen(pszagentw.into(), dwaccesstype.into(), pszproxyw.into(), pszproxybypassw.into(), ::core::mem::transmute(dwflags)))
+    WinHttpOpen(pszagentw.into(), dwaccesstype, pszproxyw.into(), pszproxybypassw.into(), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpOpenRequest<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<::windows::core::PCWSTR>, Param3: ::std::convert::Into<::windows::core::PCWSTR>, Param4: ::std::convert::Into<::windows::core::PCWSTR>, Param6: ::std::convert::Into<WINHTTP_OPEN_REQUEST_FLAGS>>(hconnect: *mut ::core::ffi::c_void, pwszverb: Param1, pwszobjectname: Param2, pwszversion: Param3, pwszreferrer: Param4, ppwszaccepttypes: *mut ::windows::core::PWSTR, dwflags: Param6) -> *mut ::core::ffi::c_void {
+pub unsafe fn WinHttpOpenRequest<'a, P0, P1, P2, P3>(hconnect: *mut ::core::ffi::c_void, pwszverb: P0, pwszobjectname: P1, pwszversion: P2, pwszreferrer: P3, ppwszaccepttypes: &mut ::windows::core::PWSTR, dwflags: WINHTTP_OPEN_REQUEST_FLAGS) -> *mut ::core::ffi::c_void
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+    P2: ::std::convert::Into<::windows::core::PCWSTR>,
+    P3: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpOpenRequest(hconnect: *mut ::core::ffi::c_void, pwszverb: ::windows::core::PCWSTR, pwszobjectname: ::windows::core::PCWSTR, pwszversion: ::windows::core::PCWSTR, pwszreferrer: ::windows::core::PCWSTR, ppwszaccepttypes: *mut ::windows::core::PWSTR, dwflags: WINHTTP_OPEN_REQUEST_FLAGS) -> *mut ::core::ffi::c_void;
     }
-    ::core::mem::transmute(WinHttpOpenRequest(::core::mem::transmute(hconnect), pwszverb.into(), pwszobjectname.into(), pwszversion.into(), pwszreferrer.into(), ::core::mem::transmute(ppwszaccepttypes), dwflags.into()))
+    WinHttpOpenRequest(::core::mem::transmute(hconnect), pwszverb.into(), pwszobjectname.into(), pwszversion.into(), pwszreferrer.into(), ::core::mem::transmute(ppwszaccepttypes), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpQueryAuthSchemes(hrequest: *mut ::core::ffi::c_void, lpdwsupportedschemes: *mut u32, lpdwfirstscheme: *mut u32, pdwauthtarget: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpQueryAuthSchemes(hrequest: *mut ::core::ffi::c_void, lpdwsupportedschemes: &mut u32, lpdwfirstscheme: &mut u32, pdwauthtarget: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryAuthSchemes(hrequest: *mut ::core::ffi::c_void, lpdwsupportedschemes: *mut u32, lpdwfirstscheme: *mut u32, pdwauthtarget: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpQueryAuthSchemes(::core::mem::transmute(hrequest), ::core::mem::transmute(lpdwsupportedschemes), ::core::mem::transmute(lpdwfirstscheme), ::core::mem::transmute(pdwauthtarget)))
+    WinHttpQueryAuthSchemes(::core::mem::transmute(hrequest), ::core::mem::transmute(lpdwsupportedschemes), ::core::mem::transmute(lpdwfirstscheme), ::core::mem::transmute(pdwauthtarget))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpQueryConnectionGroup(hinternet: *const ::core::ffi::c_void, pguidconnection: *const ::windows::core::GUID, ullflags: u64, ppresult: *mut *mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT) -> u32 {
+pub unsafe fn WinHttpQueryConnectionGroup(hinternet: *const ::core::ffi::c_void, pguidconnection: ::core::option::Option<&::windows::core::GUID>, ullflags: u64, ppresult: &mut *mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryConnectionGroup(hinternet: *const ::core::ffi::c_void, pguidconnection: *const ::windows::core::GUID, ullflags: u64, ppresult: *mut *mut WINHTTP_QUERY_CONNECTION_GROUP_RESULT) -> u32;
     }
-    ::core::mem::transmute(WinHttpQueryConnectionGroup(::core::mem::transmute(hinternet), ::core::mem::transmute(pguidconnection), ::core::mem::transmute(ullflags), ::core::mem::transmute(ppresult)))
+    WinHttpQueryConnectionGroup(::core::mem::transmute(hinternet), ::core::mem::transmute(pguidconnection), ullflags, ::core::mem::transmute(ppresult))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpQueryDataAvailable(hrequest: *mut ::core::ffi::c_void, lpdwnumberofbytesavailable: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpQueryDataAvailable(hrequest: *mut ::core::ffi::c_void, lpdwnumberofbytesavailable: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryDataAvailable(hrequest: *mut ::core::ffi::c_void, lpdwnumberofbytesavailable: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpQueryDataAvailable(::core::mem::transmute(hrequest), ::core::mem::transmute(lpdwnumberofbytesavailable)))
+    WinHttpQueryDataAvailable(::core::mem::transmute(hrequest), ::core::mem::transmute(lpdwnumberofbytesavailable))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpQueryHeaders<'a, Param2: ::std::convert::Into<::windows::core::PCWSTR>>(hrequest: *mut ::core::ffi::c_void, dwinfolevel: u32, pwszname: Param2, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: *mut u32, lpdwindex: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpQueryHeaders<'a, P0>(hrequest: *mut ::core::ffi::c_void, dwinfolevel: u32, pwszname: P0, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: &mut u32, lpdwindex: &mut u32) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryHeaders(hrequest: *mut ::core::ffi::c_void, dwinfolevel: u32, pwszname: ::windows::core::PCWSTR, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: *mut u32, lpdwindex: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpQueryHeaders(::core::mem::transmute(hrequest), ::core::mem::transmute(dwinfolevel), pwszname.into(), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(lpdwbufferlength), ::core::mem::transmute(lpdwindex)))
+    WinHttpQueryHeaders(::core::mem::transmute(hrequest), dwinfolevel, pwszname.into(), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(lpdwbufferlength), ::core::mem::transmute(lpdwindex))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpQueryHeadersEx(hrequest: *const ::core::ffi::c_void, dwinfolevel: u32, ullflags: u64, uicodepage: u32, pdwindex: *mut u32, pheadername: *const WINHTTP_HEADER_NAME, pbuffer: *mut ::core::ffi::c_void, pdwbufferlength: *mut u32, ppheaders: *mut *mut WINHTTP_EXTENDED_HEADER, pdwheaderscount: *mut u32) -> u32 {
+pub unsafe fn WinHttpQueryHeadersEx(hrequest: *const ::core::ffi::c_void, dwinfolevel: u32, ullflags: u64, uicodepage: u32, pdwindex: ::core::option::Option<&mut u32>, pheadername: ::core::option::Option<&WINHTTP_HEADER_NAME>, pbuffer: *mut ::core::ffi::c_void, pdwbufferlength: &mut u32, ppheaders: *mut *mut WINHTTP_EXTENDED_HEADER, pdwheaderscount: &mut u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryHeadersEx(hrequest: *const ::core::ffi::c_void, dwinfolevel: u32, ullflags: u64, uicodepage: u32, pdwindex: *mut u32, pheadername: *const WINHTTP_HEADER_NAME, pbuffer: *mut ::core::ffi::c_void, pdwbufferlength: *mut u32, ppheaders: *mut *mut WINHTTP_EXTENDED_HEADER, pdwheaderscount: *mut u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpQueryHeadersEx(::core::mem::transmute(hrequest), ::core::mem::transmute(dwinfolevel), ::core::mem::transmute(ullflags), ::core::mem::transmute(uicodepage), ::core::mem::transmute(pdwindex), ::core::mem::transmute(pheadername), ::core::mem::transmute(pbuffer), ::core::mem::transmute(pdwbufferlength), ::core::mem::transmute(ppheaders), ::core::mem::transmute(pdwheaderscount)))
+    WinHttpQueryHeadersEx(::core::mem::transmute(hrequest), dwinfolevel, ullflags, uicodepage, ::core::mem::transmute(pdwindex), ::core::mem::transmute(pheadername), ::core::mem::transmute(pbuffer), ::core::mem::transmute(pdwbufferlength), ::core::mem::transmute(ppheaders), ::core::mem::transmute(pdwheaderscount))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpQueryOption(hinternet: *mut ::core::ffi::c_void, dwoption: u32, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpQueryOption(hinternet: *mut ::core::ffi::c_void, dwoption: u32, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpQueryOption(hinternet: *mut ::core::ffi::c_void, dwoption: u32, lpbuffer: *mut ::core::ffi::c_void, lpdwbufferlength: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpQueryOption(::core::mem::transmute(hinternet), ::core::mem::transmute(dwoption), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(lpdwbufferlength)))
+    WinHttpQueryOption(::core::mem::transmute(hinternet), dwoption, ::core::mem::transmute(lpbuffer), ::core::mem::transmute(lpdwbufferlength))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpReadData(hrequest: *mut ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, dwnumberofbytestoread: u32, lpdwnumberofbytesread: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpReadData(hrequest: *mut ::core::ffi::c_void, lpbuffer: &mut [u8], lpdwnumberofbytesread: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpReadData(hrequest: *mut ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, dwnumberofbytestoread: u32, lpdwnumberofbytesread: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpReadData(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(dwnumberofbytestoread), ::core::mem::transmute(lpdwnumberofbytesread)))
+    WinHttpReadData(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer.as_ptr()), lpbuffer.len() as _, ::core::mem::transmute(lpdwnumberofbytesread))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpReadDataEx(hrequest: *mut ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, dwnumberofbytestoread: u32, lpdwnumberofbytesread: *mut u32, ullflags: u64, cbproperty: u32, pvproperty: *const ::core::ffi::c_void) -> u32 {
+pub unsafe fn WinHttpReadDataEx(hrequest: *mut ::core::ffi::c_void, lpbuffer: &mut [u8], lpdwnumberofbytesread: &mut u32, ullflags: u64, pvproperty: ::core::option::Option<&[u8]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpReadDataEx(hrequest: *mut ::core::ffi::c_void, lpbuffer: *mut ::core::ffi::c_void, dwnumberofbytestoread: u32, lpdwnumberofbytesread: *mut u32, ullflags: u64, cbproperty: u32, pvproperty: *const ::core::ffi::c_void) -> u32;
     }
-    ::core::mem::transmute(WinHttpReadDataEx(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(dwnumberofbytestoread), ::core::mem::transmute(lpdwnumberofbytesread), ::core::mem::transmute(ullflags), ::core::mem::transmute(cbproperty), ::core::mem::transmute(pvproperty)))
+    WinHttpReadDataEx(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer.as_ptr()), lpbuffer.len() as _, ::core::mem::transmute(lpdwnumberofbytesread), ullflags, pvproperty.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pvproperty.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpReadProxySettings<'a, Param1: ::std::convert::Into<::windows::core::PCWSTR>, Param2: ::std::convert::Into<super::super::Foundation::BOOL>, Param3: ::std::convert::Into<super::super::Foundation::BOOL>>(hsession: *const ::core::ffi::c_void, pcwszconnectionname: Param1, ffallbacktodefaultsettings: Param2, fsetautodiscoverfordefaultsettings: Param3, pdwsettingsversion: *mut u32, pfdefaultsettingsarereturned: *mut super::super::Foundation::BOOL, pwinhttpproxysettings: *mut WINHTTP_PROXY_SETTINGS) -> u32 {
+pub unsafe fn WinHttpReadProxySettings<'a, P0, P1, P2>(hsession: *const ::core::ffi::c_void, pcwszconnectionname: P0, ffallbacktodefaultsettings: P1, fsetautodiscoverfordefaultsettings: P2, pdwsettingsversion: &mut u32, pfdefaultsettingsarereturned: &mut super::super::Foundation::BOOL, pwinhttpproxysettings: &mut WINHTTP_PROXY_SETTINGS) -> u32
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<super::super::Foundation::BOOL>,
+    P2: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpReadProxySettings(hsession: *const ::core::ffi::c_void, pcwszconnectionname: ::windows::core::PCWSTR, ffallbacktodefaultsettings: super::super::Foundation::BOOL, fsetautodiscoverfordefaultsettings: super::super::Foundation::BOOL, pdwsettingsversion: *mut u32, pfdefaultsettingsarereturned: *mut super::super::Foundation::BOOL, pwinhttpproxysettings: *mut WINHTTP_PROXY_SETTINGS) -> u32;
     }
-    ::core::mem::transmute(WinHttpReadProxySettings(::core::mem::transmute(hsession), pcwszconnectionname.into(), ffallbacktodefaultsettings.into(), fsetautodiscoverfordefaultsettings.into(), ::core::mem::transmute(pdwsettingsversion), ::core::mem::transmute(pfdefaultsettingsarereturned), ::core::mem::transmute(pwinhttpproxysettings)))
+    WinHttpReadProxySettings(::core::mem::transmute(hsession), pcwszconnectionname.into(), ffallbacktodefaultsettings.into(), fsetautodiscoverfordefaultsettings.into(), ::core::mem::transmute(pdwsettingsversion), ::core::mem::transmute(pfdefaultsettingsarereturned), ::core::mem::transmute(pwinhttpproxysettings))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -2996,7 +3027,7 @@ pub unsafe fn WinHttpReceiveResponse(hrequest: *mut ::core::ffi::c_void, lpreser
     extern "system" {
         fn WinHttpReceiveResponse(hrequest: *mut ::core::ffi::c_void, lpreserved: *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpReceiveResponse(::core::mem::transmute(hrequest), ::core::mem::transmute(lpreserved)))
+    WinHttpReceiveResponse(::core::mem::transmute(hrequest), ::core::mem::transmute(lpreserved))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
@@ -3005,57 +3036,64 @@ pub unsafe fn WinHttpResetAutoProxy(hsession: *const ::core::ffi::c_void, dwflag
     extern "system" {
         fn WinHttpResetAutoProxy(hsession: *const ::core::ffi::c_void, dwflags: u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpResetAutoProxy(::core::mem::transmute(hsession), ::core::mem::transmute(dwflags)))
+    WinHttpResetAutoProxy(::core::mem::transmute(hsession), dwflags)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpSendRequest(hrequest: *mut ::core::ffi::c_void, lpszheaders: &[u16], lpoptional: *const ::core::ffi::c_void, dwoptionallength: u32, dwtotallength: u32, dwcontext: usize) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpSendRequest(hrequest: *mut ::core::ffi::c_void, lpszheaders: ::core::option::Option<&[u16]>, lpoptional: ::core::option::Option<&[u8]>, dwtotallength: u32, dwcontext: usize) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpSendRequest(hrequest: *mut ::core::ffi::c_void, lpszheaders: ::windows::core::PCWSTR, dwheaderslength: u32, lpoptional: *const ::core::ffi::c_void, dwoptionallength: u32, dwtotallength: u32, dwcontext: usize) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpSendRequest(::core::mem::transmute(hrequest), ::core::mem::transmute(::windows::core::as_ptr_or_null(lpszheaders)), lpszheaders.len() as _, ::core::mem::transmute(lpoptional), ::core::mem::transmute(dwoptionallength), ::core::mem::transmute(dwtotallength), ::core::mem::transmute(dwcontext)))
+    WinHttpSendRequest(::core::mem::transmute(hrequest), ::core::mem::transmute(lpszheaders.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpszheaders.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpoptional.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpoptional.as_deref().map_or(0, |slice| slice.len() as _), dwtotallength, dwcontext)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpSetCredentials<'a, Param3: ::std::convert::Into<::windows::core::PCWSTR>, Param4: ::std::convert::Into<::windows::core::PCWSTR>>(hrequest: *mut ::core::ffi::c_void, authtargets: u32, authscheme: u32, pwszusername: Param3, pwszpassword: Param4, pauthparams: *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpSetCredentials<'a, P0, P1>(hrequest: *mut ::core::ffi::c_void, authtargets: u32, authscheme: u32, pwszusername: P0, pwszpassword: P1, pauthparams: *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+    P1: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpSetCredentials(hrequest: *mut ::core::ffi::c_void, authtargets: u32, authscheme: u32, pwszusername: ::windows::core::PCWSTR, pwszpassword: ::windows::core::PCWSTR, pauthparams: *mut ::core::ffi::c_void) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpSetCredentials(::core::mem::transmute(hrequest), ::core::mem::transmute(authtargets), ::core::mem::transmute(authscheme), pwszusername.into(), pwszpassword.into(), ::core::mem::transmute(pauthparams)))
+    WinHttpSetCredentials(::core::mem::transmute(hrequest), authtargets, authscheme, pwszusername.into(), pwszpassword.into(), ::core::mem::transmute(pauthparams))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpSetDefaultProxyConfiguration(pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpSetDefaultProxyConfiguration(pproxyinfo: &mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpSetDefaultProxyConfiguration(pproxyinfo: *mut WINHTTP_PROXY_INFO) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpSetDefaultProxyConfiguration(::core::mem::transmute(pproxyinfo)))
+    WinHttpSetDefaultProxyConfiguration(::core::mem::transmute(pproxyinfo))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpSetOption(hinternet: *const ::core::ffi::c_void, dwoption: u32, lpbuffer: &[u8]) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpSetOption(hinternet: *const ::core::ffi::c_void, dwoption: u32, lpbuffer: ::core::option::Option<&[u8]>) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpSetOption(hinternet: *const ::core::ffi::c_void, dwoption: u32, lpbuffer: *const ::core::ffi::c_void, dwbufferlength: u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpSetOption(::core::mem::transmute(hinternet), ::core::mem::transmute(dwoption), ::core::mem::transmute(::windows::core::as_ptr_or_null(lpbuffer)), lpbuffer.len() as _))
+    WinHttpSetOption(::core::mem::transmute(hinternet), dwoption, ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpbuffer.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpSetProxySettingsPerUser<'a, Param0: ::std::convert::Into<super::super::Foundation::BOOL>>(fproxysettingsperuser: Param0) -> u32 {
+pub unsafe fn WinHttpSetProxySettingsPerUser<'a, P0>(fproxysettingsperuser: P0) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpSetProxySettingsPerUser(fproxysettingsperuser: super::super::Foundation::BOOL) -> u32;
     }
-    ::core::mem::transmute(WinHttpSetProxySettingsPerUser(fproxysettingsperuser.into()))
+    WinHttpSetProxySettingsPerUser(fproxysettingsperuser.into())
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
@@ -3064,7 +3102,7 @@ pub unsafe fn WinHttpSetStatusCallback(hinternet: *mut ::core::ffi::c_void, lpfn
     extern "system" {
         fn WinHttpSetStatusCallback(hinternet: *mut ::core::ffi::c_void, lpfninternetcallback: *mut ::core::ffi::c_void, dwnotificationflags: u32, dwreserved: usize) -> WINHTTP_STATUS_CALLBACK;
     }
-    ::core::mem::transmute(WinHttpSetStatusCallback(::core::mem::transmute(hinternet), ::core::mem::transmute(lpfninternetcallback), ::core::mem::transmute(dwnotificationflags), ::core::mem::transmute(dwreserved)))
+    WinHttpSetStatusCallback(::core::mem::transmute(hinternet), ::core::mem::transmute(lpfninternetcallback), dwnotificationflags, dwreserved)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
@@ -3074,36 +3112,39 @@ pub unsafe fn WinHttpSetTimeouts(hinternet: *mut ::core::ffi::c_void, nresolveti
     extern "system" {
         fn WinHttpSetTimeouts(hinternet: *mut ::core::ffi::c_void, nresolvetimeout: i32, nconnecttimeout: i32, nsendtimeout: i32, nreceivetimeout: i32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpSetTimeouts(::core::mem::transmute(hinternet), ::core::mem::transmute(nresolvetimeout), ::core::mem::transmute(nconnecttimeout), ::core::mem::transmute(nsendtimeout), ::core::mem::transmute(nreceivetimeout)))
+    WinHttpSetTimeouts(::core::mem::transmute(hinternet), nresolvetimeout, nconnecttimeout, nsendtimeout, nreceivetimeout)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpTimeFromSystemTime(pst: *const super::super::Foundation::SYSTEMTIME, pwsztime: &mut [u16; 62]) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpTimeFromSystemTime(pst: &super::super::Foundation::SYSTEMTIME, pwsztime: &mut [u16; 62]) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpTimeFromSystemTime(pst: *const super::super::Foundation::SYSTEMTIME, pwsztime: ::windows::core::PWSTR) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpTimeFromSystemTime(::core::mem::transmute(pst), ::core::mem::transmute(::windows::core::as_mut_ptr_or_null(pwsztime))))
+    WinHttpTimeFromSystemTime(::core::mem::transmute(pst), ::core::mem::transmute(pwsztime.as_ptr()))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpTimeToSystemTime<'a, Param0: ::std::convert::Into<::windows::core::PCWSTR>>(pwsztime: Param0, pst: *mut super::super::Foundation::SYSTEMTIME) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpTimeToSystemTime<'a, P0>(pwsztime: P0, pst: &mut super::super::Foundation::SYSTEMTIME) -> super::super::Foundation::BOOL
+where
+    P0: ::std::convert::Into<::windows::core::PCWSTR>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpTimeToSystemTime(pwsztime: ::windows::core::PCWSTR, pst: *mut super::super::Foundation::SYSTEMTIME) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpTimeToSystemTime(pwsztime.into(), ::core::mem::transmute(pst)))
+    WinHttpTimeToSystemTime(pwsztime.into(), ::core::mem::transmute(pst))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpWebSocketClose(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: *const ::core::ffi::c_void, dwreasonlength: u32) -> u32 {
+pub unsafe fn WinHttpWebSocketClose(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: ::core::option::Option<&[u8]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWebSocketClose(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: *const ::core::ffi::c_void, dwreasonlength: u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpWebSocketClose(::core::mem::transmute(hwebsocket), ::core::mem::transmute(usstatus), ::core::mem::transmute(pvreason), ::core::mem::transmute(dwreasonlength)))
+    WinHttpWebSocketClose(::core::mem::transmute(hwebsocket), usstatus, ::core::mem::transmute(pvreason.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvreason.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
@@ -3112,63 +3153,66 @@ pub unsafe fn WinHttpWebSocketCompleteUpgrade(hrequest: *const ::core::ffi::c_vo
     extern "system" {
         fn WinHttpWebSocketCompleteUpgrade(hrequest: *const ::core::ffi::c_void, pcontext: usize) -> *mut ::core::ffi::c_void;
     }
-    ::core::mem::transmute(WinHttpWebSocketCompleteUpgrade(::core::mem::transmute(hrequest), ::core::mem::transmute(pcontext)))
+    WinHttpWebSocketCompleteUpgrade(::core::mem::transmute(hrequest), pcontext)
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpWebSocketQueryCloseStatus(hwebsocket: *const ::core::ffi::c_void, pusstatus: *mut u16, pvreason: *mut ::core::ffi::c_void, dwreasonlength: u32, pdwreasonlengthconsumed: *mut u32) -> u32 {
+pub unsafe fn WinHttpWebSocketQueryCloseStatus(hwebsocket: *const ::core::ffi::c_void, pusstatus: &mut u16, pvreason: ::core::option::Option<&mut [u8]>, pdwreasonlengthconsumed: &mut u32) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWebSocketQueryCloseStatus(hwebsocket: *const ::core::ffi::c_void, pusstatus: *mut u16, pvreason: *mut ::core::ffi::c_void, dwreasonlength: u32, pdwreasonlengthconsumed: *mut u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpWebSocketQueryCloseStatus(::core::mem::transmute(hwebsocket), ::core::mem::transmute(pusstatus), ::core::mem::transmute(pvreason), ::core::mem::transmute(dwreasonlength), ::core::mem::transmute(pdwreasonlengthconsumed)))
+    WinHttpWebSocketQueryCloseStatus(::core::mem::transmute(hwebsocket), ::core::mem::transmute(pusstatus), ::core::mem::transmute(pvreason.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvreason.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(pdwreasonlengthconsumed))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpWebSocketReceive(hwebsocket: *const ::core::ffi::c_void, pvbuffer: *mut ::core::ffi::c_void, dwbufferlength: u32, pdwbytesread: *mut u32, pebuffertype: *mut WINHTTP_WEB_SOCKET_BUFFER_TYPE) -> u32 {
+pub unsafe fn WinHttpWebSocketReceive(hwebsocket: *const ::core::ffi::c_void, pvbuffer: &mut [u8], pdwbytesread: &mut u32, pebuffertype: &mut WINHTTP_WEB_SOCKET_BUFFER_TYPE) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWebSocketReceive(hwebsocket: *const ::core::ffi::c_void, pvbuffer: *mut ::core::ffi::c_void, dwbufferlength: u32, pdwbytesread: *mut u32, pebuffertype: *mut WINHTTP_WEB_SOCKET_BUFFER_TYPE) -> u32;
     }
-    ::core::mem::transmute(WinHttpWebSocketReceive(::core::mem::transmute(hwebsocket), ::core::mem::transmute(pvbuffer), ::core::mem::transmute(dwbufferlength), ::core::mem::transmute(pdwbytesread), ::core::mem::transmute(pebuffertype)))
+    WinHttpWebSocketReceive(::core::mem::transmute(hwebsocket), ::core::mem::transmute(pvbuffer.as_ptr()), pvbuffer.len() as _, ::core::mem::transmute(pdwbytesread), ::core::mem::transmute(pebuffertype))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpWebSocketSend<'a, Param1: ::std::convert::Into<WINHTTP_WEB_SOCKET_BUFFER_TYPE>>(hwebsocket: *const ::core::ffi::c_void, ebuffertype: Param1, pvbuffer: &[u8]) -> u32 {
+pub unsafe fn WinHttpWebSocketSend(hwebsocket: *const ::core::ffi::c_void, ebuffertype: WINHTTP_WEB_SOCKET_BUFFER_TYPE, pvbuffer: ::core::option::Option<&[u8]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWebSocketSend(hwebsocket: *const ::core::ffi::c_void, ebuffertype: WINHTTP_WEB_SOCKET_BUFFER_TYPE, pvbuffer: *const ::core::ffi::c_void, dwbufferlength: u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpWebSocketSend(::core::mem::transmute(hwebsocket), ebuffertype.into(), ::core::mem::transmute(::windows::core::as_ptr_or_null(pvbuffer)), pvbuffer.len() as _))
+    WinHttpWebSocketSend(::core::mem::transmute(hwebsocket), ebuffertype, ::core::mem::transmute(pvbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvbuffer.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
 #[inline]
-pub unsafe fn WinHttpWebSocketShutdown(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: *const ::core::ffi::c_void, dwreasonlength: u32) -> u32 {
+pub unsafe fn WinHttpWebSocketShutdown(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: ::core::option::Option<&[u8]>) -> u32 {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWebSocketShutdown(hwebsocket: *const ::core::ffi::c_void, usstatus: u16, pvreason: *const ::core::ffi::c_void, dwreasonlength: u32) -> u32;
     }
-    ::core::mem::transmute(WinHttpWebSocketShutdown(::core::mem::transmute(hwebsocket), ::core::mem::transmute(usstatus), ::core::mem::transmute(pvreason), ::core::mem::transmute(dwreasonlength)))
+    WinHttpWebSocketShutdown(::core::mem::transmute(hwebsocket), usstatus, ::core::mem::transmute(pvreason.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), pvreason.as_deref().map_or(0, |slice| slice.len() as _))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpWriteData(hrequest: *mut ::core::ffi::c_void, lpbuffer: *const ::core::ffi::c_void, dwnumberofbytestowrite: u32, lpdwnumberofbyteswritten: *mut u32) -> super::super::Foundation::BOOL {
+pub unsafe fn WinHttpWriteData(hrequest: *mut ::core::ffi::c_void, lpbuffer: ::core::option::Option<&[u8]>, lpdwnumberofbyteswritten: &mut u32) -> super::super::Foundation::BOOL {
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWriteData(hrequest: *mut ::core::ffi::c_void, lpbuffer: *const ::core::ffi::c_void, dwnumberofbytestowrite: u32, lpdwnumberofbyteswritten: *mut u32) -> super::super::Foundation::BOOL;
     }
-    ::core::mem::transmute(WinHttpWriteData(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer), ::core::mem::transmute(dwnumberofbytestowrite), ::core::mem::transmute(lpdwnumberofbyteswritten)))
+    WinHttpWriteData(::core::mem::transmute(hrequest), ::core::mem::transmute(lpbuffer.as_deref().map_or(::core::ptr::null(), |slice| slice.as_ptr())), lpbuffer.as_deref().map_or(0, |slice| slice.len() as _), ::core::mem::transmute(lpdwnumberofbyteswritten))
 }
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`, `\"Win32_Foundation\"`*"]
 #[cfg(feature = "Win32_Foundation")]
 #[inline]
-pub unsafe fn WinHttpWriteProxySettings<'a, Param1: ::std::convert::Into<super::super::Foundation::BOOL>>(hsession: *const ::core::ffi::c_void, fforceupdate: Param1, pwinhttpproxysettings: *const WINHTTP_PROXY_SETTINGS) -> u32 {
+pub unsafe fn WinHttpWriteProxySettings<'a, P0>(hsession: *const ::core::ffi::c_void, fforceupdate: P0, pwinhttpproxysettings: &WINHTTP_PROXY_SETTINGS) -> u32
+where
+    P0: ::std::convert::Into<super::super::Foundation::BOOL>,
+{
     #[cfg_attr(windows, link(name = "windows"))]
     extern "system" {
         fn WinHttpWriteProxySettings(hsession: *const ::core::ffi::c_void, fforceupdate: super::super::Foundation::BOOL, pwinhttpproxysettings: *const WINHTTP_PROXY_SETTINGS) -> u32;
     }
-    ::core::mem::transmute(WinHttpWriteProxySettings(::core::mem::transmute(hsession), fforceupdate.into(), ::core::mem::transmute(pwinhttpproxysettings)))
+    WinHttpWriteProxySettings(::core::mem::transmute(hsession), fforceupdate.into(), ::core::mem::transmute(pwinhttpproxysettings))
 }
 #[repr(C)]
 #[doc = "*Required features: `\"Win32_Networking_WinHttp\"`*"]
