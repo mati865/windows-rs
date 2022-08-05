@@ -57,7 +57,7 @@ jobs:
         id: cache-llvm-mingw-toolchain
         uses: actions/cache@v3
         with:
-          path: ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }} # Assumes .tar.xz extracted in working dir
+          path: ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}
           key: ${{ env.LLVM-MINGW-TOOLCHAIN-NAME }}
         if: startsWith(matrix.image, 'ubuntu-') && contains(matrix.target, 'gnullvm') && matrix.version == 'nightly'
 
